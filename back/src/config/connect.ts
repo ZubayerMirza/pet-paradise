@@ -1,14 +1,14 @@
-import sequelize from "./dbconnect";
+// import sequelize from "./dbconnect";
+import {createDB, connectSQL, connectSQ } from "./dbconnect"; // not working 
 
 // using seq.authenticate func
 // test for the connection is okay
 const connect = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('----- CONNECTED -----');
-      } catch (error) {
-        console.error('----- FAILED CONNECTION -----', error);
-      }
-  };
+
+      connectSQL(); // call to connect to sql
+      createDB(); // call to check and create the database in sql
+      connectSQ(); // test for the connection is okay along with sequelize
+
+    };
 
 export default connect; 
