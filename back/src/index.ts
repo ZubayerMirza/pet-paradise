@@ -19,12 +19,7 @@ import cors from "cors";
 const app = express(); // To call a server 
 app.use(cors()); // To communicate with resources from others
 app.use(express.json()); // to pass the data 
-app.use(express.urlencoded({extended: false}));
-
-
-// fuctions for the database
-connect(); // test and connect to DB
-create(); // test, create the table for DB with some datas
+// app.use(express.urlencoded({extended: false})); // not work
 
 
 // set up the env variable for the port
@@ -34,6 +29,10 @@ const PORT = app.get('port');
 // Root path 
 app.get('/', (request, response) => {
     response.send('Test Sver');
+
+    // fuctions for the database
+    connect(); // test and connect to DB
+    create(); // test, create the table for DB with some datas
 })
 
 // router for api
