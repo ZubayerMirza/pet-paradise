@@ -1,3 +1,8 @@
+// redirect to game page
+function playGame() {
+    window.location.href = "../casino-game/index.html";
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const petPlaceholder = document.getElementById("pet-placeholder");
     const buttonsContainer = document.getElementById("buttons-container");
@@ -83,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Event listener for play button
     playButton.addEventListener("click", function() {
-        alert("Yay! Let's play!");
+        playGame();
     });
 
     // Event listener for chat button
