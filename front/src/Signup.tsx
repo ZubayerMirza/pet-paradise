@@ -7,7 +7,9 @@ function SignUp() {
     let navigate = useNavigate();
 
     const OnSubmitHandler = (e: any) => {
-      e.preventDefault();
+      // for defaut preventing 
+      // had an issue with refreshing w/o
+      e.preventDefault(); 
       
       const testcase = { 
         username: e.target.username.value, 
@@ -24,11 +26,11 @@ function SignUp() {
     .then( response => {
       if (response === "Created"){
         alert ("User is created");
-        navigate(-1);
+        navigate(-1); // go back 
       }
       else if (response === "Username already exist"){
         alert ("Username is already taken");
-        navigate(1);
+        navigate(1); // stay this page
       }
     })
     .catch(error => {

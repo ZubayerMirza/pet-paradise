@@ -5,6 +5,7 @@ import Home from './Home';
 import Pet from './Pet';
 import SignUp from './Signup';
 import Login from './Login';
+import Game from './Game/Game';
 // import reportWebVitals from './reportWebVitals';
 
 
@@ -13,12 +14,17 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
+  
+  // react router for navigation to another link
+  // rander by routes and route
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<Home />}></Route>
     <Route path="/login" element={<Login />}></Route>
     <Route path="/signup" element={<SignUp />}></Route>
     <Route path="/pet" element={<Pet />}></Route>
+    {/* had some issue with connect to gamepage */}
+    {/* <Route path="/gametest" element={<Game />}></Route> */}
     </Routes>
     </BrowserRouter>
   // </React.StrictMode>
