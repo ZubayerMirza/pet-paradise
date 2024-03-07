@@ -24,7 +24,7 @@ export const connectSQ = async () =>{
   }
 };
 
- // updated to create the database 
+ // conndeck to the DB
  export const sql = mysql.createConnection({
   host: 'localhost',
   user: username,
@@ -57,8 +57,6 @@ export const createDB = () => {
   //   console.log(response); //checking for the response
   // });
   // }
-
-
 
 
 export default sequelize; 

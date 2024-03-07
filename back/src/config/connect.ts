@@ -1,7 +1,7 @@
 // import sequelize from "./dbconnect";
 import {createDB, connectSQL, connectSQ } from "./dbconnect"; // not working 
 
-// using seq.authenticate func
+
 // test for the connection is okay
 const connect = async () => {
 
