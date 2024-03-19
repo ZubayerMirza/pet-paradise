@@ -6,7 +6,7 @@ const PetTypes = data.define('pet_types', {
     id:{
         type: DataTypes.INTEGER,
         allowNull: true,
-        primaryKey: true,
+        primaryKey: true, 
         autoIncrement: true
     },
     name:{
@@ -17,7 +17,6 @@ const PetTypes = data.define('pet_types', {
     description:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
     },
     hunger:{
         type: DataTypes.INTEGER,

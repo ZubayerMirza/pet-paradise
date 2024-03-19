@@ -5,7 +5,6 @@ import Home from './Home';
 import Pet from './Pet';
 import SignUp from './Signup';
 import Login from './Login';
-import Game from './Game/Game';
 // import reportWebVitals from './reportWebVitals';
 
 

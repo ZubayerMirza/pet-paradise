@@ -4,7 +4,7 @@ import {Sequelize} from "sequelize";
 // this supposed to be changed with u guys's mysql information
 const database = "petparadise"; // database name
 const username = "root"; // username
-const password = 'urpassword'; // password
+const password = 'IjustwanttoEAT'; // password
 
 
  // Create the sequelize instance with passing parameters
@@ -37,8 +37,8 @@ export const connectSQL = () => {
     sql.connect();
     console.log("[--- SQL connect okay ---");
   }catch(error){
-    console.error('ERR with mySQL connect',error);
-    throw(error);
+    // console.error('ERR with mySQL connect',error);
+    // throw(error);
   }
 }
 
@@ -58,5 +58,14 @@ export const createDB = () => {
   // });
   // }
 
+export const dropDB = () => {
+
+  sql.query(`drop database petparadise`, (error) => {  // drop the table in sql 
+    if(error){
+      console.error('errrrrrrrrrrrr',error);
+      // throw err; 
+    }
+  });
+}
 
 export default sequelize; 
