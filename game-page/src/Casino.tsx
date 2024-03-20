@@ -9,6 +9,7 @@ import citrineImage from "./images/citrine.png";
 import heartImage from "./images/heart.png";
 import blankImage from "./images/blank.png";
 import "./Casino.css";
+import { Link } from "react-router-dom";
 
 class Casino extends React.Component {
   rows: number = 9;
@@ -220,9 +221,9 @@ class Casino extends React.Component {
         </h1>
         <div id="game-board"></div>
         <div className="center">
-          <a href="../Mainpage/Mainpage.html" className="back-button">
+          <Link to="/" className="back-button">
             Back to Main Page
-          </a>
+          </Link>
         </div>
       </div>
     );

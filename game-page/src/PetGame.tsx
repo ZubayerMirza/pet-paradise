@@ -13,29 +13,36 @@ const PetGame: React.FC<PetGameProps> = () => {
   const [affection, setAffection] = useState<number>(0);
 
   // Functions to handle pet actions
+
   const feedPet = () => {
     // Logic to increase pet's hunger
     // setHunger(hunger + amount);
+    window.alert("You fed your pet!");
   };
 
   const chat = () => {
     // Logic for chatting with pet
+    window.alert("You chatted with your pet!");
   };
 
   const goToGameZone = () => {
     // Logic to navigate to the game zone
+    window.alert("You are entering the game zone!");
   };
 
   const goToFriends = () => {
     // Logic to navigate to the friends section
+    window.alert("You are going to your friends section!");
   };
 
   const goToShop = () => {
     // Logic to navigate to the lobby
+    window.alert("You are going to the shop!");
   };
 
   const goToMyRoom = () => {
     // Logic to navigate to the user's room
+    window.alert("You are entering your room!");
   };
 
   return (
