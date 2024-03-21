@@ -38,13 +38,14 @@ const Users = data.define('users', {
 
 // relation between tables 
 
-// -> not done yet
+
 //pets table have connected to users table with userid
 Users.hasOne(Pets); // each user have one pet
-Pets.belongsTo(Users, {as: 'userid', foreignKey: 'userId'});
+Pets.belongsTo(Users, { foreignKey: 'userId'});
 
 //pets table have connected to pettype table with typeId
 // PetTypes.hasOne(Pets); // id is duplicated in this time 
-Pets.belongsTo(PetTypes, {as: 'typeid', foreignKey: 'typeId'});
+Pets.belongsTo(PetTypes, {foreignKey: 'typeId'});
+
 
 export default Users;

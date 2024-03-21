@@ -20,7 +20,7 @@ connect();
 
 // Root path 
 app.get('/', (request, response) => {
-    response.send('Test Sver');
+    response.json('Test Sver');
 
     // test, create the table for DB with some datas
     create(); 

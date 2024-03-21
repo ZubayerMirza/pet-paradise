@@ -23,20 +23,14 @@ const DummyDB = async () => {
         
         // drop -> mysql handling is needed ? 
 
-
         //force true : to drop the table and create
         //force falce : not drop 
-        // working on for pet data
-   
-        // dropDB();
+
+        // dropDB(); // to use for me
         const Test = await Users.sync({force: false});
         
         await PetTypes.sync({force: false}); 
         await Pets.sync({force: false});
-
-        // working on for pet data
-        // await Pets.sync({force: true});
-        
 
         console.log("----- Succeed for table sync -----");  
     // console.log(Test instanceof Users); // why false? 

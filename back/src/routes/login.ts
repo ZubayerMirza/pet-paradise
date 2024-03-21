@@ -88,6 +88,7 @@ router.route('/login')
             }).then((result)=>{
                 // result was array type, 
                 // not sure what is represented 
+                // console.log(result); // why true in array? but change works..
                 if(result[0]==1){
                     response.json('changed!');
                 }
