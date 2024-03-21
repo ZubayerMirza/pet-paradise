@@ -1,0 +1,98 @@
+.petSelectCard{
+    width: 300px;
+    height: 300px;
+    /* background-color:darkorange; */
+    border-radius: 20px;
+
+    margin: 50px;
+    padding: 20px;
+    color: white;
+}
+
+.petName{
+    width:100%;
+    margin-top: 30px;
+    font-size: 25px;
+    display: fixed;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+input{
+    margin-left: 40px;
+}
+.button{
+    margin-top: 30px;
+}
+.petData{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    margin-left:10px;
+    white-space: pre;
+}
+#Back{
+  width:12%;
+  margin-top: 40px;
+  padding: 5px;
+  border: none;
+  background-color: #e99e27;
+  border-radius: 15px;
+  cursor:pointer;
+  color: white;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+}
+
+#defalut{
+    margin-top: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.about{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    margin: 20px;
+}
+
+#typ{
+   
+    font-size: 18px;
+    text-align: right;
+}
+.aboutData{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    margin: none;
+}
+
+/* ----- petMain page ---- */
+.mypet{
+    width: 100%;
+    white-space: pre;
+    background-color: #e99e27;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bolder; 
+}
+
+#Link{
+    background-color: white;
+    width: 80%;
+    margin-top: 20px;
+    cursor:pointer;
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+}
+

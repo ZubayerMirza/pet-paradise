@@ -9,7 +9,7 @@ function Home() {
   fetch('http://localhost:8000/', {
     method: "GET", 
   }).then(response => {return response.json()})
-  .then( response => {console.log(response)})
+  .then(response => {console.log(response)})
   .catch(error => {
     console.error('Something wrong', error);
   })
