@@ -1,17 +1,23 @@
 
-body {
+.casino-background {
+    min-height: 100vh;
     background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
-    padding: 0;
   }
 
-h1 {
+#h1-title {
     color: gold;
     text-align: center;
+    margin: 0;
+    padding-top: 25px;
 }
-
+#h1-score{
+    color: gold;
+    text-align: center;
+    padding-bottom: 15px;
+}
 
 
 #game-board {

@@ -214,9 +214,9 @@ class Casino extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Cat Casino</h1>
-        <h1>
+      <div className='casino-background'>
+        <div><h1 id='h1-title'>Cat Casino</h1></div>
+        <h1 id='h1-score'>
           Score: <span id="score">{this.score}</span>
         </h1>
         <div id="game-board"></div>
