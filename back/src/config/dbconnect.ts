@@ -4,7 +4,7 @@ import {Sequelize} from "sequelize";
 // this supposed to be changed with u guys's mysql information
 const database = "petparadise"; // database name
 const username = "root"; // username
-const password = 'IjustwanttoEAT'; // password
+const password = 'SQLSaewooLover!'; // password
 
 
  // Create the sequelize instance with passing parameters
@@ -49,7 +49,10 @@ export const createDB = () => {
   //   if (err) { // if there is no database
       sql.query(`create database ${database}`, (error) => {  // create the database in sql 
         if(error){
-          console.error('already existing database',error);
+          if(error.errno === 1007){
+            console.log('database exists -> creating is ignored');
+          }
+          // console.error('already existing database',error);
           // throw err; 
         }
       });

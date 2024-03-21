@@ -6,87 +6,74 @@ import { Op } from "sequelize"; // optionTypes from sequelize for queling with f
 
 const router: Router = express.Router();
 
-//pet page -> not done yet
+//pet page 
 router.route('/pet')
 
 .post(async (request, response) => {
 
-    await Pets.findAll({where: {userid: request.body.id}})
-    .then(async A => {
-
-       if (A === null){ // if there is no pet data for user
+    await Pets.findOne({where: {userId: request.body.id}})
+    .then(async res => {
+       
+        if(res === null){ // if there is no pet data for user
         // will lead to the pet select page
-        console.log('pet is not there');
-        // response.send('pet is not there!. ')
-        const Test = PetTypes.findAll({
+
+        PetTypes.findAll({
             where:{
                 id:{
                     [Op.lt]: 4 // id is less than 4 
                 } // type related 4 planned for uniqe pettype for later used 
             }
-        }).then(async (Test)=>{
-
-            // console.log(Test)
-            // response.send(Test)
-          
-            // const Pet = await Pets.create({petname: request.body.name, userId: 2, typeId: 2})
-            // .then(async (res)=>{
-            //     const Test = await Pets.findAll({include: {model: PetTypes, as: "typeid" }});
-            //     console.log(JSON.stringify(Test, null, 2));
-            // }).catch((error)=>{
-            //     // console.log(error);
-            // });
             
-          
-            // // work
-            // console.log(Pet instanceof Pets); 
-            // Pet.set({
-            //     petname: "Hell" 
-            // }) 
-            // await Pet.save();
             
-            // not working
-            // // Array to take objects of pettypes
-            // var arr = new Array();
-
-            // Test.forEach(info => {
-
-            // var value = {
-            //     id: info.dataValues.id,
-            //     des: info.dataValues.description,
-            //     name: info.dataValues.name,
-            //     hunger: info.dataValues.hunger,
-            //     status: info.dataValues.status
-            //  }
-            //  console.log(info.dataValues)
-            //  arr.push(value);
-             
-            // }
-            // )
- 
+        }).then(async (typeResult)=>{
+            // pet types will be response 
+            response.json(typeResult);
+           
         });
        }
        else {
-        const Test = await Pets.findAll({include: {model: PetTypes, as: "typeid" }});
-        // console.log(JSON.stringify(Test, null, 2));
-
-        const B =  await Users.findAll({include: {model: Pets}});
-        // console.log(B)
-        console.log(JSON.stringify(B, null, 2));
-        return response.json('pet here')
-        // find the pet and lead to the main page
+        // when the pet is exist, -> sending the information of pet 
+        response.json(res); // sending the pet data belong to this user
+       
        }
     })
     // return response.json('hi');
 })
 
-.put(async (request, response) => {
- 
-   
+router.post('/petget', async (request, response) => {
     
+    await Pets.findOne({where: {userId: request.body.userId}})
+    .then(async (res)=>{
+        if (res === null){
+            
+            //create user pet data
+            await Pets.create({
+                petname: request.body.petname, 
+                userId: request.body.userId, 
+                typeId: request.body.typeId})
+                .then(async (res)=>{
+                    // response.json('Pet Created') // Pet created with user & type info
+                    console.log(res instanceof Pets);  // true
+                    response.json(res.dataValues)
+            // //Setup as the name -> checking with just searching 
+            // Pet.set({
+            //     petname: "Hello"
+            // }) 
+            // await Pet.save();
+
+        }).catch(async (error)=>{
+               
+        if (error.original.errno === 1062){
+            response.json( "petname must be unique");
+        }
+
+    });
+        }
+        else{
+            response.json('Already exist')
+        }
+    })
 })
 
-
-//delete, put, get
 
 export default router;
