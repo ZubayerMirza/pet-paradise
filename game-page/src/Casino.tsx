@@ -10,6 +10,7 @@ import heartImage from "./images/heart.png";
 import blankImage from "./images/blank.png";
 import "./Casino.css";
 import { Link } from "react-router-dom";
+import { increaseScore, decreaseScore, getScore } from "./scoreManager";
 
 class Casino extends React.Component {
   rows: number = 9;
@@ -151,9 +152,9 @@ class Casino extends React.Component {
           row[i + 2].src = blankImage;
           // Increment score or perform other actions
           this.score += 50;
-          document.getElementById("score")!.textContent = (
-            this.score + 50
-          ).toString();
+          increaseScore();
+
+          document.getElementById("score")!.textContent = this.score.toString();
           console.log(this.score);
         }
       }
@@ -171,10 +172,10 @@ class Casino extends React.Component {
           column[i + 1].src = blankImage;
           column[i + 2].src = blankImage;
           // Increment score or perform other actions
-          //   this.score += 50;
-          document.getElementById("score")!.textContent = (
-            this.score + 50
-          ).toString();
+          this.score += 50;
+          increaseScore();
+
+          document.getElementById("score")!.textContent = this.score.toString();
           console.log(this.score);
         }
       }
@@ -214,14 +215,16 @@ class Casino extends React.Component {
 
   render() {
     return (
-      <div className='casino-background'>
-        <div><h1 id='h1-title'>Cat Casino</h1></div>
-        <h1 id='h1-score'>
+      <div className="casino-background">
+        <div>
+          <h1 id="h1-title">Cat Casino</h1>
+        </div>
+        <h1 id="h1-score">
           Score: <span id="score">{this.score}</span>
         </h1>
         <div id="game-board"></div>
         <div className="center">
-          <Link to="/" className="back-button">
+          <Link to="/petgame" className="back-button">
             Back to Main Page
           </Link>
         </div>

@@ -1,91 +1,92 @@
-
 .pet-game {
-    position: relative;
-    height: 100vh;
-    background-image: url('room.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .gauge-box {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 10px; /* Adjust padding as needed */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    border-radius: 10px;
-  }
-  
-  .gauges {
-    text-align: left;
-  }
-  
-  .pet-animation {
-    width: 200px;
-    height: 200px;
-    background-image: url('cat.png');
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 20px;
-  }
-  
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .top-buttons {
-    position: absolute;
-    top: 20px;
-    right: 20px; /* Adjust right position as needed */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .bottom-buttons {
-    display: flex;
-    gap: 10px;
-  }
+  position: relative;
+  height: 100vh;
+  background-image: url('room.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .top-buttons button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color 0.3s;
-  }
-  
-  .top-buttons button:hover {
-    background-color: #45a049;
-  }
-  
-  .buttons button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color 0.3s;
-  }
-  
-  .buttons button:hover {
-    background-color: #45a049;
-  }
-  
+.gauge-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  border-radius: 10px;
+  font-size: 24px;
+  font-family: 'Press Start 2P', cursive; /* Gaming-style font */
+}
+
+
+.gauges {
+  text-align: left;
+}
+
+.pet-animation {
+  width: 200px;
+  height: 200px;
+  background-image: url('cat.png');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.top-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bottom-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.top-buttons button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.top-buttons button:hover {
+  background-color: #45a049;
+}
+
+.buttons button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #45a049;
+}

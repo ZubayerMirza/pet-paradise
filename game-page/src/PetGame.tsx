@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./PetGame.css"; // Import your CSS file
 import { Link } from "react-router-dom";
+import { increaseScore, decreaseScore, getScore } from "./scoreManager";
+import { getLevel } from "./levelManager";
 
 interface PetGameProps {
-  // Define any props you may need
+  // Define any props need
 }
 
 const PetGame: React.FC<PetGameProps> = () => {
@@ -13,36 +15,29 @@ const PetGame: React.FC<PetGameProps> = () => {
   const [affection, setAffection] = useState<number>(0);
 
   // Functions to handle pet actions
-
   const feedPet = () => {
     // Logic to increase pet's hunger
     // setHunger(hunger + amount);
-    window.alert("You fed your pet!");
   };
 
   const chat = () => {
     // Logic for chatting with pet
-    window.alert("You chatted with your pet!");
   };
 
   const goToGameZone = () => {
     // Logic to navigate to the game zone
-    window.alert("You are entering the game zone!");
   };
 
   const goToFriends = () => {
     // Logic to navigate to the friends section
-    window.alert("You are going to your friends section!");
   };
 
   const goToShop = () => {
     // Logic to navigate to the lobby
-    window.alert("You are going to the shop!");
   };
 
   const goToMyRoom = () => {
     // Logic to navigate to the user's room
-    window.alert("You are entering your room!");
   };
 
   return (
@@ -50,17 +45,22 @@ const PetGame: React.FC<PetGameProps> = () => {
       {/* Gauge box */}
       <div className="gauge-box">
         <div className="gauges">
-          <div>LVL {level}</div>
+          <div>LVL {getLevel()}</div>
           <div>Hunger: {hunger}</div>
           <div>Affection: {affection}</div>
+          <div>Points: {getScore()}</div>
         </div>
       </div>
       {/* Top Buttons */}
       {/* Top Buttons */}
       <div className="top-buttons">
-        <button onClick={feedPet}>🍕Feed Pet</button>
+        <button onClick={feedPet}>
+          <Link to="/BoughtFoodPage">🍕Feed Pet</Link>
+        </button>
         <button onClick={goToFriends}>🫠Friends</button>
-        <button onClick={goToShop}>🛒Shop</button>
+        <button onClick={goToShop}>
+          <Link to="/ShopPage">🛒Shop</Link>
+        </button>
         <button onClick={goToMyRoom}>🏠My Room</button>
       </div>
 

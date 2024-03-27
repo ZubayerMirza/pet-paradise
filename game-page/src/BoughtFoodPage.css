@@ -1,0 +1,39 @@
+
+body {
+  background: lightblue;
+}
+
+  .bought-food-page-container {
+    padding: 20px;
+  }
+  
+  .bought-food-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f0f5f5; /* Sage green background */
+    padding: 20px;
+  }
+  
+  .bought-food-list {
+    list-style-type: none; 
+    padding: 0;
+  }
+  
+  .bought-food-item {
+    font-size: 18px; 
+    margin-bottom: 10px; 
+  }
+  
+  .feed-all-button {
+    background-color: #4caf50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .feed-all-button:hover {
+    background-color: #45a049; 
+  }
