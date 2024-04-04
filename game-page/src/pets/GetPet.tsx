@@ -46,14 +46,15 @@ function GetPet() {
       }).then(response => {return response.json()})
       .then(async response => {
         //create my pet
-        // console.log(response)
+        console.log(response)
        //{id: 1, petname: 'Json', userId: 4, typeId: 1, updatedAt: '2024-03-20T21:55:24.260Z', 
        if (response.id){
         navigate('/petmain', { state: { 
           petId: response.id, 
           petname: response.petname, 
           typeId: response.typeId,
-          userId: response.userId
+          userId: response.userId,
+          StorageId: response.StorageId
         }}); 
        }
        else if(response === "Already exist"){
@@ -92,7 +93,7 @@ function GetPet() {
         
         <form onSubmit={OnSubmitHandler}>
           <div className='petName'>
-            <label id="namelabel"> Petname<input id='x' type="text" name="petname" placeholder="Pet name"></input>
+            <label id="namelabel"> Petname<input id="input" type="text" name="petname" placeholder="Pet name"></input>
             </label>
             </div>
           <div className='adpBtn'>

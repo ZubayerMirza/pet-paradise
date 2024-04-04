@@ -52,7 +52,7 @@
   font-weight: bolder;
 }
 
-input {
+.input {
   border-radius: 15px;
   margin-left: 15px;
   text-align: center;

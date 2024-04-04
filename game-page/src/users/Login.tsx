@@ -72,11 +72,11 @@ function Login() {
       </div>    
       <div className='LoginBox'>
         <label><b>Username</b>
-        <input type="text" name="username" placeholder="Username" ></input></label>
+        <input className="input" type="text" name="username" placeholder="Username" ></input></label>
         </div>
       <div className='LoginBox'>
         <label><b>Password</b>
-        <input type="password" name="password" placeholder="Password" ></input></label>
+        <input className="input" type="password" name="password" placeholder="Password" ></input></label>
         </div>
       <div className='LoginBox'>
         <button id="logBtn" type="submit">Login</button>
