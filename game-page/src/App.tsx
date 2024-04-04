@@ -11,29 +11,24 @@ import MyPet from "./pets/MyPet";
 import Pet from "./pets/Pet";
 import ShopPage from "./ShopPage";
 import BoughtFoodPage from "./BoughtFoodPage";
-import Items from "./items/Items";
-
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-        <Route path="/petgame" element={<PetGame />} />
-        <Route path="/Casino" element={<Casino />} />
-        <Route path="/ShopPage" element={<ShopPage />} />
-        <Route path="/BoughtFoodPage" element={<BoughtFoodPage />} />
-        {/* goni */}
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/pet" element={<Pet />}></Route>
-        <Route path="/petget" element={<GetPet />}></Route>
-        <Route path="/petmain" element={<MyPet />}></Route>
-        <Route path="/items" element={<Items />}></Route>
+          <Route path="/petgame" element={<PetGame />} />
+          <Route path="/Casino" element={<Casino />} />
+          <Route path="/ShopPage" element={<ShopPage />} />
+          <Route path="/BoughtFoodPage" element={<BoughtFoodPage />} />
+          {/* goni */}
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/pet" element={<Pet />}></Route>
+          <Route path="/petget" element={<GetPet />}></Route>
+          <Route path="/petmain" element={<MyPet />}></Route>
         </Routes>
       </Router>
     </div>
   );
 }
-
-export default App;
