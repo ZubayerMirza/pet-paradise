@@ -9,6 +9,8 @@ import SignUp from "./users/Signup";
 import GetPet from "./pets/GetPet";
 import MyPet from "./pets/MyPet";
 import Pet from "./pets/Pet";
+import ShopPage from "./ShopPage";
+import BoughtFoodPage from "./BoughtFoodPage";
 import Items from "./items/Items";
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
         <Routes>
         <Route path="/petgame" element={<PetGame />} />
         <Route path="/Casino" element={<Casino />} />
-        
+        <Route path="/ShopPage" element={<ShopPage />} />
+        <Route path="/BoughtFoodPage" element={<BoughtFoodPage />} />
         {/* goni */}
         <Route path="/" element={<Main />}></Route>
         <Route path="/login" element={<Login />}></Route>
