@@ -1,7 +1,9 @@
 import express, { Router}  from "express";
+// import pet from "./pet";
+// import items from "./items";
+// import api from "./api";
 import Users from "../models/users";
 import Pets from "../models/pet/pets";
-import pet from "./pet";
 // to organize as different usage, router used  
 export const router: Router = express.Router();
 
@@ -121,8 +123,4 @@ router.post('/signup', async (request, response) => {
         return response.json('Username already exist');// if username exists
 })
 
-// 
-router.use('/', pet);
-
-/*organize and refactorize will be needed later for efficiently use*/ 
 export default router;

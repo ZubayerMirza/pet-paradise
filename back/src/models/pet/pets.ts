@@ -15,15 +15,20 @@ const Pets = data.define('pets', {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true
-    },
-    createdAt:{
-        type: DataTypes.DATE,
-        allowNull: true
-    },
-    updatedAt:{
-        type: DataTypes.DATE,
-        allowNull: true
     }
+    // ,
+    // hunger:{
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,
+    // },
+    // status:{
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,
+    // },
+    // gold: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,
+    // }
 });
 
 export default Pets;

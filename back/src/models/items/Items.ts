@@ -1,23 +1,32 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
-import Storages from "./Storage";
-import Items from "./Items";
+
 // item list (table) is defined
 // it will be used in shop page
-const ItemList = data.define('ItemList', {
+const Items = data.define('Items', {
     id:{
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: true,
+        primaryKey: true,
         autoIncrement: true
     },
-    quantity:{
-        type: DataTypes.INTEGER,
+    name:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        // unique: true
+    },
+    description:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    info:{
+        type: DataTypes.STRING,
         allowNull: false
     }
-},{
+}
+,{
     timestamps: true // not to create the date
-});
+}
+);
 
-
-export default ItemList;
+export default Items;

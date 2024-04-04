@@ -2,9 +2,9 @@ import { DataTypes } from "sequelize";
 import data from "../config/dbconnect";
 import Pets from "./pet/pets";
 import PetTypes from "./pet/pettypes";
-import MyItems from "./items/myItem";
-
-
+import Storages from "./items/Storage";
+import Items from "./items/Items";
+import ItemList from "./items/ItemList";
 // Model is defined with define fuction of seq
 // represnets as a table of the database
 // each will be colums of the tables
@@ -44,8 +44,9 @@ Users.hasOne(Pets); // each user have one pet
 Pets.belongsTo(Users, { foreignKey: 'userId'});
 
 //pets table have connected to pettype table with typeId
-// PetTypes.hasOne(Pets); // id is duplicated in this time 
 Pets.belongsTo(PetTypes, {foreignKey: 'typeId'});
 
-
+Pets.belongsTo(Storages);
+Storages.belongsToMany(Items,{through: ItemList});
+Items.belongsToMany(Storages,{through: ItemList});
 export default Users;
