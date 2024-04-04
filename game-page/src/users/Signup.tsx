@@ -50,7 +50,7 @@ function SignUp() {
       </div>
       <div className='LoginBox'>
       <label><b>Password</b>
-      <input type="password" name="password" placeholder="Password" required></input></label>
+      <input id="input" type="password" name="password" placeholder="Password" required></input></label>
       </div>
       <div className='LoginBox'>
       <button id="CrtBtn" type="submit">Create Account</button>

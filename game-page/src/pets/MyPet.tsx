@@ -11,6 +11,7 @@ function MyPet() {
         typeId: number,
         petId: number,
         petname: string, 
+        StorageId: number
     }; // access the name and id from passed state
 
     const OnClickHandler = (e: any) =>{
@@ -18,22 +19,41 @@ function MyPet() {
       if(e.target.id =="Link"){
        navigate('/login');
       }
-      
+      else{
+        navigate('/items',{
+          state: { petname: testcase.petname,
+            petId: testcase.petId, 
+            userId: testcase.userId,
+            typeId: testcase.typeId,
+            StorageId: testcase.StorageId
+          }});
+      }
     }
     
   return (
    <>
    <div className='home'>
    <h1 id='h1'>Pet main page</h1>
-    <div className ='petBox'>
-    <div>
-    <div className='mypet'><p id='p'>My  petname    :  {testcase.petname}</p></div>
-    <div className='mypet'><p id='p'>My  petId         :  {testcase.petId}</p></div>
-    <div className='mypet'><p id='p'>My  userId       :  {testcase.userId}</p></div>
-    <div className='mypet'><p id='p'>My  petTypeId :  {testcase.typeId}</p></div>
-    <div className='mypet'onClick= {OnClickHandler} id="Link">Sign Out</div>
+    <div className ='petBox' style={{display:"flex",flexDirection:"column"}}>
+   
+    <div className='info-box'>
+    {/* <div className='petbox '> */}
+    <div className='petInnerBox'>My  petname    :  {testcase.petname}</div>
+    <div className='petInnerBox'>My  petId         :  {testcase.petId}</div>
+    <div className='petInnerBox'>My  userId       :  {testcase.userId}</div>
+    <div className='petInnerBox'>My  petTypeId :  {testcase.typeId}</div>
+    <div className='petInnerBox'>My  StorageId :  {testcase.StorageId}</div>
+    {/* </div> */}
+    {/* <div className='petbox'>
+    </div> */}
     </div>
+    
+    <div className='inside-box'>
+    <div className='LinkButton'onClick= {OnClickHandler} id="Link">Sign Out</div>
+    <div className='LinkButton'onClick= {OnClickHandler}>Items Page</div>
     </div>
+  </div>
+  
     </div>
     </>
   );

@@ -24,15 +24,16 @@ interface petType  {
 const TestProps = (props: any)=>{
 
   //initialize inteface for using as type to pass as the state
-  interface petType1  { 
-    description: string,
-    hunger: number,
-    id: number, 
-    name: string, 
-    status: number,
-    userid: number
-  }
-
+  
+  // interface petType1  { 
+  //   description: string,
+  //   hunger: number,
+  //   id: number, 
+  //   name: string, 
+  //   status: number,
+  //   userid: number
+  // }
+  
   const navigate = useNavigate(); // hook to navigate
   const location = useLocation(); // hook to see the information obout this page
   
@@ -49,7 +50,7 @@ const TestProps = (props: any)=>{
     navigate('/petget', {state: props}); 
     
  }
- 
+
   return(
     <> 
     <div className='petCard' onClick={OnClickHandler} id={props.data.name}></div>
@@ -89,7 +90,7 @@ function Pet() {
         // I set up with 3 default pet selection choice 
         // if response has 3 objects in it 
         if(response.length === 3){ 
-          // console.log(response)
+          console.log(response)
           
           // mapping for the data
           response.map((data:{ description: string,
@@ -106,7 +107,7 @@ function Pet() {
               pets = [...pets, pet] 
           })
           setPetTypes(pets) // set PetTypes state
-          console.log(petTypes)
+          // console.log(petTypes)
         }
         else{
           // when you have pet, -> navigate to pet main page with state
@@ -114,7 +115,8 @@ function Pet() {
             petId: response.id, 
             petname: response.petname, 
             typeId: response.typeId,
-            userId: response.userId
+            userId: response.userId,
+            StorageId: response.StorageId
           }}); 
         }
       })
