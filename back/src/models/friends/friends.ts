@@ -1,10 +1,9 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
-import Storages from "./Storage";
-import Items from "./Items";
-// item list (table) is defined
-// it will be used in shop page
-const ItemList = data.define('ItemList', {
+import Storages from "../items/Storage";
+import Items from "../items/Items";
+
+const Friend = data.define('friends', {
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -20,4 +19,4 @@ const ItemList = data.define('ItemList', {
 });
 
 
-export default ItemList;
+export default Friend;

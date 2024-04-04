@@ -3,7 +3,7 @@ import Pets from "../models/pet/pets";
 import PetTypes from "../models/pet/pettypes";
 import Users from "../models/users";
 import { Op } from "sequelize"; // optionTypes from sequelize for queling with filter
-
+import Storages from "../models/items/Storage";
 const router: Router = express.Router();
 
 //pet page 
@@ -54,13 +54,15 @@ router.post('/petget', async (request, response) => {
                 .then(async (res)=>{
                     // response.json('Pet Created') // Pet created with user & type info
                     console.log(res instanceof Pets);  // true
+                    
+                    // assign the storage to pet 
+                    const storage = await Storages.create({quantity: 10})
+                    res.set({StorageId: storage.get().id});
+                    res.save(); // assign the storage to pet
+           
+                    
                     response.json(res.dataValues)
-            // //Setup as the name -> checking with just searching 
-            // Pet.set({
-            //     petname: "Hello"
-            // }) 
-            // await Pet.save();
-
+           
         }).catch(async (error)=>{
                
         if (error.original.errno === 1062){

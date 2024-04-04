@@ -4,13 +4,14 @@ import {Sequelize} from "sequelize";
 // this supposed to be changed with u guys's mysql information
 const database = "petparadise"; // database name
 const username = "root"; // username
-const password = 'SQLSaewooLover!'; // password
+const password = 'SSibalTTo!'; // password
 
 
  // Create the sequelize instance with passing parameters
  const sequelize = new Sequelize(database, username, password, {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
+  logging: false //hide logging suchExecuting (default) 
 });
 
 // using seq.authenticate func

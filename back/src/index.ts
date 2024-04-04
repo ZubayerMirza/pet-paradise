@@ -1,9 +1,9 @@
 import express from "express";
-import router from "./routes/login";
+import router from "./routes/api";
 import create from "./models/dummyDB";
 import connect from "./config/connect";
 import cors from "cors";
-
+import test from "./models/testDB"
 
 const app = express(); // To call a server 
 app.use(cors()); // To communicate with resources from others
@@ -16,14 +16,15 @@ app.set('port', process.env.PORT || 8000);
 const PORT = app.get('port');
 
 // connect to sql, create tables, connect to sequelize
-connect(); 
+connect();
+ // test, create the table for DB with some datas
+create(); 
+// //for testing myself 
+// test();
 
 // Root path 
 app.get('/', (request, response) => {
     response.json('Test Sver');
-
-    // test, create the table for DB with some datas
-    create(); 
 })
 
 // router to organize and manage efficiently
