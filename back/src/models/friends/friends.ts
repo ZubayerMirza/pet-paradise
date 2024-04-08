@@ -3,16 +3,26 @@ import data from "../../config/dbconnect";
 import Storages from "../items/Storage";
 import Items from "../items/Items";
 
-const Friend = data.define('friends', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: true,
-        autoIncrement: true
+const Friend = data.define('friend', {
+    isFriend:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
-    quantity:{
-        type: DataTypes.INTEGER,
-        allowNull: false
+    isWating:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    isInvited:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    isRequest:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    isAccepted:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 },{
     timestamps: true // not to create the date

@@ -1,27 +1,22 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 
-const Points = data.define('points', {
-    index:{
+const Gold = data.define('golds', {
+    gold:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    level:{
+    earned_gold:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    current_exe:{
+    total_gold:{
         type: DataTypes.INTEGER,
         allowNull: false
-    },
-    hunger:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    status:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
+    }
+},
+{
+    timestamps: false // not to create the date
 });
 
-export default Points;
+export default Gold;

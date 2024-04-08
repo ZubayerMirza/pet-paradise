@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
+import myLevel from "./myLevel";
 
-const Level = data.define('status', {
+const Level = data.define('level', {
     level:{
         type: DataTypes.INTEGER,
         allowNull: false
@@ -9,11 +10,12 @@ const Level = data.define('status', {
     needed_exp:{
         type: DataTypes.INTEGER,
         allowNull: false
-    },
-    index:{
-        type: DataTypes.INTEGER,
-        allowNull: false
     }
+},
+{
+    timestamps: false // not to create the date
 });
+
+// Level.hasMany(myLevel);
 
 export default Level;

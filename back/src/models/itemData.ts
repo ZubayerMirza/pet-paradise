@@ -1,8 +1,8 @@
 export const UserData = [
-    {username: "John", password: "123"},
-    {username: "test", password: "123"},
-    {username: "yay", password: "123"},
-    {username: "rabbit", password: "123"}];
+    {username: "John", password: "123", isLogin: false},
+    {username: "test", password: "123", isLogin: false},
+    {username: "yay", password: "123", isLogin: false},
+    {username: "rabbit", password: "123", isLogin: false}];
 
 export const PetTypeData = [
         {id: 1, name: "CHERRY", description: '../asset/petA.PNG', hunger: 50, status: 50},
@@ -70,3 +70,47 @@ export const StorageDB = [
     {
         id: 3
     }];
+
+    export const levelData= [{
+        id: 1, 
+        level: 1,
+        needed_exp: 100
+        
+    },{
+        id: 2, 
+        level: 2,
+        needed_exp: 200
+        
+    },{
+        id: 3, 
+        level: 3,
+        needed_exp: 300
+    },{
+        id: 4, 
+        level: 4,
+        needed_exp: 400
+    },{
+        id: 5, 
+        level: 5,
+        needed_exp: 500
+    },{
+        id: 6, 
+        level: 6,
+        needed_exp: 600
+    },{
+        id: 7, 
+        level: 7,
+        needed_exp: 700
+    },{
+        id: 8, 
+        level: 8,
+        needed_exp: 800
+    },{
+        id: 9, 
+        level: 9,
+        needed_exp: 900
+    },{
+        id: 10, 
+        level: 10,
+        needed_exp: 1000
+    }]

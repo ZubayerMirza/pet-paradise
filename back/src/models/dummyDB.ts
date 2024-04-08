@@ -6,32 +6,35 @@ import Items from "./items/Items";
 import Storages from "./items/Storage";
 import ItemList from "./items/ItemList";
 import data from "../config/dbconnect";
-// import { Model } from "sequelize";
-import {UserData, ItemData, PetTypeData, StorageDB} from "./itemData";
+import Level from "./levels/Level";
+import Model from "sequelize";
 
+// import { Model } from "sequelize";
+import {UserData, ItemData, PetTypeData, levelData} from "./itemData";
+import { Optional } from "sequelize";
+
+const dummyToDB = (data: any, model: any)=>{
+    // console.log(data);
+    data.forEach(async (items: any) => {
+        try {
+           const Test = await model.create(items);
+        //    console.log(Test.dataValues);
+       }catch(error){ // when data is already exist
+           // console.log("----- Data EXISTANT -----");
+           // throw(error);
+        }
+       });
+
+}
 const DummyDB = async () => {
     
     // will create the tables as Users models in defined 
     try {
-        
-        // drop -> mysql handling is needed ? 
-
         //force true : to drop the table and create
         //force falce : not drop 
-        // dropDB(); // to use for me
-
-        // const Test = await Users.sync({force: false});
-        // await PetTypes.sync({force: false}); 
-        // await Storages.sync({force: false});
-        // await Items.sync({force: false});
-        // await ItemList.sync({force: false});
-        // await Pets.sync({force: false}); // has to be called later - parent table
-        
-        // sync at once 
-        await data.sync({force: false}); 
-        
-        // console.log("----- Succeed for table sync -----");  
-       
+        // dropDB(); //  to use for me
+         
+        await data.sync({force: false}); // sync at once 
     }
     catch(error){ // whether table is created or not 
         console.log("----- Failed for table sync -----");
@@ -39,44 +42,10 @@ const DummyDB = async () => {
     };
     
     // create the table with the dummy data
-    UserData.forEach(async data => {
-     try {
-        const Test = await Users.create(data);
-        // console.log(Test.dataValues);
-    }catch(error){ // when data is already exist
-        // console.log("----- Data EXISTANT -----");
-        // throw(error);
-     }
-    });
-
-    // // working on
-    PetTypeData.forEach(async data => {
-        try {
-           const T = await PetTypes.create(data);
-            // console.log(T.dataValues);
-       }catch(error){ // when data is already exist
-        //    console.log("----- Data EXISTANT -----");
-        }
-       });
-    // console.log(ItemData);
-
-    ItemData.forEach(async data => {
-        try {
-            await Items.create(data);
-             // console.log(T.dataValues);
-        }catch(error){ // when data is already exist
-            // console.log("----- Data EXISTANT -----");
-         }
-    });
-
-    // StorageDB.forEach(async data => {
-    //     try {
-    //         await Storages.create(data);
-    //          // console.log(T.dataValues);
-    //     }catch(error){ // when data is already exist
-    //         // console.log("----- Data EXISTANT -----");
-    //      }
-    // });
+    dummyToDB(UserData, Users);
+    dummyToDB(PetTypeData, PetTypes);
+    dummyToDB(ItemData, Items);
+    dummyToDB(levelData, Level); 
 
   }
   

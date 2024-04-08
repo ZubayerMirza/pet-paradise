@@ -27,6 +27,8 @@ router.route('/login')
     await Users.findOne({where: {username: testcase.username}})
     .then(res => {
         if (testcase.password == res?.dataValues.password){
+            res.set({isLogin: true});
+            res.save();
             return response.json({id: res?.dataValues.id, username: res?.dataValues.username});
         }
         else if(testcase.username != res?.dataValues.username){

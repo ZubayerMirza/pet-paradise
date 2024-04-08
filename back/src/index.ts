@@ -20,7 +20,7 @@ connect();
  // test, create the table for DB with some datas
 create(); 
 // //for testing myself 
-// test();
+test();
 
 // Root path 
 app.get('/', (request, response) => {
