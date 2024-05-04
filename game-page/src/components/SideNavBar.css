@@ -1,0 +1,17 @@
+.buttons button {
+    padding: 15px 30px;
+    margin: 10px 0; /* Add space above and below the buttons */
+    font-size: 18px;
+    background-color: hotpink;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .buttons button:hover {
+    background-color: magenta;
+  }
