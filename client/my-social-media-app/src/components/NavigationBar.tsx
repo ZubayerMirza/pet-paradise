@@ -12,6 +12,7 @@ const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
+  const [picture, setPicture] = useState<string | null>(null); // State variable for user's picture
 
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
@@ -20,8 +21,10 @@ const NavigationBar: React.FC = () => {
         const parsedToken = JSON.parse(userToken);
         const userValue = parsedToken.userId;
         const username = parsedToken.username;
+        const userPicture = parsedToken.picture; // Extract picture from token
         setUser(userValue);
         setUserName(username);
+        setPicture(userPicture); // Set picture state
       } catch (error) {
         console.error("Error parsing access token:", error);
       }
@@ -36,6 +39,7 @@ const NavigationBar: React.FC = () => {
     localStorage.removeItem("userToken");
     setUser(null);
     setUserName(null);
+    setPicture(null); // Clear picture state on logout
     navigate("/login");
   };
 
@@ -97,6 +101,18 @@ const NavigationBar: React.FC = () => {
           >
             {userName}
           </span>
+        )}
+        {picture && (
+          <img
+            src={`/uploads/${picture}`}
+            alt="User"
+            style={{
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
         )}
       </div>
     </nav>

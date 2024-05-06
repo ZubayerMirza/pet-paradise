@@ -18,6 +18,7 @@ const Stats = () => {
   useEffect(() => {
     if (userId) {
       fetch(`http://localhost:3010/api/stats/${userId}`)
+        // fetch(`http://localhost:3010/api/stats/${user}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

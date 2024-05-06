@@ -5,6 +5,7 @@ import {
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect, FormEvent } from "react";
+const moment = require("moment");
 
 interface Comment {
   comment_id: number;
@@ -13,6 +14,7 @@ interface Comment {
   username: string;
   content: string;
   profile_picture_url?: string;
+  create_time: string; // fix if Date
 }
 
 interface Post {
@@ -76,7 +78,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         setLiked(result.liked);
         setLikesCount((prev) => (result.liked ? prev + 1 : prev - 1));
         // Inside the try block of handleLike function after confirming the response is ok
-        await fetch(`http://localhost:3010/api/update/${user}`, {
+        await fetch(`http://localhost:3010/api/stats/update/${user}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -129,7 +131,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         setComments((prevComments) => [...prevComments, newCommentData]);
         setNewComment("");
 
-        await fetch(`http://localhost:3010/api/update/${user}`, {
+        await fetch(`http://localhost:3010/api/stats/update/${user}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -170,7 +172,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
         }}
       >
         <img
-          src={post.profile_picture_url}
+          src={"/uploads/" + post?.profile_picture_url}
+          // src={post.profile_picture_url}
           alt={post.username}
           style={{
             borderRadius: "50%",
@@ -183,7 +186,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
         />
         <strong style={{ color: "#000" }}>{post.username}</strong>{" "}
         <span style={{ marginLeft: "auto", color: "#000" }}>
-          {post.create_time}
+          {moment(post.create_time).format("MMMM D, YYYY h:mm a")}
+          {/* {post.create_time} */}
         </span>
       </div>
       {/* Post Content */}
@@ -240,42 +244,50 @@ const Post: React.FC<PostProps> = ({ post }) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: "#fcfcfc", // Light purple background for comments
+                justifyContent: "space-between", // Ensures space between elements
+                backgroundColor: "#fcfcfc",
                 borderRadius: "8px",
                 padding: "10px",
                 margin: "10px 0",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
               }}
             >
-              <img
-                src={comment.profile_picture_url}
-                alt={comment.username}
-                style={{
-                  borderRadius: "50%",
-                  width: "40px",
-                  height: "40px",
-                  marginRight: "10px",
-                  border: "2px solid #fff",
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
-                }}
-              />
-              <div style={{ flex: 1 }}>
-                <p
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={"/uploads/" + comment?.profile_picture_url}
+                  alt={comment.username}
                   style={{
-                    fontWeight: "bold",
-                    color: "#000", // Dark purple for username
-                    margin: 0,
+                    borderRadius: "50%",
+                    width: "40px",
+                    height: "40px",
+                    marginRight: "10px",
+                    border: "2px solid #fff",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
                   }}
-                >
-                  {comment.username}
-                </p>
-                <p
-                  style={{
-                    margin: "4px 0 0",
-                    color: "#000", // Darker text for comments
-                  }}
-                >
-                  {comment.content}
+                />
+                <div>
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      color: "#000",
+                      margin: 0,
+                    }}
+                  >
+                    {comment.username}
+                  </p>
+                  <p
+                    style={{
+                      margin: "4px 0 0",
+                      color: "#000",
+                    }}
+                  >
+                    {comment.content}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <p style={{ margin: 0, color: "#999" }}>
+                  {moment(comment.create_time).format("MMMM D, YYYY h:mm a")}
                 </p>
               </div>
             </div>

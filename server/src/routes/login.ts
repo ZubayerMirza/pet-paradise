@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
 
   // It's important to hash passwords in production applications. This example uses plain text for simplicity.
   const query =
-    "SELECT user_id, username, name FROM users WHERE username = ? AND password_hash = ?";
+    "SELECT user_id, username, name, profile_picture_url FROM users WHERE username = ? AND password_hash = ?";
   db.query(query, [username, password], (err, rows) => {
     if (err) {
       console.error("Login error:", err);
@@ -37,6 +37,7 @@ router.post("/", (req, res) => {
       message: "Login successful",
       user: user.user_id,
       name: user.name,
+      picture: user.profile_picture_url,
     });
   });
 });

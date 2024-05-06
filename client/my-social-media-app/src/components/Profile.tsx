@@ -90,9 +90,17 @@ const Profile: React.FC = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ followed_user, following_user: user }),
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
           setIsFollowing(!isFollowing);
+          // Update friend count
+          await fetch(`http://localhost:3010/api/stats/update/${user}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ action: "friendCount" }),
+          });
         } else {
           throw new Error("Failed to update friendship status");
         }

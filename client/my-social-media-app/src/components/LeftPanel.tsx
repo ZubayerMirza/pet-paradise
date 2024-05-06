@@ -70,7 +70,7 @@ const LeftPanel: React.FC = () => {
     { name: "AI Chat", icon: "💬", link: "/ai-chat" },
     { name: "Messages", icon: "✉️", link: "/messages" },
     { name: "Game", icon: "🎮", link: "/game" },
-    { name: "Followers", icon: "🫂", link: `/followers/${user}` },
+    { name: "Followers", icon: "🫂", link: `/follower/${user}` },
     { name: "Following", icon: "👫", link: `/following/${user}` },
     { name: "User Stats", icon: "📅", link: `/stats/${user}` },
     { name: "My History", icon: "📃", link: `/history/${user}` },

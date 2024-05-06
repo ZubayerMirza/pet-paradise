@@ -1,4 +1,5 @@
 import React from "react";
+import Stats from "./Stats1";
 
 const RightPanel: React.FC = () => {
   return (
@@ -6,14 +7,14 @@ const RightPanel: React.FC = () => {
       style={{
         padding: "10px",
         borderLeft: "1px solid #ccc",
-        position: "relative",
+        position: "fixed",
         top: "70px",
       }}
     >
       <ul style={{ listStyleType: "none", padding: 0 }}>
         <h2>PET GOES HERE</h2>
-        {/* More chat contacts */}
       </ul>
+      <Stats />
     </div>
   );
 };

@@ -66,10 +66,10 @@ const SubmitPost: React.FC<SubmitPostProps> = ({ onNewPost }) => {
       onNewPost(newPost);
       setPostContent("");
       setFile(null);
-      window.location.reload();
+      // window.location.reload();
 
       // Update post count after successful post creation
-      await fetch(`http://localhost:3010/api/update/${user}`, {
+      await fetch(`http://localhost:3010/api/stats/update/${user}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

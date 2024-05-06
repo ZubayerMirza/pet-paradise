@@ -25,14 +25,15 @@ function Login() {
         const token = JSON.stringify({
           username: user.username,
           userId: userId,
+          picture: user.picture,
         });
 
         // Store the token in localStorage
         localStorage.setItem("userToken", token);
-        console.log("NAME:  ", user.name);
+        console.log("NAME:  ", token);
         if (user.name) {
           console.log("inside");
-          navigate("/"); // Navigate to the update profile page if name is blank
+          navigate("/home"); // Navigate to the update profile page if name is blank
         } else {
           navigate("/update"); // Navigate to the home page if name is filled
         }

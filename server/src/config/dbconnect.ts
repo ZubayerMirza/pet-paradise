@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 import { Sequelize } from "sequelize";
-
+import "../models";
 const database = "pet_social_media"; // database name
 const username = "root"; // username
 const password = "1zubayer!"; // password
@@ -35,5 +35,15 @@ export const initializeDatabase = async () => {
   await createDB(database);
   await connectSQ();
 };
+
+sequelize
+  .sync({ force: false }) // Set `force: true` to drop and recreate tables
+  .then(() => {
+    console.log("Tables have been created");
+  })
+  .catch((error) => {
+    console.error("Error creating tables:", error);
+    throw error;
+  });
 
 export default sequelize;
