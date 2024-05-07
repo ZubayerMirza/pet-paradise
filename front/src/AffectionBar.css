@@ -1,0 +1,14 @@
+.affection-bar {
+    width: 200px; 
+    height: 20px; 
+    background-color: lightblue; 
+    border-radius: 4px;
+    overflow: hidden; 
+  }
+  
+  .affection-bar .fill {
+    width: 50%; 
+    height: 100%;
+    background-color: blue;
+  }
+  

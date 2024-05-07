@@ -1,0 +1,98 @@
+.profile-box{
+    width:100%;
+    height: 100%;
+    display: flex;
+    margin:10px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: 50px;
+  background-color:#b9d5e66b;
+  border-radius: 50px;
+}
+
+
+.profile-inner-box1{
+    width:100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: green; */
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Jersey+15&family=Lobster&display=swap');
+
+.profile-inner-box2{
+    width:100%;
+    /* height:50%; */
+    /* text-align: center; */
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.pet-name{
+    /* font-family: "Lobster", sans-serif;
+    font-weight: 300;
+    font-style: normal; */
+    width:98%;
+    padding: 2px;
+    /* border: solid 2px white; */
+    /* border-radius: 20px; */
+    /* font-family: "Jersey 10 Charted", sans-serif;
+  font-weight: 500;
+  font-style: normal; */
+  font-family: "Jersey 15", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  font-size: 35px;
+  white-space: pre;
+  margin-bottom: 5px;
+  color:#f1f1f1dd;
+  background-color:#7ea9c364;
+}
+
+.pet-info-box{
+    width: 90%;
+    padding:2px;
+   /* padding: 10px; */
+   margin-top: 3px;
+   margin-bottom: 3px;
+   /* text-align: left; */
+   font-family: "Jersey 15", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    color:rgba(0, 65, 177, 0.947);
+    
+}
+
+.pet-bars{
+ grid-column: 2/7;  
+ background-color: rgba(255, 255, 255, 0.522); 
+ /* opacity: 50%; */
+ border-radius: 50px;
+ display: flex;
+ flex-direction: column;
+ /* align-items: center; */
+ justify-content: center;
+ /* padding: 10px; */
+ position: relative;
+}
+.pet-bars-inner{
+    /* width: ; */
+    height:100%;
+    margin:3px;
+    border-radius: 50px;
+    background-color: rgba(127, 150, 115, 0.572);
+}

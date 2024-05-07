@@ -1,0 +1,83 @@
+.serch-box{
+    width:90%;
+    height:10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chat-finder{
+    margin:0;
+    margin-right: 10px;
+    border-radius: 10px;
+    border:none;
+    opacity:70%;
+    width:70%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.img{
+    width:20%;
+    height: 70%;
+    /* background-color: black; */
+    border:solid 1px black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-side-inner{
+    width:90%;
+    height:10%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    /* margin-bottom: 5px; */
+    border-radius: 5px;
+    /* border: black solid 1px; */
+}
+
+.chat-img{
+    border:solid 1px black;
+    border-radius: 40%;
+    width:20%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    /* background-color: black; */
+}
+.chat-online{
+    align-items: left;
+    position: absolute;
+}
+.chat-user{
+    border-radius: 20px;
+    border:solid 1px black;
+    width:80%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 10px; */
+}
+.hr{
+    width: 90%;
+    border: solid rgb(225, 134, 50) 0.5px;
+}

@@ -1,0 +1,247 @@
+
+
+.home {
+  min-height: 100vh;
+  background-image: url('../assets/homeBackground.jpeg');
+  background-size: cover;
+  background-position: center;
+
+  font-size: calc(10px + 2vmin);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#p {
+  margin: 0;
+  color: white;
+}
+
+#p1 {
+  margin: 0;
+  /* color: rgba(80, 66, 66, 0.476); */
+ 
+}
+
+#h1 {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  color: white;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+}
+
+.header{
+  /* min-height: 100vh; */
+  margin-top: 10px;
+  padding-top: 5px;
+  min-height: 7vmin; 
+  border-radius: 20px;
+  border: solid 0.5px white;
+  width: 99vw;
+  height: 20%;
+  /* height: 5vw; */
+  background-color:ivory;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+ 
+  /* box-shadow: -4px -5px 10px gainsboro; 
+  box-shadow: 2px 5px 10px gainsboro; */
+  /* box-shadow: inset 5em 10px white; */
+  box-shadow: 3px 3px 10px gainsboro, -4px  -5px 15px gainsboro;
+}
+.header-box{
+  display: flex;
+  /* width: 100%; */
+  height:100%;
+  /* align-items: center; */
+  /* flex-direction: row; */
+/* align-items: center; */
+/* justify-content: center; */
+}
+.logo-box{
+  /* width:30%; */
+  /* height: 10%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+align-items: center;
+justify-content: center;
+}
+
+.Logo{
+  /* height:100%; */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+/* background-color: blue; */
+}
+.navi-box{
+  /* background-color: blue; */
+  display: flex;
+  width:100%;
+  height:100%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 2vmin;
+  color: rgba(125, 121, 121, 0.901);
+  white-space: pre;
+}
+
+
+.navi-innerbox{
+width:50%;
+height:100%;
+/* background-color: black; */
+display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.navi-contents1{
+  margin: 0;
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  /* border-radius: 10px; */
+  /* background-color: pink; */
+  margin-left: 10px;
+  white-space: pre;
+  
+}
+.navi-contents{
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px; */
+  margin: 0;
+  height: 55%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  /* border-radius: 10px; */
+  /* background-color: pink; */
+  margin-left: 10px;
+  white-space: pre;
+  padding-left:10px;
+  padding-right:10px;
+  /* box-shadow: 3px 3px 10px rgb(150, 150, 150), -4px  -5px 15px gainsboro; */
+  
+  /* box-shadow: 2px 5px 10px gainsboro; */
+  /* box-shadow: inset 5em 10px white; */
+}
+.navi-contents:hover{
+  background-color: white;
+  box-shadow: 3px 3px 10px rgb(150, 150, 150) ;
+  /* border-bottom: solid 2px rgb(150, 150, 150); */
+  /* border-bottom-width: 0.1px; */
+  color: rgba(4, 89, 225, 0.841);
+  /* background-color: black; */
+  cursor: pointer;
+  /* border-bottom: solid 2px rgba(4, 89, 225, 0.841);
+  border-bottom-width: 0.1px;
+  color: rgba(4, 89, 225, 0.841); */
+
+  padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    /* border-bottom-left-radius: 20px; */
+    /* border: solid 1px #1555c4d9; */
+    /* color: #fb611f; */
+    cursor: pointer;
+    background-color: #fb611f21;
+
+}
+
+#p1:hover{
+  
+}
+
+.body{
+  border-radius: 20px;
+  width: 100%;
+  height: 80%;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: antiquewhite;
+  
+
+  /* box-shadow: 10px 5px 10px gainsboro; */
+   /* box-shadow: inset 5px 10px 5px white; */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Jersey+15&family=Lobster&display=swap');
+  
+body{
+  /* font-family: "Lobster", sans-serif;
+    font-weight: 300;
+    font-style: normal; */
+      /* font-family: "Jersey 10 Charted", sans-serif;
+  font-weight: 500;
+  font-style: normal; */
+  /* font-family: "Jersey 15", sans-serif;
+  font-weight: 500;
+  font-style: normal; */
+} 
+
+.right{
+  width:20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* for 1 right of contents */
+.right-inner1{
+  width: 100%;
+  height: 70%;
+  /* background-color: blue; */
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Jersey+15&family=Lobster&display=swap');  
+
+
+/* for 2 right of contents */
+.right-inner{
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border:solid black 1px;
+
+  font-family: "Jersey 15", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 28px;
+}

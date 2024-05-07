@@ -1,0 +1,106 @@
+.shop-page-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background-color: #d3e0dc; Sage green */
+  background: url('room-image.jpg') no-repeat center center fixed;
+  font-family: Arial, sans-serif;
+}
+
+.points-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 20px; 
+  border-radius: 30px; 
+  background-color: gold;
+  color: black; 
+  font-size: 24px; 
+}
+
+
+
+.shop-container {
+  width: 80%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.food-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.food-option {
+  position: relative;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  flex: 1 1 calc(25% - 10px); /* Four items per row */
+}
+
+.price-points {
+  margin-left: 200px; 
+}
+
+
+.add-to-cart-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-button:hover {
+  background-color: #0056b3;
+}
+
+.buy-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.buy-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #0056b3;
+}
+
+.back-button-container {
+  position: absolute; 
+  bottom: 20px; /* Distance from the bottom of the parent container */
+}
+
+.back-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline from link */
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
