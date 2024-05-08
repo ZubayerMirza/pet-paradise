@@ -1,0 +1,30 @@
+.form-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.form-input,
+.form-textarea,
+.form-button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.form-textarea {
+  height: 100px;
+}
+.form-button {
+  background-color: #0056b3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.form-button:hover {
+  background-color: #004494;
+}
