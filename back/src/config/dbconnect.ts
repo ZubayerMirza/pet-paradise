@@ -4,7 +4,7 @@ import {Sequelize} from "sequelize";
 // this supposed to be changed with u guys's mysql information
 const database = "petparadise"; // database name
 const username = "root"; // username
-const password = 'PasswordGoni90!' // password
+const password = 'Your password' // password
 
 
  // Create the sequelize instance with passing parameters
