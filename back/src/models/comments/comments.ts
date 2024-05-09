@@ -22,14 +22,6 @@ const Comment = data.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     tableName: "comments",

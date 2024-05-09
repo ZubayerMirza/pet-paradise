@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import CartItems from "./CartItems"; // Import CartItems component
 import "./ShopPage.css";
-import { getScore, decreaseScore } from "./scoreManager"; // Import getScore
+import { getScore, decreaseScore } from "../scoreManager"; // Import getScore
 import BoughtFood from "./BoughtFood";
 import { addToBoughtFood, getBoughtFood } from "./foodManager";
 

@@ -10,7 +10,7 @@ import db from "./config/db"; // Make sure db is properly set up
 import { RowDataPacket, ResultSetHeader } from "mysql2";
 
 const app = express();
-const port = 3010;
+const port = 8000;
 
 // Multer for image storage
 // Ensure the path correctly points from the server directory to the client uploads directory

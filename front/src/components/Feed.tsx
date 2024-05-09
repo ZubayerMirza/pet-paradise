@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SubmitPost from "./SubmitPost";
 import Post from "./Post";
+import "../style/Feed.css";
 
 type PostType = {
   postId: number;
@@ -44,10 +45,18 @@ const Feed: React.FC = () => {
 
   return (
     <div
+      className="feedContainer"
       style={{
+        width: "100%",
+        maxWidth: "600px",
+        height: "calc(100vh - 120px)",
+        margin: "0 auto",
         padding: "10px",
         position: "relative",
-        top: "70px",
+        top: "0",
+        overflowY: "scroll",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
       }}
     >
       <SubmitPost

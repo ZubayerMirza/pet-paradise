@@ -15,10 +15,18 @@ const Post = data.define(
     },
     content: DataTypes.TEXT,
     imageUrl: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "posts",
-    timestamps: false, // Ensures Sequelize manages createdAt and updatedAt
+    timestamps: true, // Automatically manages createdAt and updatedAt
   }
 );
 

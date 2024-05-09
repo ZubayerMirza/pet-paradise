@@ -6,7 +6,7 @@ import friends from "./friends";
 import myLevel from "./level";
 
 // Zubayer's routes
-import register from "./register";
+// import register from "./register";
 import users from "./users";
 import friendship from "./friendship";
 import comments from "./comments";
@@ -25,7 +25,7 @@ router.use("/", pet);
 router.use("/", items);
 router.use("/", friends);
 router.use("/", myLevel);
-router.use("/register", register);
+// router.use("/register", register);
 router.use("/api/user", users);
 router.use("/posts", posts);
 router.use("/friendships", friendship);

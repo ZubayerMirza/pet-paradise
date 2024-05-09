@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-three/drei": "^9.105.3",
     "@react-three/fiber": "^8.16.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,6 +15,8 @@
     "@types/node": "^16.18.87",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
@@ -47,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.1",
     "@types/three": "^0.163.0"
   }
 }

@@ -18,18 +18,6 @@ const Friendship = data.define(
       allowNull: false,
     },
     status: DataTypes.STRING,
-    createTime: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     tableName: "friendships",

@@ -83,12 +83,12 @@ router.get("/", (req, res) => {
           Posts.userId,
           Posts.content, 
           Posts.imageUrl, 
-          Posts.createTime, 
+          Posts.createdAt, 
           Users.username, 
           Users.profilePictureUrl
       FROM Posts
       JOIN Users ON Posts.userId = Users.id
-      ORDER BY Posts.createTime DESC
+      ORDER BY Posts.createdAt DESC
   `;
 
   db.query(query, (err, rows) => {

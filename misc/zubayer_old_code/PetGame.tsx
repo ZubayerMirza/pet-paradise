@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PetGame.css"; // Import your CSS file
 import { Link } from "react-router-dom";
-import { increaseScore, decreaseScore, getScore } from "./scoreManager";
+import { increaseScore, decreaseScore, getScore } from "../scoreManager";
 import { getLevel } from "./levelManager";
 
 interface PetGameProps {
