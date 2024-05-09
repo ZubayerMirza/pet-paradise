@@ -11,7 +11,7 @@ const Chatbot = () => {
       "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions"; // Update the API endpoint to use the GPT-3.5-turbo engine
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer sk-proj-He9Z0LHqWE7NHI3Cwm4sT3BlbkFJF1GFYlqUOPDE17kfN5WK`,
+      Authorization: `Bearer sk-proj-1MJ5PHlkYPsZ7ziFjUq4T3BlbkFJJPZ10KIS9Brcr0WFG1HP`,
     };
 
     const data = {
@@ -43,6 +43,7 @@ const Chatbot = () => {
 
   return (
     <div className="chatbot-container">
+      <h1 className="chatbot-heading">PetParadise AI Chat</h1> {/* Added heading */}
       <div className="chatbot-messages">
         {messages.map((message, index) => (
           <div
