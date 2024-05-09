@@ -7,10 +7,10 @@ const LeftPanel: React.FC = () => {
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     color: "purple",
     maxWidth: "250px",
-    position: "fixed",
-    height: "100%",
-    width: "100%",
-    top: "70px",
+    position: "absolute", // Changed from fixed to absolute
+    height: "100%", // This makes it fill the height of LeftBox
+    width: "100%", // This makes it fill the width of LeftBox
+    top: "0", // Adjusted to 0 to align with the top of LeftBox
   };
 
   const headerStyle = {

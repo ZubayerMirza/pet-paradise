@@ -88,7 +88,7 @@ router.get("/", (req, res) => {
           Users.profilePictureUrl
       FROM Posts
       JOIN Users ON Posts.userId = Users.id
-      ORDER BY Posts.createdAt DESC
+      ORDER BY Posts.postId DESC
   `;
 
   db.query(query, (err, rows) => {
