@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 import {
-  faThumbsUp,
+  faHeart as faHeartFull,
   faComment,
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
@@ -10,23 +11,23 @@ import React, { useState, useEffect, FormEvent } from "react";
 const moment = require("moment");
 
 interface Comment {
-  comment_id: number;
-  post_id: number;
-  user_id: number;
+  commentId: number;
+  postId: number;
+  userId: number;
   username: string;
   content: string;
-  profile_picture_url?: string;
+  profilePictureUrl?: string;
   create_time: string; // fix if Date
 }
 
 interface Post {
-  post_id: number;
-  user_id: number;
+  postId: number;
+  userId: number;
   username: string;
   content: string;
-  profile_picture_url?: string;
-  image_url?: string;
-  create_time: string; // fix if Date
+  profilePictureUrl?: string;
+  imageUrl?: string;
+  createTime: string; // fix if Date
   likesCount?: number;
 }
 
@@ -63,7 +64,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   // Like posts
   const handleLike = async () => {
-    const apiUrl = `http://localhost:3010/posts/${post.post_id}/like`; // Ensure post.post_id is defined and correct
+    const apiUrl = `http://localhost:3010/posts/${post.postId}/like`; // Ensure post.post_id is defined and correct
     console.log("API URL:", apiUrl); // Log the URL to verify it
 
     try {
@@ -101,12 +102,12 @@ const Post: React.FC<PostProps> = ({ post }) => {
   // Comment on posts
   useEffect(() => {
     if (showComments) {
-      fetch(`http://localhost:3010/posts/${post.post_id}/comments`)
+      fetch(`http://localhost:3010/posts/${post.postId}/comments`)
         .then((response) => response.json())
         .then((data: Comment[]) => setComments(data))
         .catch(console.error);
     }
-  }, [showComments, post.post_id]);
+  }, [showComments, post.postId]);
 
   const handleCommentSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -116,8 +117,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
       return;
     }
 
-    console.log("Post ID:", post.post_id, "Comment:", newComment);
-    const apiUrl = `http://localhost:3010/posts/${post.post_id}/comments`;
+    console.log("Post ID:", post.postId, "Comment:", newComment);
+    const apiUrl = `http://localhost:3010/posts/${post.postId}/comments`;
 
     try {
       const response = await fetch(apiUrl, {
@@ -153,7 +154,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     }
   };
 
-  console.log("USER", post.user_id);
+  console.log("USER", post.userId);
 
   return (
     <div
@@ -176,7 +177,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         }}
       >
         <img
-          src={"/uploads/" + post?.profile_picture_url}
+          src={"/uploads/" + post?.profilePictureUrl}
           // src={post.profile_picture_url}
           alt={post.username}
           style={{
@@ -189,22 +190,22 @@ const Post: React.FC<PostProps> = ({ post }) => {
           }}
         />
         <Link
-          to={`/user/${post.user_id}`}
+          to={`/user/${post.userId}`}
           style={{ color: "#000", textDecoration: "none" }}
         >
           <strong>{post.username}</strong>
         </Link>
         <span style={{ marginLeft: "auto", color: "#000" }}>
-          {moment(post.create_time).format("MMMM D, YYYY h:mm a")}
+          {moment(post.createTime).format("MMMM D, YYYY h:mm a")}
           {/* {post.create_time} */}
         </span>
       </div>
       {/* Post Content */}
       <p style={{ marginBottom: "10px" }}>{post.content}</p>
-      {post.image_url && (
+      {post.imageUrl && (
         <img
           // src={post.image_url}
-          src={`../uploads/${post?.image_url}`}
+          src={`../uploads/${post?.imageUrl}`}
           alt="Post"
           style={{
             maxWidth: "100%",
@@ -232,7 +233,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
           }}
           onClick={handleLike}
         >
-          <FontAwesomeIcon icon={faThumbsUp} /> {liked ? "Unlike" : "Like"}
+          <FontAwesomeIcon
+            icon={liked ? faHeartFull : faHeartEmpty}
+            style={{ color: liked ? "red" : "#4A148C" }}
+          />
+          {liked ? " Unlike" : " Like"}
         </button>
         <button
           onClick={() => setShowComments(!showComments)}
@@ -249,7 +254,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <div>
           {comments.map((comment) => (
             <div
-              key={comment.comment_id}
+              key={comment.commentId}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -263,7 +268,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             >
               <div style={{ display: "flex", alignItems: "center" }}>
                 <img
-                  src={"/uploads/" + comment?.profile_picture_url}
+                  src={"/uploads/" + comment?.profilePictureUrl}
                   alt={comment.username}
                   style={{
                     borderRadius: "50%",
@@ -283,7 +288,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
                     }}
                   >
                     <Link
-                      to={`/user/${comment.user_id}`}
+                      to={`/user/${comment.userId}`}
                       style={{ color: "#000", textDecoration: "none" }}
                     >
                       <strong>{comment.username}</strong>

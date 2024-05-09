@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import login from "./login";
 import register from "./register";
 import users from "./users";
-import friends from "./friends";
+import friends from "./friendship";
 import comments from "./comments";
 import stats from "./stats";
 import likes from "./likes";

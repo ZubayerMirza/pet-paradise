@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 
 interface Follower {
-  following_user: string;
+  followingUser: string;
 }
 
 const Follower = () => {
@@ -24,7 +24,7 @@ const Follower = () => {
         <h1>Followers</h1>
         <ul>
           {followers.map((follower) => (
-            <li key={follower.following_user}>{follower.following_user}</li>
+            <li key={follower.followingUser}>{follower.followingUser}</li>
           ))}
         </ul>
       </div>

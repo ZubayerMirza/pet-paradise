@@ -1,23 +1,23 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 
-const Comment = data.define(
-  "Comment",
+const Friendship = data.define(
+  "Friendship",
   {
-    commentId: {
+    friendshipId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    postId: {
+    followedUser: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    userId: {
+    followingUser: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    content: DataTypes.TEXT,
+    status: DataTypes.STRING,
     createTime: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -32,8 +32,9 @@ const Comment = data.define(
     },
   },
   {
-    tableName: "comments",
+    tableName: "friendships",
     timestamps: false,
   }
 );
-export default Comment;
+
+export default Friendship;

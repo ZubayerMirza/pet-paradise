@@ -3,13 +3,13 @@ import SubmitPost from "./SubmitPost";
 import Post from "./Post";
 
 type PostType = {
-  post_id: number;
-  user_id: number;
+  postId: number;
+  userId: number;
   username: string;
   content: string;
-  image_url?: string;
-  profile_picture_url?: string;
-  create_time: string;
+  imageUrl?: string;
+  profilePictureUrl?: string;
+  createTime: string;
 };
 
 const Feed: React.FC = () => {
@@ -57,7 +57,7 @@ const Feed: React.FC = () => {
       />
       <h4>News Feed</h4>
       {posts.map((post) => (
-        <Post key={post.post_id} post={post} />
+        <Post key={post.postId} post={post} />
       ))}
     </div>
   );

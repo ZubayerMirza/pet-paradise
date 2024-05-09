@@ -12,93 +12,105 @@ import Friend_List from "./friends/friendsList";
 import Chat from "./chats/chat";
 import Post from "./posts/posts";
 import Comment from "./comments/comments";
+import Like from "./likes/likes";
+import Friendship from "./friendships/friendships";
+import UserStats from "./stats/stats";
 // Model is defined with define fuction of seq
 // represnets as a table of the database
 // each will be colums of the tables
 
 // later with sync -> create table users (this model)
-const Users = data.define('users', {
-    id:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    username:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: { //not 
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    isLogin: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-    //for zubyar : social media 
-    profilePictureUrl: {
-        type: DataTypes.STRING(400),
-        defaultValue: null,
-      },
-      createTime: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
-      name: DataTypes.STRING(100),
-      location: DataTypes.STRING(200),
-      gender: DataTypes.STRING(45),
-      age: DataTypes.INTEGER,
-      interests: DataTypes.TEXT,
-      bio: DataTypes.TEXT,
-      school: DataTypes.STRING,
-      coverPicture: DataTypes.STRING(400),
+const Users = data.define("users", {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    //not
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  isLogin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  //for zubyar : social media
+  profilePictureUrl: {
+    type: DataTypes.STRING(400),
+    defaultValue: null,
+  },
+  createTime: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  name: DataTypes.STRING(100),
+  location: DataTypes.STRING(200),
+  gender: DataTypes.STRING(45),
+  age: DataTypes.INTEGER,
+  interests: DataTypes.TEXT,
+  bio: DataTypes.TEXT,
+  school: DataTypes.STRING,
+  coverPicture: DataTypes.STRING(400),
 });
 
-// relation between tables 
-
+// relation between tables
 
 //pets table have connected to users table with userid
 Users.hasOne(Pets); // each user have one pet
-Pets.belongsTo(Users, { foreignKey: 'userId'});
-// Pets.hasOne(Users); // update later! 
+Pets.belongsTo(Users, { foreignKey: "userId" });
+// Pets.hasOne(Users); // update later!
 // Users.belongsTo(Pets, { foreignKey: 'petId'})
 
 //pets table have connected to pettype table with typeId
-Pets.belongsTo(PetTypes, {foreignKey: 'typeId'});
+Pets.belongsTo(PetTypes, { foreignKey: "typeId" });
 
 Pets.belongsTo(Storages);
-Storages.belongsToMany(Items,{through: ItemList});
-Items.belongsToMany(Storages,{through: ItemList});
-
+Storages.belongsToMany(Items, { through: ItemList });
+Items.belongsToMany(Storages, { through: ItemList });
 
 // myLevel.hasOne(Pets);
 // Pets.belongsTo(myLevel,{foreignKey: 'myLevel_Id'});
 Pets.hasOne(myLevel);
-//either one maybe has to be changed? 
-myLevel.hasOne(Pets, {foreignKey: 'myLevel_Id'});
-myLevel.belongsTo(Pets,{foreignKey: 'petId'});
+//either one maybe has to be changed?
+myLevel.hasOne(Pets, { foreignKey: "myLevel_Id" });
+myLevel.belongsTo(Pets, { foreignKey: "petId" });
 // myLevel.has One(Level);
 Level.hasMany(myLevel);
 
-
-
 /************************************
- * zubyar's database relationship 
+ * zubyar's database relationship
  * *********************************/
 
-// Post 
+// Post
 Users.hasMany(Post, { foreignKey: "userId" });
 Post.belongsTo(Users, { foreignKey: "userId" });
 
-// Comment 
+// Comment
 Comment.belongsTo(Users, { foreignKey: "userId" });
 Comment.belongsTo(Post, { foreignKey: "postId" });
+
+// Likes
+Like.belongsTo(Users, { foreignKey: "userId" });
+Like.belongsTo(Post, { foreignKey: "postId" });
+
+// Friendships
+Friendship.belongsTo(Users, { foreignKey: "followedUser" });
+Friendship.belongsTo(Users, { foreignKey: "followingUser" });
+
+// Stats
+Users.hasOne(UserStats, { foreignKey: "userId" });
+UserStats.belongsTo(Users, { foreignKey: "userId" });
 
 //
 // friends relations of between user and user
@@ -111,7 +123,6 @@ Comment.belongsTo(Post, { foreignKey: "postId" });
 // Chat.belongsTo(Users);
 
 export default Users;
-
 
 // const User = sequelize.define(
 //     "User",
@@ -156,4 +167,3 @@ export default Users;
 //       timestamps: false,
 //     }
 //   );
-  

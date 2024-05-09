@@ -93,17 +93,17 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `pet_social_media`.`friendships` (
   `friendship_id` INT NOT NULL AUTO_INCREMENT,
   `followed_user` INT NOT NULL,
-  `following_user` INT NOT NULL,
+  `followingUser` INT NOT NULL,
   `status` VARCHAR(255) NULL DEFAULT NULL,
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`friendship_id`),
   INDEX `friendships_ibfk_1` (`followed_user` ASC) VISIBLE,
-  INDEX `friendships_ibfk_2` (`following_user` ASC) VISIBLE,
+  INDEX `friendships_ibfk_2` (`followingUser` ASC) VISIBLE,
   CONSTRAINT `friendships_ibfk_1`
     FOREIGN KEY (`followed_user`)
     REFERENCES `pet_social_media`.`users` (`id`),
   CONSTRAINT `friendships_ibfk_2`
-    FOREIGN KEY (`following_user`)
+    FOREIGN KEY (`followingUser`)
     REFERENCES `pet_social_media`.`users` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 9

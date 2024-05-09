@@ -393,12 +393,12 @@ app.use("/", router);
 
 // Create a new friendship
 // app.post("/friendships", async (req, res) => {
-//   const { followed_user, following_user } = req.body;
+//   const { followedUser, followingUser } = req.body;
 //   try {
 //     const sql =
-//       "INSERT INTO friendships (followed_user, following_user, status) VALUES (?, ?, ?)";
+//       "INSERT INTO friendships (followedUser, followingUser, status) VALUES (?, ?, ?)";
 //     const status = "active";
-//     await db.query(sql, [followed_user, following_user, status]);
+//     await db.query(sql, [followedUser, followingUser, status]);
 //     res.status(201).send({ message: "Followed successfully" });
 //   } catch (error) {
 //     res.status(500).send({ message: "Error following user", error: error });
@@ -407,11 +407,11 @@ app.use("/", router);
 
 // Delete a friendship
 // app.delete("/friendships", async (req, res) => {
-//   const { followed_user, following_user } = req.body;
+//   const { followedUser, followingUser } = req.body;
 //   try {
 //     const sql =
-//       "DELETE FROM friendships WHERE followed_user = ? AND following_user = ?";
-//     await db.query(sql, [followed_user, following_user]);
+//       "DELETE FROM friendships WHERE followedUser = ? AND followingUser = ?";
+//     await db.query(sql, [followedUser, followingUser]);
 //     res.status(200).send({ message: "Unfollowed successfully" });
 //   } catch (error) {
 //     res.status(500).send({ message: "Error unfollowing user", error: error });
@@ -420,13 +420,13 @@ app.use("/", router);
 
 // // Get friendship status
 // app.get("/friendships", async (req, res) => {
-//   const { followed_user, following_user } = req.query;
+//   const { followedUser, followingUser } = req.query;
 //   try {
 //     const sql =
-//       "SELECT * FROM friendships WHERE followed_user = ? AND following_user = ?";
+//       "SELECT * FROM friendships WHERE followedUser = ? AND followingUser = ?";
 //     const [rows] = await db.query<RowDataPacket[]>(sql, [
-//       followed_user,
-//       following_user,
+//       followedUser,
+//       followingUser,
 //     ]);
 //     if (rows.length > 0) {
 //       res.status(200).json(rows[0]);

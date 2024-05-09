@@ -15,8 +15,8 @@ interface UserProfile {
   interests: string;
   bio: string;
   school: string;
-  cover_picture: string | null;
-  profile_picture_url: string | null;
+  coverPicture: string | null;
+  profilePictureUrl: string | null;
 }
 
 const Profile: React.FC = () => {
@@ -67,28 +67,48 @@ const Profile: React.FC = () => {
   }, [userId]);
 
   const [isFollowing, setIsFollowing] = useState(false);
-  const followed_user = userId;
-  const isOwnProfile = followed_user == user; // Compare if the logged-in user is the same as the profile user
+  const followedUser = userId;
+  const isOwnProfile = followedUser == user; // Compare if the logged-in user is the same as the profile user
 
   useEffect(() => {
-    fetch(
-      `http://localhost:3010/friendships?followed_user=${followed_user}&following_user=${user}`
-    )
+    if (!user || !followedUser) {
+      console.log("Missing user IDs, skipping fetch.");
+      return; // Avoid making requests without necessary IDs
+    }
+
+    const url = `http://localhost:3010/friendships?followedUser=${followedUser}&followingUser=${user}`;
+    console.log(
+      `Checking friendship status between ${user} and ${followedUser}`
+    );
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setIsFollowing(data.status === "active");
+        // Assuming data is an object and not an array
+        if (data && data.status === "active") {
+          console.log("Active friendship found:", data);
+          setIsFollowing(true);
+        } else {
+          console.log(
+            "No active friendship or unexpected data structure:",
+            data
+          );
+          setIsFollowing(false);
+        }
       })
-      .catch((error) =>
-        console.error("Error fetching friendship status:", error)
-      );
-  }, [followed_user, user]);
+      .catch((error) => {
+        console.error("Error fetching friendship status:", error);
+        setIsFollowing(false); // Assume not following on error, or handle differently
+      });
+  }, [followedUser, user]); // Ensure this runs only when user or followedUser changes
+  // Ensure this runs only when user or followedUser changes
 
   const handleFollow = () => {
     const method = isFollowing ? "DELETE" : "POST";
     fetch("http://localhost:3010/friendships", {
       method: method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ followed_user, following_user: user }),
+      body: JSON.stringify({ followedUser, followingUser: user }),
     })
       .then(async (response) => {
         if (response.ok) {
@@ -138,14 +158,14 @@ const Profile: React.FC = () => {
         >
           <img
             // src={profile?.cover_picture || "default-cover-url"}
-            src={`/uploads/${profile?.cover_picture}`}
+            src={`/uploads/${profile?.coverPicture}`}
             alt={`${profile?.name}'s Cover`}
             style={{ width: "100%", height: "200px", objectFit: "cover" }}
           />
         </div>
         <div style={{ textAlign: "center", color: "#000" }}>
           <img
-            src={"/uploads/" + profile?.profile_picture_url}
+            src={"/uploads/" + profile?.profilePictureUrl}
             alt={`${profile?.name}`}
             style={{
               width: "100px",

@@ -1,7 +1,7 @@
 import mysql from "mysql2";
 import { Sequelize } from "sequelize";
 import "../models";
-const database = "pet_social_media"; // database name
+const database = "petparadise"; // database name
 const username = "root"; // username
 const password = "1zubayer!"; // password
 

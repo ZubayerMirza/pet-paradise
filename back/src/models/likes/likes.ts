@@ -1,10 +1,10 @@
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 
-const Comment = data.define(
-  "Comment",
+const Like = data.define(
+  "Like",
   {
-    commentId: {
+    likeId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -17,7 +17,6 @@ const Comment = data.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    content: DataTypes.TEXT,
     createTime: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -32,8 +31,9 @@ const Comment = data.define(
     },
   },
   {
-    tableName: "comments",
+    tableName: "likes",
     timestamps: false,
   }
 );
-export default Comment;
+
+export default Like;
