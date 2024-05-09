@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Chatbot.css";
 
+// chatbot.js
+const apiKey = process.env.OPENAI_API_KEY;
+
 const Chatbot = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
