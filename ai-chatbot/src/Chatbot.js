@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Chatbot.css";
 
-// chatbot.js
-const apiKey = process.env.OPENAI_API_KEY;
-
 const Chatbot = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
@@ -14,7 +11,7 @@ const Chatbot = () => {
       "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions"; // Update the API endpoint to use the GPT-3.5-turbo engine
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer`,
+      Authorization: `Bearer sk-proj-jH1x6k8aLVtCoYtBtcUXT3BlbkFJmX5flw1D82wHHenfDzz0`,
     };
 
     const data = {
