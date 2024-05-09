@@ -1,12 +1,12 @@
+/* App.js */
+
 import React from 'react';
 import Chatbot from './Chatbot';
-
-/* App.js*/
+import './App.css'; // Import your CSS file for styling
 
 function App() {
   return (
-    <div>
-      <h1>AI Chatbot</h1>
+    <div className="app-container">
       <Chatbot />
     </div>
   );
