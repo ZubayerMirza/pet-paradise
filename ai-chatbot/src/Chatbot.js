@@ -11,7 +11,7 @@ const Chatbot = () => {
       "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions"; // Update the API endpoint to use the GPT-3.5-turbo engine
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer sk-proj-1MJ5PHlkYPsZ7ziFjUq4T3BlbkFJJPZ10KIS9Brcr0WFG1HP`,
+      Authorization: `Bearer API_KEY`,
     };
 
     const data = {
