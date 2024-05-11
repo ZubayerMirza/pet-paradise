@@ -53,7 +53,7 @@ function ChatSideBox(props:any) {
     </div>
     {testcase.map((data,index) => 
     <>
-    <div className="chat-side-inner" style={(prevClick.current == data) ? {backgroundColor:'white', opacity:'60%', fontWeight: 'bold'} : {}} key = {index} onClick={onclickHandler}>
+    <div className="chat-side-inner" style={(prevClick.current == data) ? {backgroundColor:'#95a7b26b',fontSize: '20px',fontWeight: 'bold'} : {}} key = {index} onClick={onclickHandler}>
         <div className="chat-img"><FaRegUserCircle className='chat-online'/>{data}</div>
         
         <div className="chat-user">{data}</div>

@@ -19,8 +19,6 @@ import socket from '../home/websocket';
 
 function Test (props: any) {
 
- 
-
 
 function TestScene(){
   const image=useLoader(GLTFLoader, "/marshal_from_animal_crossing/scene.gltf");

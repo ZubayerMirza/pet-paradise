@@ -14,6 +14,7 @@ import MiddleChat from "../middle/MiddleChat";
 import ChatSideBox from "../leftside/ChatSideBox";
 // import { Click } from '../leftside/ChatSideBox';
 // console.log(props.data.hunger*0.9)
+import socket from './websocket';
 
 function Header(props: any) {
   const body = useRef("");
@@ -103,37 +104,48 @@ function Header(props: any) {
     // }
   };
 
-  // might need more data for users
-  const chatBox = useRef(""); // for manipulate chatbody
-  const ChatBoxReset = () => {
-    chatBox.current = "";
-    console.log(chatBox.current);
-  };
+  const [currentChat,setCurrentChat] =useState('');
 
-  // to get the value from chat side box
-  const Change = (test: string) => {
-    console.log(test);
-    if (test === "A") {
-      chatBox.current = test;
-    }
-  };
 
-  // useEffect(()=>{
-  //  side.current="";
-  //  body.current="";
-  // },[]);
-  const [currentChat, setCurrentChat] = useState("");
-
-  //// id checking with this function maybe?
-  function Click(clickedChat: string) {
-    console.log(clickedChat);
+ //// id checking with this function maybe? 
+  function Click(clickedChat: string){
+    console.log(clickedChat)
     setCurrentChat(clickedChat);
     return clickedChat;
-  }
+};
 
-  useEffect(() => {
-    console.log(currentChat);
-  }, [{ currentChat }]);
+useEffect(()=>{
+  console.log('currentChat : ', currentChat);
+},[{currentChat}])
+
+const [messageList, setMessageList] =useState<string[]>([]);
+// console.log('list:',messageList);
+  
+useEffect(()=>{
+  console.log('list : ',messageList)
+},[messageList])
+
+const msg = useRef('')
+useEffect(()=>{
+  // console.log("message : ",msg)
+},[msg.current])
+
+const SentMessage=(msgfrom: string)=>{
+  msg.current=msgfrom;
+}
+const TestMessage =(msg: string)=>{
+  setMessageList([...messageList,msg]);
+}
+useEffect(()=>{
+
+  socket.on("connection", ()=>{
+    console.log(socket.id);
+  })
+
+  socket.on("notify", async(message)=>{
+    console.log("message from server:", message)
+  })
+},[])
 
   return (
     <>
@@ -177,13 +189,10 @@ function Header(props: any) {
 
       <div className="body">
         {/* sidebar */}
-        {side.current === "ChatSideBar" ? (
-          <ChatSideBox Click={Click} Change={Change}></ChatSideBox>
-        ) : <LeftBox></LeftBox> || side.current === "SideBar" ? (
-          <LeftBox></LeftBox>
-        ) : (
-          <LeftBox></LeftBox>
-        )}
+        {side.current ==="ChatSideBar" ? 
+        (<ChatSideBox Click={Click} data={props.data}></ChatSideBox>) : (<LeftBox></LeftBox>)
+        || side.current==='SideBar'? 
+        <LeftBox></LeftBox> :<LeftBox></LeftBox>}
 
         {/* middlebox */}
         {/* currentChat -> make taking id of frineds */}
@@ -191,8 +200,11 @@ function Header(props: any) {
           <MiddleChat
             currentChat={currentChat}
             data={props.data}
-            chatBox={chatBox}
-            ChatBoxReset={ChatBoxReset}
+            SentMessage={SentMessage} 
+            TestMessage={TestMessage} 
+            messageList={messageList} 
+            Ref={msg}
+          
           ></MiddleChat>
         ) : <MiddleBox></MiddleBox> && body.current === "friend" ? (
           <Friend data={props.data}></Friend>
