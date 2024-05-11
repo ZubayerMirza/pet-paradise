@@ -73,14 +73,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: user }), // Assuming userId is provided somehow; it should ideally come from authenticated session or token
+        body: JSON.stringify({ userId: user }),
       });
 
       if (response.ok) {
         const result = await response.json();
         setLiked(result.liked);
         setLikesCount((prev) => (result.liked ? prev + 1 : prev - 1));
-        // Inside the try block of handleLike function after confirming the response is ok
         await fetch(`http://localhost:8000/api/stats/update/${user}`, {
           method: "POST",
           headers: {
@@ -163,8 +162,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
         border: "1px solid #ccc",
         borderRadius: "8px",
         padding: "15px",
-        backgroundColor: "#e5e5e5", // Pink background
-        // color: "#6A1B9A", // Dark purple text
+        backgroundColor: "#d2b48c",
+        // color: "#6A1B9A",
         fontSize: "16px",
       }}
     >
@@ -221,7 +220,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           paddingTop: "10px",
           display: "flex",
           justifyContent: "space-between",
-          color: "#000", // Dark purple for text
+          color: "#000",
         }}
       >
         <button
@@ -258,8 +257,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between", // Ensures space between elements
-                backgroundColor: "#fcfcfc",
+                justifyContent: "space-between", // Ensure space between elements
+                backgroundColor: "#EADDCA",
                 borderRadius: "8px",
                 padding: "10px",
                 margin: "10px 0",

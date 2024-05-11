@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavigationBar from "./NavigationBar";
-import "../style/AllUsers.css"; // Import a CSS file for styles
+import "../style/AllUsers.css";
 
 interface User {
   id: number;

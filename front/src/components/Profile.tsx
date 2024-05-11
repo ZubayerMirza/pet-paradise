@@ -98,10 +98,9 @@ const Profile: React.FC = () => {
       })
       .catch((error) => {
         console.error("Error fetching friendship status:", error);
-        setIsFollowing(false); // Assume not following on error, or handle differently
+        setIsFollowing(false); // Assume not following
       });
-  }, [followedUser, user]); // Ensure this runs only when user or followedUser changes
-  // Ensure this runs only when user or followedUser changes
+  }, [followedUser, user]);
 
   const handleFollow = () => {
     const method = isFollowing ? "DELETE" : "POST";
@@ -130,7 +129,6 @@ const Profile: React.FC = () => {
       );
   };
 
-  // put it in the public folder
   return (
     <>
       <NavigationBar />

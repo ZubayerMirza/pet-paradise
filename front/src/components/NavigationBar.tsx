@@ -53,7 +53,7 @@ const NavigationBar: React.FC = () => {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "10px 20px",
-        backgroundColor: "#91a3b0",
+        backgroundColor: "#DAA06D",
         position: "fixed",
         width: "100%",
         top: 0,

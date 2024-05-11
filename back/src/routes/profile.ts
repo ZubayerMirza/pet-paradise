@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
-import db from "../config/db"; // Make sure db is properly set up
+import db from "../config/db";
 import path from "path";
 
 const router = express.Router();

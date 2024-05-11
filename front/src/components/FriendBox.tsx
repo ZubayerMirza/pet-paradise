@@ -64,21 +64,21 @@ const FriendBox = () => {
       <div
         style={{
           display: "flex",
-          flexDirection: "row", // Ensures horizontal layout
-          overflowX: "auto", // Enables horizontal scrolling
-          whiteSpace: "nowrap", // Prevents wrapping of elements
+          flexDirection: "row",
+          overflowX: "auto",
+          whiteSpace: "nowrap",
           maxWidth: "100%",
-          padding: "5px 0", // Adds padding above and below the scrollbar
+          padding: "5px 0",
         }}
       >
         <ul
           style={{
             display: "flex",
             flexDirection: "row",
-            listStyleType: "none", // Removes bullet points
+            listStyleType: "none",
             padding: 0,
             margin: 0,
-            alignItems: "center", // Aligns items vertically in the center
+            alignItems: "center",
           }}
         >
           {following.map((follow) => (
@@ -86,7 +86,7 @@ const FriendBox = () => {
               key={follow.followedUser}
               style={{
                 textAlign: "center",
-                minWidth: "120px", // Sets a minimum width for each item
+                minWidth: "120px",
                 marginRight: "10px",
                 flexShrink: 0, // Prevents shrinking of the item in flex layout
               }}

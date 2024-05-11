@@ -7,10 +7,10 @@ const LeftPanel: React.FC = () => {
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     color: "purple",
     maxWidth: "250px",
-    position: "absolute", // Changed from fixed to absolute
-    height: "100%", // This makes it fill the height of LeftBox
-    width: "100%", // This makes it fill the width of LeftBox
-    top: "0", // Adjusted to 0 to align with the top of LeftBox
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    top: "0",
   };
 
   const headerStyle = {
@@ -26,12 +26,13 @@ const LeftPanel: React.FC = () => {
   };
 
   const listItemStyle = {
-    padding: "8px 10px",
-    margin: "5px 0",
+    padding: "10px 20px",
+    margin: "5px 0 20px 15px",
     borderRadius: "5px",
     transition: "background-color 0.2s",
     cursor: "pointer",
-    backgroundColor: "#8a7f8d",
+    backgroundColor: "#d2b48c",
+    display: "inline-block",
   };
 
   const linkStyle = {
@@ -70,7 +71,7 @@ const LeftPanel: React.FC = () => {
     { name: "My Profile", icon: "📝", link: `/user/${user}` },
     { name: "AI Chat", icon: "💬", link: "/ai-chat" },
     { name: "Messages", icon: "✉️", link: "/messages" },
-    { name: "Game", icon: "🎮", link: "/game" },
+    { name: "Game", icon: "🎮", link: "/Casino" },
     { name: "Followers", icon: "🫂", link: `/follower/${user}` },
     { name: "Following", icon: "👫", link: `/following/${user}` },
     { name: "User Stats", icon: "📅", link: `/stats/${user}` },
@@ -80,7 +81,7 @@ const LeftPanel: React.FC = () => {
 
   return (
     <div style={panelStyle}>
-      <h4 style={headerStyle}>Your Shortcuts</h4>
+      {/* <h4 style={headerStyle}>Your Shortcuts</h4> */}
       <ul style={listStyle}>
         {shortcuts.map((shortcut) => (
           <li key={shortcut.name} style={listItemStyle}>

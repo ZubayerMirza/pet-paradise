@@ -10,7 +10,6 @@ function LeftBox() {
   return (
     <>
       <div className="leftBox" onClick={onclickHandler}>
-        social media side bar here
         <LeftPanel />
       </div>
     </>
