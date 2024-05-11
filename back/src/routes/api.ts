@@ -17,6 +17,7 @@ import profile from "./profile";
 import following from "./following";
 import followers from "./followers";
 import all_users from "./all_users";
+import history from "./user-posts";
 // to organize as different usage, router used
 export const router: Router = express.Router();
 
@@ -36,5 +37,6 @@ router.use("/updateProfile", profile);
 router.use("/following", following);
 router.use("/followers", followers);
 router.use("/users", all_users);
+router.use("/user-posts", history);
 
 export default router;

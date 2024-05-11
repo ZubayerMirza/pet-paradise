@@ -6,7 +6,7 @@ import {
   faUser,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import catImage from "../images/cat.png";
+import catImage from "../images/petparadise.png";
 
 const NavigationBar: React.FC = () => {
   const navigate = useNavigate();

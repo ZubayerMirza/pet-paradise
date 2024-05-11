@@ -135,7 +135,7 @@ const Profile: React.FC = () => {
       <div
         style={{
           fontFamily: "Arial, sans-serif",
-          backgroundColor: "#c9c9c9",
+          backgroundColor: "antiquewhite",
           minHeight: "100vh",
           padding: "20px",
           margin: "0",

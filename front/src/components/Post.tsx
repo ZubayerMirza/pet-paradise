@@ -164,7 +164,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         padding: "15px",
         backgroundColor: "#d2b48c",
         // color: "#6A1B9A",
-        fontSize: "16px",
+        fontSize: "25px",
       }}
     >
       {/* Post Header */}

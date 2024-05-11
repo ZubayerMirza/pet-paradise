@@ -47,7 +47,7 @@ const Following = () => {
     <>
       <NavigationBar />
       <div style={{ position: "fixed", top: "70px" }}>
-        <h1>Following</h1>
+        <h1>Friends</h1>
         <ul>
           {following.map((follow) => (
             <li key={follow.followedUser}>

@@ -11,6 +11,7 @@ const LeftPanel: React.FC = () => {
     height: "100%",
     width: "100%",
     top: "0",
+    fontSize: "18px", // Increased font size
   };
 
   const headerStyle = {
@@ -70,17 +71,17 @@ const LeftPanel: React.FC = () => {
   const shortcuts = [
     { name: "My Profile", icon: "📝", link: `/user/${user}` },
     { name: "AI Chat", icon: "💬", link: "/ai-chat" },
-    { name: "Messages", icon: "✉️", link: "/messages" },
     { name: "Game", icon: "🎮", link: "/Casino" },
-    { name: "Followers", icon: "🫂", link: `/follower/${user}` },
-    { name: "Following", icon: "👫", link: `/following/${user}` },
+    { name: "Friends", icon: "👫", link: `/following/${user}` },
     { name: "User Stats", icon: "📅", link: `/stats/${user}` },
     { name: "My History", icon: "📃", link: `/history/${user}` },
     { name: "All Users", icon: "👤", link: `/all-users` },
+    { name: "LeaderBoard", icon: "🏅", link: `/leaderboard` },
+    { name: "Battle", icon: "⚔️", link: `/battle` },
   ];
 
   return (
-    <div style={panelStyle}>
+    <div className="panel" style={panelStyle}>
       {/* <h4 style={headerStyle}>Your Shortcuts</h4> */}
       <ul style={listStyle}>
         {shortcuts.map((shortcut) => (
