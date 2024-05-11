@@ -12,9 +12,10 @@ import MiddleBox from "../middle/MiddleBox";
 import Feed from "../components/Feed";
 import MiddleChat from "../middle/MiddleChat";
 import ChatSideBox from "../leftside/ChatSideBox";
+import { FriendBox } from "../components/FriendBox";
 // import { Click } from '../leftside/ChatSideBox';
 // console.log(props.data.hunger*0.9)
-import socket from './websocket';
+import socket from "./websocket";
 
 function Header(props: any) {
   const body = useRef("");
@@ -104,48 +105,46 @@ function Header(props: any) {
     // }
   };
 
-  const [currentChat,setCurrentChat] =useState('');
+  const [currentChat, setCurrentChat] = useState("");
 
-
- //// id checking with this function maybe? 
-  function Click(clickedChat: string){
-    console.log(clickedChat)
+  //// id checking with this function maybe?
+  function Click(clickedChat: string) {
+    console.log(clickedChat);
     setCurrentChat(clickedChat);
     return clickedChat;
-};
+  }
 
-useEffect(()=>{
-  console.log('currentChat : ', currentChat);
-},[{currentChat}])
+  useEffect(() => {
+    console.log("currentChat : ", currentChat);
+  }, [{ currentChat }]);
 
-const [messageList, setMessageList] =useState<string[]>([]);
-// console.log('list:',messageList);
-  
-useEffect(()=>{
-  console.log('list : ',messageList)
-},[messageList])
+  const [messageList, setMessageList] = useState<string[]>([]);
+  // console.log('list:',messageList);
 
-const msg = useRef('')
-useEffect(()=>{
-  // console.log("message : ",msg)
-},[msg.current])
+  useEffect(() => {
+    console.log("list : ", messageList);
+  }, [messageList]);
 
-const SentMessage=(msgfrom: string)=>{
-  msg.current=msgfrom;
-}
-const TestMessage =(msg: string)=>{
-  setMessageList([...messageList,msg]);
-}
-useEffect(()=>{
+  const msg = useRef("");
+  useEffect(() => {
+    // console.log("message : ",msg)
+  }, [msg.current]);
 
-  socket.on("connection", ()=>{
-    console.log(socket.id);
-  })
+  const SentMessage = (msgfrom: string) => {
+    msg.current = msgfrom;
+  };
+  const TestMessage = (msg: string) => {
+    setMessageList([...messageList, msg]);
+  };
+  useEffect(() => {
+    socket.on("connection", () => {
+      console.log(socket.id);
+    });
 
-  socket.on("notify", async(message)=>{
-    console.log("message from server:", message)
-  })
-},[])
+    socket.on("notify", async (message) => {
+      console.log("message from server:", message);
+    });
+  }, []);
 
   return (
     <>
@@ -189,10 +188,13 @@ useEffect(()=>{
 
       <div className="body">
         {/* sidebar */}
-        {side.current ==="ChatSideBar" ? 
-        (<ChatSideBox Click={Click} data={props.data}></ChatSideBox>) : (<LeftBox></LeftBox>)
-        || side.current==='SideBar'? 
-        <LeftBox></LeftBox> :<LeftBox></LeftBox>}
+        {side.current === "ChatSideBar" ? (
+          <ChatSideBox Click={Click} data={props.data}></ChatSideBox>
+        ) : <LeftBox></LeftBox> || side.current === "SideBar" ? (
+          <LeftBox></LeftBox>
+        ) : (
+          <LeftBox></LeftBox>
+        )}
 
         {/* middlebox */}
         {/* currentChat -> make taking id of frineds */}
@@ -200,11 +202,10 @@ useEffect(()=>{
           <MiddleChat
             currentChat={currentChat}
             data={props.data}
-            SentMessage={SentMessage} 
-            TestMessage={TestMessage} 
-            messageList={messageList} 
+            SentMessage={SentMessage}
+            TestMessage={TestMessage}
+            messageList={messageList}
             Ref={msg}
-          
           ></MiddleChat>
         ) : <MiddleBox></MiddleBox> && body.current === "friend" ? (
           <Friend data={props.data}></Friend>
@@ -215,7 +216,10 @@ useEffect(()=>{
         {/* rightbar */}
         <div className="right">
           <div className="right-inner1"> {NaviLink()}</div>
-          <div className="right-inner"> @ Friends shortcut here @</div>
+          <div className="right-inner">
+            @ Friends here @
+            <FriendBox />
+          </div>
         </div>
       </div>
     </>

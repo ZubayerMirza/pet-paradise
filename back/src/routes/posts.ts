@@ -11,10 +11,7 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Assuming your server files are in `server/src`, adjust path as necessary
-    const uploadPath = path.join(
-      __dirname,
-      "../../../client/my-social-media-app/public/uploads"
-    );
+    const uploadPath = path.join(__dirname, "../../../front/public/uploads");
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {

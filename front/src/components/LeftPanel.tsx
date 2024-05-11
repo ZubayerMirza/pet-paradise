@@ -67,6 +67,7 @@ const LeftPanel: React.FC = () => {
   }, []);
 
   const shortcuts = [
+    { name: "My Profile", icon: "📝", link: `/user/${user}` },
     { name: "AI Chat", icon: "💬", link: "/ai-chat" },
     { name: "Messages", icon: "✉️", link: "/messages" },
     { name: "Game", icon: "🎮", link: "/game" },

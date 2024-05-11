@@ -81,7 +81,7 @@ const NavigationBar: React.FC = () => {
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <FontAwesomeIcon
           icon={faHome}
-          onClick={() => handleNavigation("/home")}
+          onClick={() => navigate(-1)}
           style={{ cursor: "pointer" }}
         />
         <FontAwesomeIcon

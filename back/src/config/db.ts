@@ -7,6 +7,13 @@ const db = mysql.createConnection({
   database: "petparadise",
 });
 
+// const db = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "1zubayer",
+//   database: "petparadise",
+// });
+
 db.connect((err) => {
   if (err) {
     console.error("Error connecting to the database: ", err);

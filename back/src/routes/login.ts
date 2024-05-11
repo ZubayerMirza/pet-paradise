@@ -5,6 +5,8 @@ import express, { Router } from "express";
 import Users from "../models/users";
 import Pets from "../models/pet/pets";
 import { io } from "..";
+import db from "../config/db";
+
 // to organize as different usage, router used
 export const router: Router = express.Router();
 
@@ -109,24 +111,55 @@ router
   });
 
 // post method and findorcreate methods for find and creating users
-router.post("/signup", async (request, response) => {
-  // get the username and password from frnot t
-  testcase = {
-    username: request.body.username,
-    password: request.body.password,
-  };
-  // enable for find or create the username
-  const [newUser, create] = await Users.findOrCreate({
-    where: { username: testcase.username, password: testcase.password },
-  });
-  // console.log(newUser.dataValues.username);
-  // console.log(create); // return as boolean
+// router.post("/signup", async (request, response) => {
+//   // get the username and password from frnot t
+//   testcase = {
+//     username: request.body.username,
+//     password: request.body.password,
+//   };
+//   // enable for find or create the username
+//   const [newUser, create] = await Users.findOrCreate({
+//     where: { username: testcase.username, password: testcase.password },
+//   });
+//   // console.log(newUser.dataValues.username);
+//   // console.log(create); // return as boolean
 
-  // if created,
-  if (create) {
-    return response.json("Created");
+//   // if created,
+//   if (create) {
+//     return response.json("Created");
+//   }
+//   return response.json("Username already exist"); // if username exists
+// });
+
+router.post("/signup", async (request, response) => {
+  const { username, password } = request.body; // Destructure username and password from the request body
+
+  // Find or create the user
+  const [user, created] = await Users.findOrCreate({
+    where: { username, password }, // Use destructured variables directly
+  });
+
+  if (created) {
+    // If user is created successfully, insert userId into user_stats table
+    const userId = user.dataValues.id; // Access user id through dataValues
+
+    // Insert userId into user_stats table
+    const initStatsQuery = "INSERT INTO user_stats (userId) VALUES (?)";
+    db.query(initStatsQuery, [userId], (err, result) => {
+      if (err) {
+        console.error("Error initializing user stats:", err);
+        return response
+          .status(500)
+          .json({ message: "Server error initializing user stats" });
+      }
+
+      // If user and stats are created successfully, send response
+      return response.status(201).json("Created");
+    });
+  } else {
+    // If user already exists, send response indicating so
+    return response.json("Username already exist");
   }
-  return response.json("Username already exist"); // if username exists
 });
 
 export default router;

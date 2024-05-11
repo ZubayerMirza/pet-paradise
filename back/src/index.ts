@@ -9,7 +9,13 @@ import { createServer } from "http"; // create server using http
 import { socketFucntion } from "./socket/socket";
 
 const app = express(); // To call a server
-app.use(cors()); // To communicate with resources from others
+
+const corsOptions = {
+  origin: "http://localhost:3000", // Allow only http://localhost:3000 to access
+  credentials: true, // Allow cookies and authentication headers
+};
+app.use(cors(corsOptions));
+//app.use(cors()); // To communicate with resources from others
 app.use(express.json()); // to pass the data
 app.use(express.urlencoded({ extended: false })); // not work
 

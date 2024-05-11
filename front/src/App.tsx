@@ -11,7 +11,12 @@ import MyPet from "./pets/MyPet";
 import Pet from "./pets/Pet";
 import Items from "./items/Items";
 import Friend from "./friends/Friend";
-import UpdateProfilePage from "./SetProfile/UpdateProfilePage";
+import Stats from "./components/Stats";
+import { Following } from "./components/Following";
+import { Follower } from "./components/Follower";
+import AllUsers from "./components/AllUsers";
+import Profile from "./components/Profile";
+import UpdateProfilePage from "./components/UpdateProfilePage";
 
 function App() {
   // const userToken = localStorage.getItem("userToken");
@@ -25,6 +30,12 @@ function App() {
         <Routes>
           {/* zubyar */}
           <Route path="/update" element={<UpdateProfilePage />} />
+          <Route path="/following/:userId" element={<Following />} />
+          <Route path="/follower/:userId" element={<Follower />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/user/:userId" element={<Profile />} />
+          <Route path="/stats/:userId" element={<Stats />} />
+
           {/* <Route path="/petgame" element={<SocialPage />} /> */}
           <Route path="/Casino" element={<Casino />} />
           {/* <Route path="/SocialPage" element={<PetGame />} /> */}

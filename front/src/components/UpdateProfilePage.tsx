@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/UpdateProfilePage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface FormDataEntry {
   name: string;
@@ -9,7 +9,10 @@ interface FormDataEntry {
 
 const UpdateProfilePage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // Extracting the state passed to this page
+  const petDetails = location.state;
   // Define state variable to store the user value
   const [user, setUser] = useState<string | null>(null);
   // Get the user id from token
@@ -114,7 +117,8 @@ const UpdateProfilePage: React.FC = () => {
       console.log("Profile updated successfully");
       console.log("Profile Picture URL:", data.profilePictureUrl);
       console.log("Cover Picture URL:", data.coverPictureUrl);
-      navigate(`/user/${user}`);
+      // navigate(`/user/${user}`);
+      navigate("/petmain", { state: petDetails });
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -122,6 +126,8 @@ const UpdateProfilePage: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <span>Name</span>
+
       <input
         type="text"
         name="name"
@@ -144,6 +150,8 @@ const UpdateProfilePage: React.FC = () => {
         onChange={handleCoverPictureChange}
         className="form-input"
       />
+      <span>Location</span>
+
       <input
         type="text"
         name="location"
@@ -152,6 +160,7 @@ const UpdateProfilePage: React.FC = () => {
         placeholder="Location"
         className="form-input"
       />
+      <span>School</span>
       <textarea
         name="school"
         value={formData.school}
@@ -159,6 +168,7 @@ const UpdateProfilePage: React.FC = () => {
         placeholder="School"
         className="form-textarea"
       />
+      <span>Age</span>
       <input
         type="number"
         name="age"
@@ -167,6 +177,7 @@ const UpdateProfilePage: React.FC = () => {
         placeholder="Age"
         className="form-input"
       />
+      <span>Gender</span>
       <input
         type="text"
         name="gender"
@@ -175,6 +186,7 @@ const UpdateProfilePage: React.FC = () => {
         placeholder="Gender"
         className="form-input"
       />
+      <span>Interests</span>
       <input
         type="text"
         name="interests"
@@ -183,6 +195,7 @@ const UpdateProfilePage: React.FC = () => {
         placeholder="Interests"
         className="form-input"
       />
+      <span>Bio</span>
       <textarea
         name="bio"
         value={formData.bio}
