@@ -3,7 +3,7 @@ import mysql from "mysql"; // Make sure you have the TypeScript types for mysql 
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "1zubayer",
+  password: "urpassword",
   database: "petparadise",
 });
 
