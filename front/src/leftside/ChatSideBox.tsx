@@ -5,42 +5,23 @@ import MiddleChat from '../middle/MiddleChat';
 // import { ClickChecker } from '../middle/MiddleChat';
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import socket from '../home/websocket';
 
 function ChatSideBox(props:any) {
     // const targetcolor = useRef('white');
     // users in chat is needed instead of testcase -> fetch  n
-    const testcase = ['A','B','C','D','E','F','G','H'];
+
     const prevClick = useRef('');
-    // const chatClick = useRef('');
     
-    // const count = useRef(0)
-    // const [Test,SetTest] =useState({prev:"", current:"", white:"true"});
     const onclickHandler=(e: any)=>{
         e.preventDefault();
-        // console.log('cu' + prevClick.current)
-    // isClick.current = e.target.innerHTML;
-    let  A = e.target;
-    // count.current +=1;
-        // console.log(e.target.value)
-    if(prevClick.current!=e.target.innerHTML){
-        prevClick.current=e.target.innerHTML
+
+   console.log(e.target.id)
+    if(prevClick.current!==e.target.id){
+        prevClick.current=e.target.id
     }
-    props.Click(e.target.innerHTML);
-    // console.log(e.target.innerHTML);
-    // prevClick.current=e.target.
-    // target.current =A.innerHTML;
-    // console.log(A.innerHTML);
-    // props.Change(A.innerHTML);
-    // if((ClickChecker(A.innerHTML))===true){
-    //     if(prevClick.current === A.innerHTML){
-    //         A.style.backgroundColor ="grey";
-    //         A.style.opacity="40%";
-    //         A.style.color='white';
-    //         console.log('yes')
-    //     }
-        
-    //     prevClick.current=A.innerHTML;
-    // }
+    props.Click(e.target.id);
+
     return ChatSideBox
 }
 
@@ -51,18 +32,26 @@ function ChatSideBox(props:any) {
     <input className="chat-finder"></input>
     <div className="img"><FaMagnifyingGlass /></div>
     </div>
-    {testcase.map((data,index) => 
-    <>
-    <div className="chat-side-inner" style={(prevClick.current == data) ? {backgroundColor:'#95a7b26b',fontSize: '20px',fontWeight: 'bold'} : {}} key = {index} onClick={onclickHandler}>
-        <div className="chat-img"><FaRegUserCircle className='chat-online'/>{data}</div>
-        
-        <div className="chat-user">{data}</div>
-        </div>
-        { testcase.length !== index+1 ? <hr className="hr"></hr> : null
-        }       
-    </>
-    )}
-    {/* <div className="chat-side-inner" key = {index} onClick={onclickHandler} style={{backgroundColor:`${targetcolor.current}`}}>{data}</div>)} */}
+     {props.allUser.map((data:{username:string, socketId:string},
+      index:number) => 
+     <>
+      {`${data.username}`=== `${props.data.username}` ? 
+      (null ) :
+      (<div className="chat-side-inner" 
+            id={`${data.username}`} 
+            style={(prevClick.current == `${data.username}`) ? {backgroundColor:'#95a7b26b',fontSize: '20px',fontWeight: 'bold'} : {}} 
+            key = {index} 
+            onClick={onclickHandler}>
+          <div className="chat-img" id={`${data.username}`} >
+              <FaRegUserCircle className='chat-online'/></div>
+          <div className="chat-user" id={`${data.username}`} >{data.username}</div>
+      </div>
+      )}
+      { 
+        props.allUser.length !== index+1 ? 
+        <hr className="hr"></hr> : null
+      }       
+    </>)}
     </div>
   </>
   );

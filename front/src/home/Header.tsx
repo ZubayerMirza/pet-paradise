@@ -105,11 +105,11 @@ function Header(props: any) {
     // }
   };
 
-  const [currentChat, setCurrentChat] = useState("");
+  const [currentChat, setCurrentChat] = useState('');
 
-  //// id checking with this function maybe?
+  //// value checking with clicked one
   function Click(clickedChat: string) {
-    console.log(clickedChat);
+    // console.log(clickedChat);
     setCurrentChat(clickedChat);
     return clickedChat;
   }
@@ -120,6 +120,7 @@ function Header(props: any) {
 
   const [messageList, setMessageList] = useState<string[]>([]);
   // console.log('list:',messageList);
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     console.log("list : ", messageList);
@@ -136,15 +137,35 @@ function Header(props: any) {
   const TestMessage = (msg: string) => {
     setMessageList([...messageList, msg]);
   };
+
+  const [allUser,setAllUser] = useState([]);
+
   useEffect(() => {
     socket.on("connection", () => {
       console.log(socket.id);
     });
 
-    socket.on("notify", async (message) => {
-      console.log("message from server:", message);
+    socket.emit('userIn',props.data.username,(res: string)=>{
+      console.log(res)
     });
+
+    socket.emit('findOnline',(allList:[])=>{
+      setAllUser(allList);
+      });
+   
+    socket.on("findOnline",(allList:[])=>{
+        // console.log('ssssss: ',allList)
+        setAllUser(allList);
+      })
+
+    socket.on("roomtest1",(res: any)=>{
+      console.log('ssssss: ',res)
+    })
   }, []);
+
+  useEffect(() => {
+   console.log('alluser: ', allUser);
+  },[{allUser}])
 
   return (
     <>
@@ -189,7 +210,7 @@ function Header(props: any) {
       <div className="body">
         {/* sidebar */}
         {side.current === "ChatSideBar" ? (
-          <ChatSideBox Click={Click} data={props.data}></ChatSideBox>
+          <ChatSideBox Click={Click} allUser={allUser} data={props.data}></ChatSideBox>
         ) : <LeftBox></LeftBox> || side.current === "SideBar" ? (
           <LeftBox></LeftBox>
         ) : (
@@ -200,7 +221,7 @@ function Header(props: any) {
         {/* currentChat -> make taking id of frineds */}
         {body.current === "MiddleChat" ? (
           <MiddleChat
-            currentChat={currentChat}
+            currentChat={currentChat} //indicate the username
             data={props.data}
             SentMessage={SentMessage}
             TestMessage={TestMessage}

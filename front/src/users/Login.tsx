@@ -3,12 +3,13 @@ import './login.css';
 import '../home/home.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-
+import socket from '../home/websocket';
 
 function Login() {
  
   // useNavigate hook to the link setup
   const navigate = useNavigate(); 
+  const [socketId,setSocketId] = useState('');
 
   // to handle the summit botton 
   const OnSubmitHandler = (e: any) => {
@@ -17,8 +18,10 @@ function Login() {
     // taking the value along with summit
     const testcase = { 
       username: e.target.username.value, 
-      password: e.target.password.value
+      password: e.target.password.value,
+      socketId: socketId
     };
+    // console.log(testcase);
     
     /* 
     fetch method to ask request data of server as response
@@ -38,14 +41,18 @@ function Login() {
       const token = JSON.stringify({
         username:response.username,
         userId: response.id,
+        
       });
-    
+      
       // Store the token in localStorage
       localStorage.setItem("userToken", token);
       
       if(response.id){ // response should have id and username from serverside
           // if true -> passing the state with the username and user id 
-          navigate("/pet",{state: {name: testcase.username, id: response.id}});
+          socket.emit('userIn',testcase.username,(res: string)=>{
+            // console.log(res)
+          });
+          navigate("/pet",{state: {name: testcase.username, id: response.id, socketId: response.socketId}});
       }
       else if (response === "User not found"){ // if no user
         alert ("User not found");
@@ -70,6 +77,17 @@ function Login() {
    else
    navigate("/login");
   }
+
+  useEffect(()=>{
+    socket.emit("socketid", (res:string) => {
+      // console.log(res);
+      setSocketId(res)
+    });
+  },[])
+
+  useEffect(()=>{
+      console.log(socketId);
+  },[{socketId}])
 
   return (
     <>
