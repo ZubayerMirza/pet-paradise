@@ -35,17 +35,11 @@ const TestProps = (props: any)=>{
   // }
   
   const navigate = useNavigate(); // hook to navigate
-  const location = useLocation(); // hook to see the information obout this page
-  
   
   const OnClickHandler = (e: any) => {
     e.preventDefault();
-
-    // console.log(props.data);
-    // console.log(props.userid);
-    // console.log(props);
-    // const x: petType1 = props.data
-
+    // console.log(props)// all props
+    
     // id: 1, name: 'CHERRY', description: '../asset/petA.PNG', hunger: 50, status: 50
     navigate('/petget', {state: props}); 
     
@@ -62,8 +56,9 @@ function Pet() {
 
   const navigate = useNavigate(); // hook to navigate
   const location = useLocation(); // hook to see the information obout this page
-  const para = location.state as {name: string, id: string}; // access the name and id from passed state
+  const para = location.state as {name: string, id: string, socketId: string}; // access the name and id from passed state
     
+    // console.log(para);
     let pet: petType; // pet <- petTypes data
     let pets: petType []=[]; // type of petTypes array
     
@@ -90,7 +85,7 @@ function Pet() {
         // I set up with 3 default pet selection choice 
         // if response has 3 objects in it 
         if(response.length === 3){ 
-          console.log(response)
+          // console.log(response) //pet type respinse
           
           // mapping for the data
           response.map((data:{ description: string,
@@ -121,7 +116,9 @@ function Pet() {
             myLevel_Id: response.myLevel_Id,
             gold: response.gold,
             status: response.status,
-            hunger: response.hunger
+            hunger: response.hunger,
+            username: para.name,
+            socketId: para.socketId
           }}); 
         }
       })
@@ -147,7 +144,7 @@ function Pet() {
     <div className='petBox'>
       { petTypes.map((data,index) => 
       // TestProps compenents with petTypes data as props to manipulate
-      <TestProps key={data.id} data={data} userid={para.id}/>)} 
+      <TestProps key={data.id} data={data} username={para.name} socketId={para.socketId} userid={para.id}/>)} 
       </div></div>
     </>
   );

@@ -45,6 +45,11 @@ const Users = data.define("users", {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+  socketId: {
+    type: DataTypes.STRING,
+    defaultValue: false,
+  },
+
   //for zubyar : social media
   profilePictureUrl: {
     type: DataTypes.STRING(400),

@@ -9,10 +9,26 @@ interface FormDataEntry {
 
 const UpdateProfilePage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location= useLocation();
+  const info = location.state as { 
+    userId: number,
+    typeId: number,
+    petId: number,
+    petname: string, 
+    StorageId: number,
+    myLevel_Id: number,
+    gold: number,
+    status: number,
+    hunger: number,
+    socketId: string,
+    username: string,
+}; // access the name and id from passed state
 
+  console.log("info : ", info)
   // Extracting the state passed to this page
   const petDetails = location.state;
+  console.log("petDetails : ", petDetails)
+  
   // Define state variable to store the user value
   const [user, setUser] = useState<string | null>(null);
   // Get the user id from token

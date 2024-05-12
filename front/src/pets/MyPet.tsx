@@ -20,6 +20,7 @@ function MyPet(props: any) {
         status: number,
         hunger: number
     }; // access the name and id from passed state
+    // console.log("this testcae : ",testcase)
 
     const OnClickHandler = (e: any) =>{
       e.preventDefault();
@@ -63,6 +64,7 @@ function MyPet(props: any) {
    <>
    <div className="headerwith">
    <Header data={testcase}></Header>
+   
    {/* <div className='home'>
    <h1 id='h1'>Pet main page</h1>
     <div className ='petBox' style={{display:"flex",flexDirection:"column"}}>

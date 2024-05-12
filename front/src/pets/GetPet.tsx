@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
 
 function GetPet() {
+ 
   interface data {
     id: number;
     name: string;
@@ -14,21 +15,20 @@ function GetPet() {
   interface petType {
     data: data;
     userid: number;
+    socketId: string,
+    username: string
   }
+  
   let navigate = useNavigate(); // hook to navigate
   const location = useLocation(); // hook to see the information obout this page
 
   // id: 1, name: 'CHERRY', description: '../asset/petA.PNG', hunger: 50, status: 50
   const pet = location.state as petType; // access the name and id from passed state
-
-  //  console.log(pet.data.description)
-
+  // console.log(pet)
+ 
   // giving a pet name
   const OnSubmitHandler = (e: any) => {
     e.preventDefault();
-
-    // console.log(e.target.petname.value);
-    // console.log(pet.userid)
 
     const test = {
       userId: pet.userid,
@@ -36,6 +36,7 @@ function GetPet() {
       typeId: pet.data.id,
       status: pet.data.status,
       hunger: pet.data.hunger,
+      socketId: pet.socketId
     };
 
     fetch("http://localhost:8000/petget", {
@@ -79,6 +80,8 @@ function GetPet() {
               gold: response.gold,
               status: response.status,
               hunger: response.hunger,
+              username: pet.username,
+              socketId: pet.socketId,
             },
           });
         } else if (response === "Already exist") {
