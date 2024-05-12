@@ -15,6 +15,10 @@ const Post = data.define(
     },
     content: DataTypes.TEXT,
     imageUrl: DataTypes.STRING,
+    createTime: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: true,

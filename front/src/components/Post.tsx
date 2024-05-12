@@ -63,9 +63,35 @@ const Post: React.FC<PostProps> = ({ post }) => {
   });
 
   // Like posts
+  useEffect(() => {
+    const fetchLikes = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/posts/${post.postId}/like/${user}`
+        );
+        if (response.ok) {
+          const result = await response.json();
+          setLiked(result.liked);
+        } else {
+          throw new Error(
+            `Failed to fetch likes: ${response.status} ${response.statusText}`
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching likes:", error);
+        alert("An error occurred while fetching likes.");
+      }
+    };
+
+    if (user) {
+      fetchLikes();
+    }
+  }, [post.postId, user]);
+
+  // Update handleLike function to toggle like status
   const handleLike = async () => {
-    const apiUrl = `http://localhost:8000/posts/${post.postId}/like`; // Ensure post.post_id is defined and correct
-    console.log("API URL:", apiUrl); // Log the URL to verify it
+    const apiUrl = `http://localhost:8000/posts/${post.postId}/like`;
+    console.log("API URL:", apiUrl);
 
     try {
       const response = await fetch(apiUrl, {
@@ -80,12 +106,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
         const result = await response.json();
         setLiked(result.liked);
         setLikesCount((prev) => (result.liked ? prev + 1 : prev - 1));
+        // Update the like count on the server
         await fetch(`http://localhost:8000/api/stats/update/${user}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ action: "likeCount" }),
+          body: JSON.stringify({
+            action: result.liked ? "likeCount" : "unlikeCount",
+          }),
         });
       } else {
         throw new Error(
@@ -207,7 +236,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           src={`../uploads/${post?.imageUrl}`}
           alt="Post"
           style={{
-            maxWidth: "100%",
+            width: "50%",
             borderRadius: "8px",
             marginBottom: "10px",
           }}

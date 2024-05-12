@@ -93,8 +93,9 @@ const FriendBox = () => {
             >
               <img
                 src={
-                  profiles[follow.followedUser]?.profilePictureUrl ||
-                  defaultImage
+                  "uploads/" +
+                  (profiles[follow.followedUser]?.profilePictureUrl ||
+                    defaultImage)
                 }
                 alt="Profile"
                 style={{

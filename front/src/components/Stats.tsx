@@ -18,7 +18,6 @@ const Stats = () => {
   useEffect(() => {
     if (userId) {
       fetch(`http://localhost:8000/api/stats/${userId}`)
-        // fetch(`http://localhost:8000/api/stats/${user}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,7 +34,14 @@ const Stats = () => {
   return (
     <>
       <NavigationBar />
-      <div style={{ marginTop: "70px" }}>
+      <div
+        style={{
+          paddingTop: "70px",
+          backgroundColor: "antiquewhite",
+          minHeight: "100vh",
+        }}
+      >
+        <h1>User Stats</h1>
         {stats ? (
           <ul>
             <li>Posts: {stats.postCount}</li>

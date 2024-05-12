@@ -3,6 +3,7 @@ import db from "../config/db";
 
 interface LikeParams {
   postId: string;
+  userId: string;
 }
 
 const router = express.Router({ mergeParams: true });
@@ -44,6 +45,28 @@ router.post("/", (req: Request<LikeParams>, res: Response) => {
       });
     }
   });
+});
+
+router.get("/:userId", (req: Request<LikeParams>, res: Response) => {
+  const { postId, userId } = req.params;
+
+  // Query the database to check if the post has been liked by the user
+  db.query(
+    "SELECT * FROM likes WHERE postId = ? AND userId = ?",
+    [postId, userId],
+    (err, results) => {
+      if (err) {
+        console.error("Error querying database:", err);
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+
+      // If results exist, it means the user has liked the post
+      const liked = results.length > 0;
+
+      res.json({ liked });
+    }
+  );
 });
 
 export default router;

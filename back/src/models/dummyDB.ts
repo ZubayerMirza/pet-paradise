@@ -9,9 +9,21 @@ import data from "../config/dbconnect";
 import Level from "./levels/Level";
 import Model from "sequelize";
 import Chat from "./chats/chat";
+import Friendship from "./friendships/friendships";
+import Post from "./posts/posts";
+import Comment from "./comments/comments";
+import Like from "./likes/likes";
+import UserStats from "./stats/stats";
 
 // import { Model } from "sequelize";
 import { UserData, ItemData, PetTypeData, levelData } from "./itemData";
+import {
+  PostData,
+  CommentData,
+  LikeData,
+  FriendData,
+  StatData,
+} from "./socialData";
 import { Optional } from "sequelize";
 
 const dummyToDB = (data: any, model: any) => {
@@ -46,6 +58,11 @@ const DummyDB = async () => {
   dummyToDB(PetTypeData, PetTypes);
   dummyToDB(ItemData, Items);
   dummyToDB(levelData, Level);
+  dummyToDB(PostData, Post);
+  dummyToDB(LikeData, Like);
+  dummyToDB(CommentData, Comment);
+  dummyToDB(FriendData, Friendship);
+  dummyToDB(StatData, UserStats);
 };
 
 export default DummyDB;
