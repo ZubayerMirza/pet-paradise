@@ -4,7 +4,7 @@ import { Sequelize } from "sequelize";
 // this supposed to be changed with u guys's mysql information
 const database = "petparadise"; // database name
 const username = "root"; // username
-const password = "urpassword"; //password
+const password = "PasswordGoni90!"; //password
 
 // const password = "1zubayer"; // password
 

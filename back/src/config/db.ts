@@ -2,8 +2,8 @@ import mysql from "mysql"; // Make sure you have the TypeScript types for mysql 
 
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "urpassword",
+  user: "root", 
+  password: "PasswordGoni90!",
   database: "petparadise",
 });
 
@@ -20,5 +20,6 @@ db.connect((err) => {
     return;
   }
   console.log("Connected to database!");
-});
+});  
 export default db;
+ 

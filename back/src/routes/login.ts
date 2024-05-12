@@ -13,6 +13,7 @@ export const router: Router = express.Router();
 var testcase = {
   username: "",
   password: "",
+  socketId: ""
 };
 
 // post method for login
@@ -23,20 +24,23 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
+      socketId: request.body.socketId
     };
-    console.log(testcase.username);
+    // console.log(testcase.username);
 
     // find the username and password from users tables of db
     await Users.findOne({ where: { username: testcase.username } }).then(
       (res) => {
         if (testcase.password == res?.dataValues.password) {
-          res.set({ isLogin: true });
+          res.set({ isLogin: true, socketId: testcase.socketId });
           res.save();
+         
           // id -> userid in frontside,
           return response.json({
             id: res?.dataValues.id,
             username: res?.dataValues.username,
-          });
+            socketId: res?.dataValues.socketId
+          }); 
         } else if (testcase.username != res?.dataValues.username) {
           return response.json("User not found");
         } else return response.json("Password is different");
@@ -52,6 +56,7 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
+      socketId: request.body.socketId
     };
     //might need to check the username and password to securely delete
     await Users.findOne({ where: { username: testcase.username } }).then(
@@ -81,6 +86,7 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
+      socketId: request.body.socketId
     };
     //might to check the username and password for modifying
     await Users.findOne({ where: { username: testcase.username } }).then(
