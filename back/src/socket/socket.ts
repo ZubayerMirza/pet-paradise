@@ -1,8 +1,7 @@
 import { io } from "../index";
 import Users from "../models/users";
 
-const user: string[] = [];
-const msglist: string[] = [];
+
 
 export interface userInfo {
     username: string 
@@ -13,14 +12,24 @@ export interface Message {
     socketId: string,
     message: string
     //created time? 
-}
+} 
+interface resList{
+    sender: string,
+    receiver: string,
+    message:string //might need to change as date?
+    //read or not to add here? 
+  }
 //chat
-
-
 export const socketFucntion=()=>{
-    let username: string = "";
+const user: string[] = [];
+const msglist: string[] = [];
+
+
+
+    // let username: string = "";
     let list: userInfo[]=[];
     let msgList: Message[]=[];
+    let allMsg: resList[]=[];
 
     // used in in login and pet-main page
     const userList = async (username: string, socketId:string)=>{
@@ -39,22 +48,6 @@ export const socketFucntion=()=>{
         // console.log(list)
     }
 
-    // //fid user from the db
-    // const findUser = async (userid:number,socketId:string) =>{
-    //     await Users.findOne({ where: { id: userid } }).then(
-    //         (res) => {
-    //             if (userid == res?.dataValues.id) {
-    //                 res.set({ socketId: socketId, isLogin: true });
-    //                 res.save();
-    //             }
-    //             const username = res?.dataValues.username;
-    //             return username;
-    //     }).then((username)=>{
-    //         console.log(username);
-    //     })
-    //     // console.log(username)
-    //     // return username;
-    // } 
     const getUSer=(usr: string)=>{
         const a = user.find((test)=> test==='hello');
         if(a){
@@ -68,13 +61,37 @@ export const socketFucntion=()=>{
         msglist.push(msg)
         // taking user/socketid/message
     }
-    
+
+
+    const setMsg=(sender: string,
+        receiver: string,
+        message: string)=>{
+    const Check = allMsg.find((test)=> test.sender === sender &&test.receiver === receiver && test.message === message)
+    if (!Check){
+        allMsg.push({sender,receiver,message});
+    } }
+   
+    const findAllMsg = ()=>{
+        return allMsg;
+    }
+
     const findAll = ()=>{
         return list;
     }
-    const findOne =(username:string) =>{
-        const user = list.find((test)=> test.username === username)
-        return user?.socketId; 
+
+    const findOne = (username:string) =>{
+        // await Users.findOne({ where: { id: username } }).then(
+        //     (res) => {
+        //         if (username == res?.dataValues.username) {
+        //             console.log(res?.dataValues.socketId)
+        //             return res?.dataValues.socketId;
+        //         }
+        // })
+        const Exist = list.find((test)=> test.username === username)
+        if (Exist){
+        //    console.log(Exist.socketId)
+           return Exist.socketId
+        }  
     } //find friends of socket
 
     const leave = (socketId:string)=>{
@@ -87,6 +104,8 @@ export const socketFucntion=()=>{
         return msgList;
     }
 
+
+    
     io.on("connection",async(socket) => { //io.in <- get  socket<- client
         console.log("- Socket ID of this connection : ", socket.id);
  
@@ -118,9 +137,16 @@ export const socketFucntion=()=>{
         })
     
        
-
+          // test for the chat
           socket.on("roomtest",async(info,func)=>{
-            console.log("message from client", info.message, info.user, info.room)
+            console.log("sender :", info.sender ," receiver : ", info.receiver, "message : " , info.message)
+            setMsg(info.sender,info.receiver,info.message);
+            const receiverId = findOne(info.receiver);
+            console.log(receiverId);
+            const allMSG = findAllMsg();
+            // io.to(`${receiverId}`).emit("onetoone",allMSG);
+            io.emit("onetoone",allMSG);
+
             // func(MsgList(info.message,info.username,socket.id))
             // const user = findOne("bella");
             // io.to(`${user}`).emit("test",{
@@ -128,25 +154,26 @@ export const socketFucntion=()=>{
             //     from:message.username,
             //     message: message.message
             // });
-            console.log("Before Enter : ",socket.rooms)
-            socket.join(info.room);
-            // func();
-            console.log("After Join : ",socket.rooms)
+
+            // console.log("Before Enter : ",socket.rooms)
+            // socket.join(info.room);
+            // // func();
+            // console.log("After Join : ",socket.rooms)
             
-            socket.to(info.room).emit("room_test",{
-                message: info.message, 
-                username:info.username, 
-                room: info.room,
-                test: "testing",
-                socketId:socket.id})
+            // socket.to(info.room).emit("room_test",{
+            //     message: info.message, 
+            //     username:info.username, 
+            //     room: info.room,
+            //     test: "testing",
+            //     socketId:socket.id})
              
              
-                //secondone
-            socket.emit("roomtest",{
-                username: info.username,
-                message: info.message, 
-                socketId:socket.id})
-            // getMsg(message); // to show the message
+            //     //secondone
+            // socket.emit("roomtest",{
+            //     username: info.username,
+            //     message: info.message, 
+            //     socketId:socket.id})
+            // // getMsg(message); // to show the message
         });
 
     socket.on("roomtest1", async(info,func)=>{
@@ -167,7 +194,7 @@ export const socketFucntion=()=>{
 
 
           socket.on("message",async(message,func)=>{
-            console.log("message from client", message)
+            // console.log("message from client", message)
             func(MsgList(message.message,message.username,socket.id))
             const user = findOne("bella");
             io.to(`${user}`).emit("test",{
