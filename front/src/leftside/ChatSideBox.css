@@ -1,3 +1,21 @@
+.chatSideBox {
+    font-family: "Jersey 15", sans-serif;
+    width: 17%;
+    height: 100%;
+    border: solid 1px black;
+    display: flex;
+    background-color: antiquewhite;
+    /* overflow: scroll;
+      scrollbar-color: none; */
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 20px;
+    margin-right: 10px;
+    position: relative; /* Makes it a positioning context for absolute children */
+  }
+  
+
 .serch-box{
     width:90%;
     height:10%;
@@ -6,6 +24,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    padding-top:10px;
 }
 
 .chat-finder{

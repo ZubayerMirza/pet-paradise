@@ -86,7 +86,7 @@ function Login() {
   },[])
 
   useEffect(()=>{
-      console.log(socketId);
+      console.log('socketId : ', socketId);
   },[{socketId}])
 
   return (

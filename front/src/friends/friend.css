@@ -145,3 +145,20 @@
     font-weight: bold;
     color: white;
 }
+.middle-friend-box{
+    width: 60%;
+    height: 100%;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    margin-right: 10px;
+  
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 35px;
+  }
+  
