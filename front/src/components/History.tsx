@@ -1,3 +1,5 @@
+// Displays a history of your posts
+
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import moment from "moment";
@@ -48,7 +50,7 @@ const History: React.FC = () => {
           alignItems: "center",
           position: "relative",
           top: "50px",
-          // backgroundColor: "tan",
+          backgroundColor: "antiquewhite",
           // height: "100%",
         }}
       >

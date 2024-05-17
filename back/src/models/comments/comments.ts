@@ -1,3 +1,5 @@
+// Model for comments backend
+
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 

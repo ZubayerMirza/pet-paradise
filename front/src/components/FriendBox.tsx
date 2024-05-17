@@ -1,3 +1,6 @@
+// Create the friendbox that is displayed on the bottom right corner
+// Similar output to the following page but formatted differently
+
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";

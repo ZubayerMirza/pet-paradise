@@ -1,0 +1,82 @@
+/* Overall container styling */
+.users-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: antiquewhite;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.users-container h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Vertical list layout for user cards */
+.user-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Individual user card styling */
+.user-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  width: 100%;
+  max-width: 600px; /* Adjust based on your preference */
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Rank number styling */
+.rank {
+  font-size: 24px;
+  color: #555;
+  width: 50px;
+  text-align: center;
+  line-height: 200px; /* Adjust based on the height of the profile picture */
+  font-weight: bold;
+}
+
+/* Profile picture styling */
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* User info styling */
+.user-info {
+  padding: 15px;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.user-info .user-link {
+  font-size: 18px;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
+/* Highlighting wins */
+.user-info p:last-child {
+  color: #e63946;
+  font-weight: bold;
+}

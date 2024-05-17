@@ -1,3 +1,6 @@
+// Component that creates the left sidebar
+// Made up of buttons that lead to various parts of the site like "My Profile" and "All Users"
+
 import React, { useEffect, useState } from "react";
 
 const LeftPanel: React.FC = () => {

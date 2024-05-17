@@ -1,9 +1,12 @@
+// Creates a battle page in which you can fight your friends' pets
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../style/Battle.css";
-import player from "../images/comic-dog.jpg";
-import opponent from "../images/comic-cat.jpg";
+import playerImage from "../images/comic-dog.jpg";
+import opponentImage from "../images/comic-cat.jpg";
 import NavigationBar from "./NavigationBar";
 
+// Interface for pet
 interface Pet {
   health: number;
   attack: number;
@@ -11,7 +14,20 @@ interface Pet {
   critical: number;
 }
 
+// Augment pets stats based on user interaction with site
+interface Stats {
+  postCount: number;
+  commentCount: number;
+  likeCount: number;
+  friendCount: number;
+}
+
+// The battle code that allows you to attack your opponent and you opponent to attack you
 const Battle: React.FC = () => {
+  const { userId: opponentId } = useParams<{ userId: string }>();
+  const [user, setUser] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [opponentName, setOpponentName] = useState<string | null>(null);
   const [playerPet, setPlayerPet] = useState<Pet>({
     health: 100,
     attack: 20,
@@ -25,18 +41,83 @@ const Battle: React.FC = () => {
     critical: 5,
   });
   const [gameStatus, setGameStatus] = useState<string>("");
+  const [canAttack, setCanAttack] = useState<boolean>(true); // State to control attack button
 
   useEffect(() => {
-    if (opponentPet.health <= 0) {
-      setGameStatus("You win!");
-    } else if (playerPet.health <= 0) {
-      setGameStatus("You lose!");
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      try {
+        const parsedToken = JSON.parse(userToken);
+        setUser(parsedToken.userId);
+        setUserName(parsedToken.username);
+        fetchStats(parsedToken.userId, true);
+      } catch (error) {
+        console.error("Error parsing access token:", error);
+      }
+    }
+    if (opponentId) {
+      fetchStats(opponentId, false);
+      setOpponentName("Opponent");
+    }
+  }, [opponentId]);
+
+  const fetchStats = async (id: string, isPlayer: boolean) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/stats/${id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const stats: Stats = await response.json();
+      updatePetStats(stats, isPlayer);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const updatePetStats = (stats: Stats, isPlayer: boolean) => {
+    const petStats = {
+      health: 100 + stats.postCount * 10,
+      attack: 15 + stats.commentCount,
+      evasion: 10 + stats.likeCount * 0.1,
+      critical: 5 + stats.friendCount * 0.05,
+    };
+    if (isPlayer) {
+      setPlayerPet(petStats);
+    } else {
+      setOpponentPet(petStats);
+    }
+  };
+
+  useEffect(() => {
+    if (opponentPet.health <= 0 || playerPet.health <= 0) {
+      const winner = opponentPet.health <= 0 ? user : opponentId;
+      setGameStatus(opponentPet.health <= 0 ? "You win!" : "You lose!");
+      if (winner) {
+        postWinToLeaderboard(winner);
+      }
+      setCanAttack(false); // Disable attacking after game over
     }
   }, [playerPet.health, opponentPet.health]);
 
+  const postWinToLeaderboard = async (winnerId: string) => {
+    try {
+      await fetch(`http://localhost:8000/leaderboard/${winnerId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ increment: "wins" }),
+      });
+    } catch (error) {
+      console.error("Error posting win to leaderboard:", error);
+    }
+  };
+
   const handlePlayerAttack = () => {
+    if (!canAttack || gameStatus) return;
+
+    setCanAttack(false); // Disable further attacks until opponent moves
     if (Math.random() < opponentPet.evasion / 100) {
       alert("Opponent evaded the attack!");
+      setCanAttack(true);
       return;
     }
 
@@ -45,10 +126,17 @@ const Battle: React.FC = () => {
     const newHealth = opponentPet.health - damage;
     setOpponentPet({ ...opponentPet, health: newHealth > 0 ? newHealth : 0 });
 
-    setTimeout(handleOpponentAttack, 1000); // Delay for opponent's attack
+    if (newHealth > 0) {
+      setTimeout(() => {
+        handleOpponentAttack();
+        setCanAttack(true); // Re-enable attacks after opponent's move
+      }, 1000);
+    }
   };
 
   const handleOpponentAttack = () => {
+    if (gameStatus) return;
+
     if (Math.random() < playerPet.evasion / 100) {
       alert("You evaded the attack!");
       return;
@@ -63,14 +151,9 @@ const Battle: React.FC = () => {
   return (
     <>
       <NavigationBar />
-      <div
-        className="game"
-        style={{
-          backgroundColor: "antiquewhite",
-        }}
-      >
+      <div className="game">
         <div className="opponent-area">
-          <img src={opponent} alt="Opponent Pet" />
+          <img src={opponentImage} alt="Opponent Pet" />
           <div className="stats">
             Health: {opponentPet.health} | Attack: {opponentPet.attack} |
             Evasion: {opponentPet.evasion}% | Critical: {opponentPet.critical}%
@@ -79,9 +162,10 @@ const Battle: React.FC = () => {
             className="health-bar"
             style={{ width: `${opponentPet.health}%` }}
           ></div>
+          <h2>{opponentName}</h2>
         </div>
         <div className="player-area">
-          <img src={player} alt="Player Pet" />
+          <img src={playerImage} alt="Player Pet" />
           <div className="stats">
             Health: {playerPet.health} | Attack: {playerPet.attack} | Evasion:{" "}
             {playerPet.evasion}% | Critical: {playerPet.critical}%
@@ -90,9 +174,12 @@ const Battle: React.FC = () => {
             className="health-bar"
             style={{ width: `${playerPet.health}%` }}
           ></div>
-          <button onClick={handlePlayerAttack}>Attack</button>
+          <button disabled={!canAttack} onClick={handlePlayerAttack}>
+            Attack
+          </button>
+          <h2>Player: {userName}</h2>
         </div>
-        {gameStatus && <h2>{gameStatus}</h2>}
+        {gameStatus && <h2 className="game-status">{gameStatus}</h2>}
       </div>
     </>
   );

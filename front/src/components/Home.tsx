@@ -1,3 +1,5 @@
+// Old Homepage of the Social Media Site
+
 import React from "react";
 import NavigationBar from "./NavigationBar";
 import LeftPanel from "./LeftPanel";

@@ -19,6 +19,8 @@ import Profile from "./components/Profile";
 import UpdateProfilePage from "./components/UpdateProfilePage";
 import History from "./components/History";
 import Battle from "./components/Battle";
+import BattleUsers from "./components/BattleUsers";
+import Leaderboard from "./components/Leaderboard";
 
 function App() {
   // const userToken = localStorage.getItem("userToken");
@@ -38,7 +40,9 @@ function App() {
           <Route path="/user/:userId" element={<Profile />} />
           <Route path="/stats/:userId" element={<Stats />} />
           <Route path="/history/:userId" element={<History />} />
-          <Route path="/battle" element={<Battle />} />
+          <Route path="/battle" element={<BattleUsers />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/battle/:userId" element={<Battle />} />
 
           {/* <Route path="/petgame" element={<SocialPage />} /> */}
           <Route path="/Casino" element={<Casino />} />
@@ -46,7 +50,7 @@ function App() {
           {/* <Route path="/ShopPage" element={<ShopPage />} /> */}
           {/* <Route path="/BoughtFoodPage" element={<BoughtFoodPage />} /> */}
           {/* goni */}
-          <Route path="/" element={<Main />}></Route>
+          <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/pet" element={<Pet />}></Route>

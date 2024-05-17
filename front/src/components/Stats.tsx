@@ -1,6 +1,9 @@
+// Displays stat information and level
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
+import "../style/Stats.css";
 
 interface Stats {
   userId: number;
@@ -14,6 +17,7 @@ interface Stats {
 const Stats = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const { userId } = useParams<{ userId: string }>();
+  const [level, setLevel] = useState<number>(0);
 
   useEffect(() => {
     if (userId) {
@@ -24,32 +28,45 @@ const Stats = () => {
           }
           return response.json();
         })
-        .then((data) => setStats(data))
+        .then((data) => {
+          setStats(data);
+          calculateLevel(data);
+        })
         .catch((error) => {
           console.error("Error fetching data: ", error);
         });
     }
   }, [userId]);
 
+  const calculateLevel = (data: Stats) => {
+    const totalInteractions =
+      data.postCount +
+      data.commentCount +
+      data.likeCount +
+      data.friendCount +
+      data.shareCount;
+    const multiplier = 0.5; // Adjust this multiplier based on desired level progression
+    const calculatedLevel = Math.floor(totalInteractions * multiplier);
+    setLevel(calculatedLevel);
+  };
+
   return (
     <>
       <NavigationBar />
-      <div
-        style={{
-          paddingTop: "70px",
-          backgroundColor: "antiquewhite",
-          minHeight: "100vh",
-        }}
-      >
+      <div className="stats-container">
         <h1>User Stats</h1>
         {stats ? (
-          <ul>
-            <li>Posts: {stats.postCount}</li>
-            <li>Comments: {stats.commentCount}</li>
-            <li>Likes: {stats.likeCount}</li>
-            <li>Friends: {stats.friendCount}</li>
-            <li>Shares: {stats.shareCount}</li>
-          </ul>
+          <>
+            <ul className="stats-list">
+              <li>Posts: {stats.postCount}</li>
+              <li>Comments: {stats.commentCount}</li>
+              <li>Likes: {stats.likeCount}</li>
+              <li>Friends: {stats.friendCount}</li>
+              {/* Optionally display shares */}
+              {/* <li>Shares: {stats.shareCount}</li> */}
+            </ul>
+            <h2>Level: {level}</h2>
+          </>
         ) : (
           <p>Loading stats or no stats available.</p>
         )}

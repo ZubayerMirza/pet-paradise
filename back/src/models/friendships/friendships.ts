@@ -1,3 +1,4 @@
+// Model for friends backend
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 

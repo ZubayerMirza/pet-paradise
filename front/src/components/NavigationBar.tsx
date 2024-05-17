@@ -1,3 +1,7 @@
+// Create navigation bar component
+// Has searchbar, home button, profile button, and logout button
+// Used as a header for many pages to connect back to home
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

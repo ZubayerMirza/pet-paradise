@@ -1,3 +1,5 @@
+// Never used
+
 import express, { Request, Response } from "express";
 import db from "../config/db";
 

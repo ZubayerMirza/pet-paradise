@@ -270,3 +270,22 @@ export const StatData = [
     updatedAt: null,
   },
 ];
+
+export const LeaderboardData = [
+  {
+    id: 1,
+    wins: 1,
+  },
+  {
+    id: 2,
+    wins: 2,
+  },
+  {
+    id: 3,
+    wins: 0,
+  },
+  {
+    id: 4,
+    wins: 1,
+  },
+];

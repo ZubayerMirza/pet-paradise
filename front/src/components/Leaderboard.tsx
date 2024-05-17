@@ -1,8 +1,8 @@
-// Page that displays all the users that have registered for the site
+// Page that displays the leaderboard information
 
 import React, { useEffect, useState } from "react";
 import NavigationBar from "./NavigationBar";
-import "../style/AllUsers.css";
+import "../style/Leaderboard.css";
 
 interface User {
   id: number;
@@ -12,25 +12,32 @@ interface User {
   profilePictureUrl: string;
 }
 
-// Returns a grid of users with information such as username, age, and profile picture
-function AllUsers() {
-  const [users, setUsers] = useState<User[]>([]);
+interface LeaderboardUser extends User {
+  wins: number;
+}
+
+function Leaderboard() {
+  const [users, setUsers] = useState<LeaderboardUser[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/users")
+    // Fetch leaderboard data from the API
+    fetch("http://localhost:8000/leaderboard")
       .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error:", error));
+      .then(setUsers)
+      .catch((error) =>
+        console.error("Error fetching leaderboard data:", error)
+      );
   }, []);
 
   return (
-    <>
+    <div>
       <NavigationBar />
       <div className="users-container">
-        <h1>Users</h1>
+        <h1>Leaderboard</h1>
         <div className="user-grid">
-          {users.map((user) => (
+          {users.map((user, index) => (
             <div className="user-card" key={user.id}>
+              <div className="rank">{index + 1}</div>
               <img
                 src={`/uploads/${user.profilePictureUrl}`}
                 alt={user.username}
@@ -42,13 +49,14 @@ function AllUsers() {
                 </a>
                 <p>{user.name}</p>
                 <p>Age: {user.age}</p>
+                <p>Wins: {user.wins}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default AllUsers;
+export default Leaderboard;

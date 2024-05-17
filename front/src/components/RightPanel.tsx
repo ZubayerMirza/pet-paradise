@@ -1,3 +1,5 @@
+// Old code never used
+
 import React from "react";
 import Stats from "./Stats1";
 

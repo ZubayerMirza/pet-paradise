@@ -13,7 +13,7 @@ export const router: Router = express.Router();
 var testcase = {
   username: "",
   password: "",
-  socketId: ""
+  socketId: "",
 };
 
 // post method for login
@@ -24,7 +24,7 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
-      socketId: request.body.socketId
+      socketId: request.body.socketId,
     };
     // console.log(testcase.username);
 
@@ -34,13 +34,13 @@ router
         if (testcase.password == res?.dataValues.password) {
           res.set({ isLogin: true, socketId: testcase.socketId });
           res.save();
-         
+
           // id -> userid in frontside,
           return response.json({
             id: res?.dataValues.id,
             username: res?.dataValues.username,
-            socketId: res?.dataValues.socketId
-          }); 
+            socketId: res?.dataValues.socketId,
+          });
         } else if (testcase.username != res?.dataValues.username) {
           return response.json("User not found");
         } else return response.json("Password is different");
@@ -56,7 +56,7 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
-      socketId: request.body.socketId
+      socketId: request.body.socketId,
     };
     //might need to check the username and password to securely delete
     await Users.findOne({ where: { username: testcase.username } }).then(
@@ -86,7 +86,7 @@ router
     testcase = {
       username: request.body.username,
       password: request.body.password,
-      socketId: request.body.socketId
+      socketId: request.body.socketId,
     };
     //might to check the username and password for modifying
     await Users.findOne({ where: { username: testcase.username } }).then(
@@ -151,7 +151,7 @@ router.post("/signup", async (request, response) => {
 
     // Insert userId into user_stats table
     const initStatsQuery = "INSERT INTO user_stats (userId) VALUES (?)";
-    db.query(initStatsQuery, [userId], (err, result) => {
+    db.query(initStatsQuery, [userId], (err, statsResult) => {
       if (err) {
         console.error("Error initializing user stats:", err);
         return response
@@ -159,12 +159,24 @@ router.post("/signup", async (request, response) => {
           .json({ message: "Server error initializing user stats" });
       }
 
-      // If user and stats are created successfully, send response
-      return response.status(201).json("Created");
+      // Initialize leaderboard entry for the user with wins set to zero
+      const initLeaderboardQuery =
+        "INSERT INTO leaderboard (id, wins) VALUES (?, 0)";
+      db.query(initLeaderboardQuery, [userId], (err, leaderboardResult) => {
+        if (err) {
+          console.error("Error initializing leaderboard:", err);
+          return response
+            .status(500)
+            .json({ message: "Server error initializing leaderboard" });
+        }
+
+        // If user, stats, and leaderboard are created successfully, send response
+        return response.status(201).json("Created");
+      });
     });
   } else {
     // If user already exists, send response indicating so
-    return response.json("Username already exist");
+    return response.json("Username already exists");
   }
 });
 

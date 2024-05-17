@@ -14,7 +14,7 @@ import Post from "./posts/posts";
 import Comment from "./comments/comments";
 import Like from "./likes/likes";
 import UserStats from "./stats/stats";
-
+import Leaderboard from "./leaderboard/leaderboard";
 // import { Model } from "sequelize";
 import { UserData, ItemData, PetTypeData, levelData } from "./itemData";
 import {
@@ -23,6 +23,7 @@ import {
   LikeData,
   FriendData,
   StatData,
+  LeaderboardData,
 } from "./socialData";
 import { Optional } from "sequelize";
 
@@ -46,7 +47,7 @@ const DummyDB = async () => {
     //force falce : not drop
     // dropDB(); //  to use for me
 
-    await data.sync({ force: false }); // sync at once
+    await data.sync({ force: true }); // sync at once
   } catch (error) {
     // whether table is created or not
     console.log("----- Failed for table sync -----");
@@ -63,6 +64,7 @@ const DummyDB = async () => {
   dummyToDB(CommentData, Comment);
   dummyToDB(FriendData, Friendship);
   dummyToDB(StatData, UserStats);
+  dummyToDB(LeaderboardData, Leaderboard);
 };
 
 export default DummyDB;

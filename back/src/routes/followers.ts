@@ -2,7 +2,7 @@ import express from "express";
 import db from "../config/db";
 
 const router = express.Router();
-
+// Get the followers of a userId
 router.get("/:userId", (req, res) => {
   const userId = req.params.userId;
   db.query(

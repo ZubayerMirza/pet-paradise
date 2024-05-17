@@ -1,3 +1,6 @@
+// Display the Feed portion of the Social Media site
+// Middle area
+
 import React, { useEffect, useState } from "react";
 import SubmitPost from "./SubmitPost";
 import Post from "./Post";
@@ -13,6 +16,7 @@ type PostType = {
   createTime: string;
 };
 
+// Has two parts: SubmitPost for the text box submission and Post, which creates the post
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [user, setUser] = useState<string | null>(null);

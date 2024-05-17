@@ -11,7 +11,7 @@ const router = express.Router({ mergeParams: true });
 // Toggle like status on a post using POST method
 router.post("/", (req: Request<LikeParams>, res: Response) => {
   const { postId } = req.params;
-  const { userId } = req.body; // Make sure you are sending `userId` in the body of your POST request
+  const { userId } = req.body; // sending `userId` in the body of your POST request
 
   // Check if the like already exists
   const checkLikeQuery = "SELECT * FROM Likes WHERE postId = ? AND userId = ?";

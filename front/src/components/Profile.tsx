@@ -1,3 +1,5 @@
+// Profile Page display information stored on the database
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../style/ProfilePage.css";
@@ -179,21 +181,22 @@ const Profile: React.FC = () => {
           </h1>
           <div style={{ fontSize: "16px" }}>
             <p style={{ color: "#000", marginBottom: "4px" }}>
-              {isOwnProfile ? (
-                <button
-                  onClick={() => navigate("/update")}
-                  style={{
-                    backgroundColor: "#C51162",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    padding: "8px 16px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Update Profile
-                </button>
-              ) : (
+              {isOwnProfile ? null : (
+                // (
+                //   <button
+                //     onClick={() => navigate("/update")}
+                //     style={{
+                //       backgroundColor: "#C51162",
+                //       color: "white",
+                //       border: "none",
+                //       borderRadius: "5px",
+                //       padding: "8px 16px",
+                //       cursor: "pointer",
+                //     }}
+                //   >
+                //     Update Profile
+                //   </button>
+                // )
                 <button
                   onClick={handleFollow}
                   style={{

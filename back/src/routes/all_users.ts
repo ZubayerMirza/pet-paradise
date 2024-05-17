@@ -1,3 +1,5 @@
+// Route to get all the users
+
 import express, { Request, Response } from "express";
 import db from "../config/db";
 

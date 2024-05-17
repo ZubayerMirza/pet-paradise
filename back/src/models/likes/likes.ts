@@ -1,3 +1,5 @@
+// Model for likes backend
+
 import { DataTypes } from "sequelize";
 import data from "../../config/dbconnect";
 
