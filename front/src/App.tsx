@@ -32,7 +32,7 @@ function App() {
         {/* should be modified later */}
         {/* <Header/>  */}
         <Routes>
-          {/* zubyar */}
+          {/* Zubayer's various pages */}
           <Route path="/update" element={<UpdateProfilePage />} />
           <Route path="/following/:userId" element={<Following />} />
           <Route path="/follower/:userId" element={<Follower />} />
@@ -43,7 +43,7 @@ function App() {
           <Route path="/battle" element={<BattleUsers />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/battle/:userId" element={<Battle />} />
-
+          {/* Zubayer's old pages from pet raising game */}
           {/* <Route path="/petgame" element={<SocialPage />} /> */}
           <Route path="/Casino" element={<Casino />} />
           {/* <Route path="/SocialPage" element={<PetGame />} /> */}

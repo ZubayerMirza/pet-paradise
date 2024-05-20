@@ -11,6 +11,8 @@ const router = express.Router({ mergeParams: true });
 // Get comments for a post
 router.get("/", (req: Request<CommentParams>, res: Response) => {
   const { postId } = req.params;
+  // Select comment attributes
+  // Join with users table to get the profile picture and username
   const query = `
     SELECT Comments.*, Users.username, Users.profilePictureUrl
     FROM Comments
@@ -40,6 +42,8 @@ router.post("/", (req: Request<CommentParams>, res: Response) => {
     return res.status(400).json({ message: "Comment content is required" });
   }
 
+  // Insert the new comment into the comment table
+  // contains the ids and content
   const insertQuery =
     "INSERT INTO Comments (postId, userId, content) VALUES (?, ?, ?)";
   db.query(insertQuery, [postId, userId, content], (err, result) => {
@@ -53,7 +57,7 @@ router.post("/", (req: Request<CommentParams>, res: Response) => {
     if (!result.insertId) {
       return res.status(500).json({ message: "Failed to add comment" });
     }
-
+    //  Retrieves the newly inserted comment along with the associated user's username and profile picture URL
     const selectQuery = `
       SELECT Comments.*, Users.username, Users.profilePictureUrl
       FROM Comments

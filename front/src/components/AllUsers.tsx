@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import NavigationBar from "./NavigationBar";
 import "../style/AllUsers.css";
 
+// interface to store information about User
 interface User {
   id: number;
   username: string;
@@ -14,6 +15,7 @@ interface User {
 
 // Returns a grid of users with information such as username, age, and profile picture
 function AllUsers() {
+  // store the users in a state variable
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {

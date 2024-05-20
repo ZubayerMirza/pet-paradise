@@ -3,6 +3,7 @@ import db from "../config/db";
 
 const router = express.Router();
 // Get the following of a userId
+// Outdated. Use the friendship route
 router.get("/:userId", (req, res) => {
   const userId = req.params.userId;
   db.query(

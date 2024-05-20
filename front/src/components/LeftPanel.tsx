@@ -52,7 +52,7 @@ const LeftPanel: React.FC = () => {
     width: "20px",
     height: "20px",
   };
-
+  // Get user information like the userId and the username
   const [user, setUser] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
 
@@ -70,7 +70,8 @@ const LeftPanel: React.FC = () => {
       }
     }
   }, []);
-
+  // Create shortcuts to links for all the buttons in the Left panel
+  // Later use map function to list them
   const shortcuts = [
     { name: "My Profile", icon: "📝", link: `/user/${user}` },
     { name: "AI Chat", icon: "💬", link: "/ai-chat" },

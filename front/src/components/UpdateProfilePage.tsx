@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import "../style/UpdateProfilePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Interface to store data type of form entry. Needed for ts
 interface FormDataEntry {
   name: string;
   value: string | Blob | null;
@@ -12,6 +13,7 @@ interface FormDataEntry {
 const UpdateProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // Goni's pet state
   const info = location.state as {
     userId: number;
     typeId: number;
@@ -80,7 +82,7 @@ const UpdateProfilePage: React.FC = () => {
       cover_picture: event.target.files?.[0] || null,
     });
   };
-
+  // Store the chang in the variables
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -141,7 +143,7 @@ const UpdateProfilePage: React.FC = () => {
       console.error("Error updating profile:", error);
     }
   };
-
+  // Create the page for the update profile
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <span>Name</span>

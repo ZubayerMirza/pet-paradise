@@ -14,6 +14,7 @@ interface Stats {
   shareCount: number;
 }
 
+// Fetch the user stats from the user_stats table
 const Stats = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const { userId } = useParams<{ userId: string }>();
@@ -38,6 +39,7 @@ const Stats = () => {
     }
   }, [userId]);
 
+  // Create the level based on the user stats
   const calculateLevel = (data: Stats) => {
     const totalInteractions =
       data.postCount +
@@ -49,7 +51,7 @@ const Stats = () => {
     const calculatedLevel = Math.floor(totalInteractions * multiplier);
     setLevel(calculatedLevel);
   };
-
+  // Display the user stats infomation depending on the user and also the calculated level
   return (
     <>
       <NavigationBar />

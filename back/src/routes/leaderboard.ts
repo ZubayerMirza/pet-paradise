@@ -4,6 +4,7 @@ const router = express.Router();
 
 // Get the leaderboard data
 router.get("/", (req, res) => {
+  // Return the id, username, wins by joining with the users table
   const sqlQuery =
     "SELECT u.id, u.username, u.name, u.age, u.profilePictureUrl, l.wins FROM users u JOIN leaderboard l ON u.id = l.id ORDER BY l.wins DESC";
   db.query(sqlQuery, (err, results) => {
@@ -19,6 +20,7 @@ router.get("/", (req, res) => {
 // Change the wins of a user in leaderboard table
 router.post("/:userId", (req, res) => {
   const userId = req.params.userId;
+  // Add point to the score for the winner
   const sql = "UPDATE leaderboard SET wins = wins + 1 WHERE id = ?";
 
   db.query(sql, [userId], (error, results) => {

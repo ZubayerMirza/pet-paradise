@@ -1,5 +1,6 @@
 // Zubayer's old Login page
 // Not used
+// OUTDATED. USING GONI'S LOGIN page
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

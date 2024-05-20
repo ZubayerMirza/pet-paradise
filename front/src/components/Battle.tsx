@@ -24,6 +24,7 @@ interface Stats {
 
 // The battle code that allows you to attack your opponent and you opponent to attack you
 const Battle: React.FC = () => {
+  // State Variables that store information about the player and the user like the name and stats
   const { userId: opponentId } = useParams<{ userId: string }>();
   const [user, setUser] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
@@ -40,9 +41,11 @@ const Battle: React.FC = () => {
     evasion: 10,
     critical: 5,
   });
+  // Game state variables for start and attack
   const [gameStatus, setGameStatus] = useState<string>("");
   const [canAttack, setCanAttack] = useState<boolean>(true); // State to control attack button
 
+  // Get the userId
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
     if (userToken) {
@@ -61,6 +64,7 @@ const Battle: React.FC = () => {
     }
   }, [opponentId]);
 
+  // Fetch the stats and change the player and opponents pet stats
   const fetchStats = async (id: string, isPlayer: boolean) => {
     try {
       const response = await fetch(`http://localhost:8000/api/stats/${id}`);
@@ -88,6 +92,7 @@ const Battle: React.FC = () => {
     }
   };
 
+  // Win condition and posting the score to table
   useEffect(() => {
     if (opponentPet.health <= 0 || playerPet.health <= 0) {
       const winner = opponentPet.health <= 0 ? user : opponentId;
@@ -111,6 +116,7 @@ const Battle: React.FC = () => {
     }
   };
 
+  // Allow attack only after opponent attacks
   const handlePlayerAttack = () => {
     if (!canAttack || gameStatus) return;
 
@@ -121,6 +127,7 @@ const Battle: React.FC = () => {
       return;
     }
 
+    // Damage dealing metrics
     const isCritical = Math.random() < playerPet.critical / 100;
     const damage = isCritical ? playerPet.attack * 1.5 : playerPet.attack;
     const newHealth = opponentPet.health - damage;
@@ -147,7 +154,7 @@ const Battle: React.FC = () => {
     const newHealth = playerPet.health - damage;
     setPlayerPet({ ...playerPet, health: newHealth > 0 ? newHealth : 0 });
   };
-
+  // Display the battle ground
   return (
     <>
       <NavigationBar />

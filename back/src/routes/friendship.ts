@@ -5,6 +5,7 @@ const router = express.Router();
 // Create a new friendship
 router.post("/", (req, res) => {
   const { followedUser, followingUser } = req.body;
+  // Insert into the friendship table the values
   const sql =
     "INSERT INTO friendships (followedUser, followingUser, status) VALUES (?, ?, ?)";
   const status = "active";
@@ -40,6 +41,7 @@ router.delete("/", (req, res) => {
 // Get friendship status
 router.get("/", (req, res) => {
   const { followedUser, followingUser } = req.query;
+  // Endpoint to get the id of the follower and following
   const sql =
     "SELECT * FROM friendships WHERE followedUser = ? AND followingUser = ?";
 

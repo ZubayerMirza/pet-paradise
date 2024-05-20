@@ -5,6 +5,8 @@ import path from "path";
 
 const router = express.Router();
 
+// Store the profile and cover image using multer
+// images are found in the public/uploads folder
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = path.join(__dirname, "../../../front/public/uploads");
@@ -40,6 +42,7 @@ router.put("/", multipleUpload, (req: any, res: any) => {
     return res.status(400).send({ message: "User ID is required" });
   }
 
+  // Add the user table the information about the user from the update
   const updateQuery = `
     UPDATE users
     SET
@@ -56,6 +59,7 @@ router.put("/", multipleUpload, (req: any, res: any) => {
       id = ?;
   `;
 
+  // Store all the information in the forms into queryParams
   const queryParams = [
     name,
     location,
@@ -68,7 +72,7 @@ router.put("/", multipleUpload, (req: any, res: any) => {
     profilePictureUrl,
     id,
   ];
-
+  // Update
   db.query(updateQuery, queryParams, (error, results) => {
     if (error) {
       console.error("Failed to update profile:", error);

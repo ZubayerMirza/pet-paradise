@@ -1,4 +1,5 @@
 // Old Homepage of the Social Media Site
+// OUTDATED NEVER USED
 
 import React from "react";
 import NavigationBar from "./NavigationBar";

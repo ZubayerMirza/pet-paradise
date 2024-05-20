@@ -1,3 +1,6 @@
+// Alternate version of the Stats.tsx code
+// Used with a use effect to automatically update every 5 seconds
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavigationBar from "./NavigationBar";

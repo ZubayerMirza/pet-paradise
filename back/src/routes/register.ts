@@ -1,4 +1,5 @@
 // Never used
+// Outdated. We use Goni's login.ts for both login and registration
 
 import express, { Request, Response } from "express";
 import db from "../config/db";

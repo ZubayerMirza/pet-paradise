@@ -20,7 +20,7 @@ type PostType = {
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [user, setUser] = useState<string | null>(null);
-
+  // Fetch the userID to know who is logged in
   useEffect(() => {
     const fetchUserData = async () => {
       const userToken = localStorage.getItem("userToken");
@@ -39,14 +39,14 @@ const Feed: React.FC = () => {
 
     fetchUserData();
   }, []);
-
+  // Get all the posts from endpoint
   useEffect(() => {
     fetch("http://localhost:8000/posts")
       .then((response) => response.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error("Error fetching posts:", err));
   }, []);
-
+  // Display the Submit Box and all the recent posts
   return (
     <div
       className="feedContainer"

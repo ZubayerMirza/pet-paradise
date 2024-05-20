@@ -36,7 +36,7 @@ router.post("/", upload.single("image"), (req, res) => {
   if (file) {
     image_url = `${file.filename}`; // Assuming your server serves static files from 'uploads'
   }
-
+  // Once there is valid content or image, insert to the posts table
   const insertQuery =
     "INSERT INTO Posts (userId, content, imageUrl) VALUES (?, ?, ?)";
   const values = [id, content, image_url];
@@ -50,7 +50,7 @@ router.post("/", upload.single("image"), (req, res) => {
     if (!result.insertId) {
       return res.status(500).json({ message: "Insert failed, no ID returned" });
     }
-
+    // Retrieve the post once it is stored in the table
     const selectQuery =
       "SELECT Posts.*, Users.username, Users.profilePictureUrl FROM Posts JOIN Users ON Posts.userId = Users.id WHERE Posts.postId = ?";
     db.query(selectQuery, [result.insertId], (err, posts) => {
@@ -69,8 +69,9 @@ router.post("/", upload.single("image"), (req, res) => {
   });
 });
 
-// Fetch all posts
+// Fetch all posts in the post table ordered by most recent
 router.get("/", (req, res) => {
+  // Get all the information need for the post like id, image, username, etc
   const query = `
       SELECT 
           Posts.postId, 

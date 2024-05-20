@@ -14,12 +14,13 @@ interface UserProfile {
   username: string;
   profilePictureUrl: string;
 }
-
+// Display the followers
 const Following = () => {
   const { userId } = useParams<{ userId: string }>();
   const [following, setFollowing] = useState<Following[]>([]);
   const [profiles, setProfiles] = useState<{ [key: string]: UserProfile }>({});
 
+  // Use endpoint to get the data
   useEffect(() => {
     const fetchFollowing = async () => {
       try {
@@ -44,7 +45,7 @@ const Following = () => {
     };
     fetchFollowing();
   }, [userId]);
-
+  // display the followers
   return (
     <>
       <NavigationBar />

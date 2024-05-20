@@ -12,8 +12,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import catImage from "../images/petparadise.png";
 
+// Create a nav bar with the home, profile and log out button
+// Also includes a searchbar that directs the the All Users page
 const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
+  // State variables to store information
   const [user, setUser] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const [picture, setPicture] = useState<string | null>(null); // State variable for user's picture
@@ -36,12 +39,14 @@ const NavigationBar: React.FC = () => {
     navigate(path);
   };
 
+  // Search bar redirects to all users page
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       navigate("/all-users");
     }
   };
 
+  // Logout button
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     setUser(null);
@@ -50,6 +55,8 @@ const NavigationBar: React.FC = () => {
     navigate("/login");
   };
 
+  // Displays the navigation bar
+  // Used as a component in many pages especially to go back home
   return (
     <nav
       style={{

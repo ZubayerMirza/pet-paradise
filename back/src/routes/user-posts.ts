@@ -6,6 +6,7 @@ const router = express.Router();
 // Route to get posts by a specific user
 router.get("/:userId", (req, res) => {
   const userId = req.params.userId;
+  // Get all the contents needed to display the posts
   const query = `
         SELECT 
             Posts.postId, 

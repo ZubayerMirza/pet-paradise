@@ -18,9 +18,10 @@ interface UserProfile {
 
 const FriendBox = () => {
   //   const { userId } = useParams<{ userId: string }>();
+  // Create a friendbox that appears on the bottom right corner of the home page
   const [following, setFollowing] = useState<Following[]>([]);
   const [profiles, setProfiles] = useState<{ [key: string]: UserProfile }>({});
-
+  // State variable to get the user information
   const [user, setUser] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
 
@@ -38,7 +39,7 @@ const FriendBox = () => {
       }
     }
   }, []);
-
+  // Endpoint to get the users that you follow (friend)
   useEffect(() => {
     const fetchFollowing = async () => {
       try {
@@ -61,7 +62,7 @@ const FriendBox = () => {
     };
     fetchFollowing();
   }, [user]);
-
+  // Style the box so that it displays the users with image and username that is link
   return (
     <>
       <div

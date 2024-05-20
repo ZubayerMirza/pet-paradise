@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import NavigationBar from "./NavigationBar";
 import "../style/AllUsers.css";
 
+// User variables
 interface User {
   id: number;
   username: string;
@@ -13,6 +14,9 @@ interface User {
   profilePictureUrl: string;
 }
 
+// Create a page that has all the users you can battle
+// Contains their profile picture, user name.
+// Click on username to battle
 function BattleUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<number | null>(null);

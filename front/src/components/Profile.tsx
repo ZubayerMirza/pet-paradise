@@ -7,6 +7,7 @@ import NavigationBar from "./NavigationBar";
 import { useNavigate } from "react-router-dom";
 import profilePic from "../uploads/1714688439006-person.jpg";
 
+// Data for the user's profile
 interface UserProfile {
   id: string;
   name: string;
@@ -23,7 +24,7 @@ interface UserProfile {
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
-
+  // Get the userId
   const [user, setUser] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,6 +69,7 @@ const Profile: React.FC = () => {
     fetchProfile();
   }, [userId]);
 
+  // Check the state of following
   const [isFollowing, setIsFollowing] = useState(false);
   const followedUser = userId;
   const isOwnProfile = followedUser == user; // Compare if the logged-in user is the same as the profile user
@@ -130,7 +132,7 @@ const Profile: React.FC = () => {
         console.error("Error updating friendship status:", error)
       );
   };
-
+  // Display the profile
   return (
     <>
       <NavigationBar />

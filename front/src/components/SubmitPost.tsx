@@ -8,6 +8,8 @@ interface SubmitPostProps {
   onNewPost: (newPost: any) => void; // Define a more specific type if possible
 }
 
+// Submit Post Code
+// Creates a submit box that posts to the post table with content and username
 const SubmitPost: React.FC<SubmitPostProps> = ({ onNewPost }) => {
   const [postContent, setPostContent] = useState("");
   const [user, setUser] = useState<string | null>(null);
@@ -33,6 +35,7 @@ const SubmitPost: React.FC<SubmitPostProps> = ({ onNewPost }) => {
     fetchUserData();
   }, []);
 
+  // Handle function to submit the post to the database
   const handlePostSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -40,7 +43,7 @@ const SubmitPost: React.FC<SubmitPostProps> = ({ onNewPost }) => {
       console.error("Post content or user ID is missing.");
       return;
     }
-
+    // Using Formdata to take the information
     const formData = new FormData();
     formData.append("content", postContent);
     formData.append("id", user);
@@ -66,7 +69,7 @@ const SubmitPost: React.FC<SubmitPostProps> = ({ onNewPost }) => {
       console.error("Error submitting post:", error);
     }
   };
-
+  // Displays the frontend for the Post Box
   return (
     <div className="post-container">
       <h4>Post Your Thoughts, {userName}</h4>

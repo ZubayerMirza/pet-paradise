@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import moment from "moment";
 import NavigationBar from "./NavigationBar";
 
+// Store the post data in interface
 interface Post {
   postId: number;
   userId: number;
@@ -16,10 +17,12 @@ interface Post {
 }
 
 const History: React.FC = () => {
+  // State variables to store information about user and posts
   const { userId } = useParams<{ userId: string }>();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Endpoint to get all of a user's posts
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -40,6 +43,7 @@ const History: React.FC = () => {
 
   if (loading) return <div>Loading...</div>;
 
+  // Display the posts one after another in the History page
   return (
     <>
       <NavigationBar />
@@ -65,7 +69,7 @@ const History: React.FC = () => {
               padding: "15px",
               backgroundColor: "#d2b48c",
               fontSize: "16px",
-              width: "80%", // Assuming you want to limit the width
+              width: "80%", //limit the width
               maxWidth: "600px",
             }}
           >

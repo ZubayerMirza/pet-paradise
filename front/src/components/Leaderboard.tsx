@@ -19,6 +19,7 @@ interface LeaderboardUser extends User {
 function Leaderboard() {
   const [users, setUsers] = useState<LeaderboardUser[]>([]);
 
+  // Store all the users in the leaderboard table into state variable users
   useEffect(() => {
     // Fetch leaderboard data from the API
     fetch("http://localhost:8000/leaderboard")
@@ -28,7 +29,7 @@ function Leaderboard() {
         console.error("Error fetching leaderboard data:", error)
       );
   }, []);
-
+  // Display the leaderboard numerically
   return (
     <div>
       <NavigationBar />

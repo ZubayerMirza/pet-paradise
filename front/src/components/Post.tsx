@@ -12,6 +12,7 @@ import {
 import React, { useState, useEffect, FormEvent } from "react";
 const moment = require("moment");
 
+// Data for the comment
 interface Comment {
   commentId: number;
   postId: number;
@@ -22,6 +23,7 @@ interface Comment {
   create_time: string; // fix if Date
 }
 
+// Data for the post
 interface Post {
   postId: number;
   userId: number;
@@ -33,6 +35,7 @@ interface Post {
   likesCount?: number;
 }
 
+// Take props as the Post interface
 interface PostProps {
   post: Post;
 }
