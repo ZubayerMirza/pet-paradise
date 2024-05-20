@@ -15,6 +15,7 @@ var testcase = {
   username: "",
   password: "",
   socketId: "",
+  email:"",
 };
 
 // post method for login
@@ -26,6 +27,7 @@ router
       username: request.body.username,
       password: request.body.password,
       socketId: request.body.socketId,
+      email: request.body.email
     };
     // console.log(testcase.username);
 
@@ -58,6 +60,7 @@ router
       username: request.body.username,
       password: request.body.password,
       socketId: request.body.socketId,
+      email: request.body.email
     };
     //might need to check the username and password to securely delete
     await Users.findOne({ where: { username: testcase.username } }).then(
@@ -89,6 +92,7 @@ router
       username: request.body.username,
       password: request.body.password,
       socketId: request.body.socketId,
+      email: request.body.email
     };
     //might to check the username and password for modifying
     await Users.findOne({ where: { username: testcase.username } }).then(
@@ -125,8 +129,10 @@ router.post("/signup", async (request, response) => {
     username: request.body.username,
     password: request.body.password,
     socketId: request.body.socketId,
-  };
+    email: request.body.email
+  }; 
   
+  // console.log(testcase)
     const User = await Users.findOne({where:{username: `${testcase.username}`}})
     if(User){
       if(User.dataValues.username !== testcase.username){
