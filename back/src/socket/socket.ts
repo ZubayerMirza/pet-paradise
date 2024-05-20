@@ -1,13 +1,11 @@
 import { io } from "../index";
 import Users from "../models/users";
 
-
-
-export interface userInfo {
+interface userInfo {
     username: string 
     socketId: string
 }    
-export interface Message {
+interface Message {
     username: string,
     socketId: string,
     message: string
@@ -19,6 +17,7 @@ interface resList{
     message:string //might need to change as date?
     //read or not to add here? 
   }
+  
 //chat
 export const socketFucntion=()=>{
 const user: string[] = [];
@@ -34,7 +33,7 @@ const msglist: string[] = [];
     // used in in login and pet-main page
     const userList = async (username: string, socketId:string)=>{
         // incase of user socket io is reboot, one more of querying and update
-        await Users.findOne({ where: { id: username } }).then(
+        await Users.findOne({ where: { username: username } }).then(
             (res) => {
                 if (username == res?.dataValues.username) {
                     res.set({ socketId: socketId, isLogin: true });
@@ -62,14 +61,15 @@ const msglist: string[] = [];
         // taking user/socketid/message
     }
 
-
+    // to set the message 
     const setMsg=(sender: string,
         receiver: string,
         message: string)=>{
-    const Check = allMsg.find((test)=> test.sender === sender &&test.receiver === receiver && test.message === message)
-    if (!Check){
+    // const Check = allMsg.find((test)=> test.sender === sender &&test.receiver === receiver && test.message === message)
+    // if (!Check){
         allMsg.push({sender,receiver,message});
-    } }
+    // 
+}
    
     const findAllMsg = ()=>{
         return allMsg;
@@ -104,7 +104,45 @@ const msglist: string[] = [];
         return msgList;
     }
 
+    let actionTest : {
+        username:string,
+        id:number,
+        url: string,
+        socketId: string
+    }
+    interface action{
+        sender: string,
+        receiver: string,
+        message:string //might need to change as date?
+        //read or not to add here? 
+      }
+      let allAction: action[]=[];
+    const foundUserById = async (id: number)=>{
+       
+        await Users.findOne({ where: { id: id } }).then(
+            (res) => {
+                // console.log(res?.dataValues)
+                return {
+                    id: res?.dataValues.id,
+                    username: res?.dataValues.username,
+                    url: res?.dataValues.profilePictureUrl,
+                    socketId: res?.dataValues.socketId,
+                }
+        })
+        .then(res=>{
+            actionTest = res;
+            return actionTest;
+        })
+    //     console.log(actionTest)
+       return actionTest;
+    }
 
+    const foundUser = ()=>{
+    
+        return actionTest;
+    }
+
+    
     
     io.on("connection",async(socket) => { //io.in <- get  socket<- client
         console.log("- Socket ID of this connection : ", socket.id);
@@ -114,6 +152,7 @@ const msglist: string[] = [];
                 func(socketId);
         })
 
+        //to check user is online
         socket.on("userIn", async(username, func)=>{
                 userList(username, socket.id);
                 console.log('       [User  joined] ',username," : ",socket.id)
@@ -218,6 +257,77 @@ const msglist: string[] = [];
             console.log("login : ", value);
             func(user);
         })
+
+
+       
+    // Frineds related 
+    socket.on("action", async(info,func)=>{
+        console.log(info);
+        foundUserById(info.receiverId)
+        .then(async result=>{
+            console.log('hey',result);
+            socket.to(result.socketId).emit("actionTest",{
+                message: info.message,
+                sender: info.sender,
+                receiver: result.username,
+                receiverId: result.id,
+                url: result.url
+            });
+            return result;
+        
+        })
+        // .finally(()=>{
+        //     const result=  foundUser();
+        //     console.log('chekc; ',result)
+        //     // if(result !== undefined){
+        //         socket.to(result.socketId).emit("actionTest",{
+        //             message: info.message,
+        //             sender: info.sender,
+        //             receiver: result.username,
+        //             receiverId: result.id,
+        //             url: result.url
+        //         });
+        //     // }
+          
+        // });
+        
+       
+        // const user = findOne(info.receiver);
+        // const result = foundUser();
+        // console.log('r ',result);
+        // console.log(user);
+            // io.to(`${user}`).emit("actionTest",{
+            //     message: info.message,
+            //     sender: info.sender,
+            //     receiver: result.username,
+            //     receiverId: result.id,
+            //     // url: result.url
+            // });
+
+        // })
+        // console.log(receiver)
+
+        // io.emit("accept",{
+        //     message:info.message,
+        //     sender:info.sender,
+            
+        //     // : info.room,
+        //     test: "global",
+        //     socketId:socket.id 
+        // })
+
+        // io.to(result.socketId).emit("actionTest",{
+        //     message: info.message,
+        //     sender: info.sender,
+        //     receiver: result.username,
+        //     receiverId: result.id,
+        //     url: result.url
+        // });
+
+
+        // // nowork from here
+        // socket.broadcast.emit('hello',"this is broad");
+        // io.of('/petmain').emit('of_check', socket.id);
+    })
     });
 }
-

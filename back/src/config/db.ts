@@ -12,7 +12,7 @@ import mysql from "mysql";
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "1zubayer",
+  password: "PasswordGoni90!",
   database: "petparadise",
 });
 

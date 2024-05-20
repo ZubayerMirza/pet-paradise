@@ -5,91 +5,190 @@ import FriendList from "../models/friends/friendsList";
 import Pets from "../models/pet/pets";
 
 
-
 const router: Router = express.Router();
+
+// let friend : friendInfo;
 /*************************************
 // find one user and show the info 
 **************************************/
 router.post('/find_user', async (request, response) => {
-    console.log('hi')
-        // http://localhost:8000/find_user
-    // {
-    //     "petname": "b"
-    //    } 
-    // /{"petname": "gh", "userId": props.data.userId}
-    await Pets.findOne({
-        where:{
-            petname: request.body.petname,
-            // [Op.or]: [{pet:1},{friend_id:1}]
-        },
-        include: ['to', 'from', 'my_level','pet_type','user'],
-        //   include: {all: true, nested: true}
-    //     include: ['from'],
-      
-        // order:[
-        //     ['to','createdAt','DESC']||['from','createdAt','DESC']
-        // ]
-    }).then((user)=>{
-        // response.json( user?.dataValues.to)
-    //    console.log(user?.dataValues.to.length)
-    if (user?.dataValues.to.length !=0){
-        user?.dataValues.to.forEach(async (data: any)=>{
-            if((data.userId ===request.body.userId)&&(data.Friend_List.isRequest ===true)){
-                response.json({
-                    friend_id: user?.get('id'), 
+    console.log(request.body)
+    await Users.findOne({where: 
+        {username: request.body.username},//friend name
+        include: ['pet']
+    }).then(async (res)=>{
+    //    console.log(res);
+        if(res ===null){
+            response.json('No user')
+        }
+        else{
+
+        if(res?.dataValues.pet !== null){
+           
+            await Pets.findOne({
+                where:{
+                    id: res?.dataValues.pet.id,
+                    // [Op.or]: [{pet:1},{friend_id:1}]
+                 },
+                include: ['to', 'from', 'my_level','pet_type','user'],
+                
+                 
+                //   include: {all: true, nested: true}
+            //     include: ['from'],
+              
+                // order:[
+                //     ['to','createdAt','DESC']||['from','createdAt','DESC']
+                // ]
+            }).then((user)=>{
+        
+                //  console.log(JSON.stringify(user?.dataValues, null, 2));
+                // response.json( user?.dataValues.to)
+                console.log('to   : ',user?.dataValues.to.length)
+                console.log('from : ',user?.dataValues.from.length)
+            if((user?.get('id'))===request.body.petId){
+                response.json('yourself')
+            }
+            else if ((user?.dataValues.to.length !==0)&&(user?.dataValues.from.length===0)){
+                console.log('------------------------------------ 1')
+                // console.log(JSON.stringify(user?.dataValues, null, 2));
+                console.log(JSON.stringify(user?.dataValues.to, null, 2));
+                let count :number =0;
+                user?.dataValues.to.forEach(async (data: any)=>{
+                    if((data.Friend_List.friend_id===request.body.petId)&& (data.Friend_List.my_id===user?.get('id'))){
+                        console.log('------------------------------------  1-1')
+                        return response.json({
+                    friend_petId: user?.get('id'), 
+                    friend_userId: user?.get('userId'),
+                    username: user?.dataValues.user.username,
                     petname: user?.get('petname'), 
                     lv: user?.dataValues.my_level.level, 
                     type: user?.dataValues.pet_type.name,
-                    isLogin: user?.dataValues.user.isLogin,
-                    isRequst:data.Friend_List.isRequest }) 
+                    isRequest:data.Friend_List.isRequest,
+                    url: user?.dataValues.user.profilePictureUrl,
+                    status: "pending" }) 
+                    }
+                    else{
+                        count++;
+                    }
+                    // console.log(count);
+                    // else{
+                    //     return response.json({
+                    //         friend_petId: user?.get('id'), 
+                    //         friend_userId: user?.get('userId'),
+                    //         username: user?.dataValues.user.username,
+                    //         petname: user?.get('petname'), 
+                    //         lv: user?.dataValues.my_level.level, 
+                    //         type: user?.dataValues.pet_type.name,
+                    //         url: user?.dataValues.user.profilePictureUrl
+                    //      }) 
+                    // }
+                })
+                if(count ===user?.dataValues.to.length){
+                    count=0;
+                        return response.json({
+                            friend_petId: user?.get('id'), 
+                            friend_userId: user?.get('userId'),
+                            username: user?.dataValues.user.username,
+                            petname: user?.get('petname'), 
+                            lv: user?.dataValues.my_level.level, 
+                            type: user?.dataValues.pet_type.name,
+                            url: user?.dataValues.user.profilePictureUrl
+                         }) 
+                }
             }
-            if((data.userId ===request.body.userId)&&(data.Friend_List.isFriend ===true)){
-                response.json({
-                    friend_id: user?.get('id'), 
+            else if (((user?.dataValues.from.length !==0)&&(user?.dataValues.to.length===0))){
+                console.log('------------------------------------ 2')
+                console.log(JSON.stringify(user?.dataValues, null, 2));
+                let count: number = 0;
+                console.log(count);
+                user?.dataValues.from.forEach(async (data: any)=>{
+                    if((data.Friend_List.my_id===request.body.petId)&&(data.Friend_List.friend_id===user?.get('id'))){
+                        console.log('------------------------------------  2-1')
+                         // console.log(data.Friend_List.my_id===request.body.petId) 
+                        // console.log(data.Friend_List.friend_id===user?.get('id')) 
+                    return response.json({
+                    friend_petId: user?.get('id'), 
+                    friend_userId: user?.get('userId'), 
+                    username: user?.dataValues.user.username,
                     petname: user?.get('petname'), 
                     lv: user?.dataValues.my_level.level, 
                     type: user?.dataValues.pet_type.name,
-                    isLogin: user?.dataValues.user.isLogin,
-                    isFriend:data.Friend_List.isFriend }) 
+                    isRequest:data.Friend_List.isRequest,
+                    url: user?.dataValues.user.profilePictureUrl,
+                    status: "pending" }) 
+                    }
+                    else{
+                        count++;
+                    }
+                })
+                if(count ===user?.dataValues.from.length){
+                    count=0;
+                        return response.json({
+                            friend_petId: user?.get('id'), 
+                            friend_userId: user?.get('userId'),
+                            username: user?.dataValues.user.username,
+                            petname: user?.get('petname'), 
+                            lv: user?.dataValues.my_level.level, 
+                            type: user?.dataValues.pet_type.name,
+                            url: user?.dataValues.user.profilePictureUrl
+                         }) 
+                }
             }
-        })
-    }
-    else if (user?.dataValues.from.length !=0){
-        user?.dataValues.from.forEach(async (data: any)=>{
-            if((data.userId ===request.body.userId)&&(data.Friend_List.isRequest ===true)){
-                // console.log('hh')
-            response.json({
-            friend_id: user?.get('id'), 
-            petname: user?.get('petname'), 
-            lv: user?.dataValues.my_level.level, 
-            type: user?.dataValues.pet_type.name,
-            isLogin: user?.dataValues.user.isLogin,
-            isRequst:data.Friend_List.isRequest }) 
-            }
-            if((data.userId ===request.body.userId)&&(data.Friend_List.isFriend ===true)){
-                response.json({
-                    friend_id: user?.get('id'), 
+            else if(((user?.dataValues.from.length>0)&&(user?.dataValues.to.length>0))){
+                console.log('3')
+                user?.dataValues.to.forEach(async (data: any)=>{
+                    if((data.Friend_List.friend_id===request.body.petId)&& (data.Friend_List.my_id===user?.get('id'))){
+                        console.log('------------------------------------  3-1')
+                       return response.json({
+                     friend_petId: user?.get('id'), 
+                    friend_userId: user?.get('userId'),
+                    username: user?.dataValues.user.username,
                     petname: user?.get('petname'), 
                     lv: user?.dataValues.my_level.level, 
                     type: user?.dataValues.pet_type.name,
-                    isLogin: user?.dataValues.user.isLogin,
-                    isFriend:data.Friend_List.isFriend }) 
+                    isRequest:data.Friend_List.isRequest,
+                    url: user?.dataValues.user.profilePictureUrl,
+                    status: "pending" })  
+                }
+                })
+                user?.dataValues.from.forEach(async (data: any)=>{
+                    if((data.Friend_List.my_id===request.body.petId)&& (data.Friend_List.friend_id===user?.get('id'))){
+                        console.log('------------------------------------  3-2')
+                        return response.json({
+                    friend_petId: user?.get('id'), 
+                    friend_userId: user?.get('userId'),
+                    username: user?.dataValues.user.username,
+                    petname: user?.get('petname'), 
+                    lv: user?.dataValues.my_level.level, 
+                    type: user?.dataValues.pet_type.name,
+                    isRequest:data.Friend_List.isRequest,
+                    url: user?.dataValues.user.profilePictureUrl,
+                    status: "pending" })  
+                } 
+                })
             }
-        })
-    }
-    else{
-        response.json({
-            friend_id: user?.get('id'), 
-            petname: user?.get('petname'), 
-            lv: user?.dataValues.my_level.level, 
-            type: user?.dataValues.pet_type.name,
-            isLogin: user?.dataValues.user.isLogin }) 
-    }
-       console.log(JSON.stringify(user?.dataValues, null, 2));
-        // if(user?.dataValues.to)
-      
-    }
-    )
+            else{
+                console.log('------------------------------------ 4')
+                return response.json({
+                    friend_petId: user?.get('id'), 
+                    friend_userId: user?.get('userId'),
+                    username: user?.dataValues.user.username,
+                    petname: user?.get('petname'), 
+                    lv: user?.dataValues.my_level.level, 
+                    type: user?.dataValues.pet_type.name,
+                    url: user?.dataValues.user.profilePictureUrl
+                 }) 
+            }
+            }
+            )
+
+        }  
+        else{ // in case of pet is not there yet
+            response.json('No user')
+        }
+
+        } 
+    })
 })
 
 
@@ -98,23 +197,21 @@ router.post('/find_user', async (request, response) => {
 **************************************/
 
 router.post('/add_friend', async (request, response) => {
-  
-    // http://localhost:8000/add_friend
-    // {
-    //     "friend_id": 1,
-    //     "my_id" : 2
-    //  }
-      
+
     await FriendList.create({
         isRequest:true,
-        friend_id: request.body.friend_id, //request 
-        my_id: request.body.my_id // sender
+        friend_id: request.body.recieverId, //request 
+        my_id: request.body.senderId, // sender
+        sender: request.body.sender,
+        receiver: request.body.receiver
     }).then((result)=>{
-        response.json(result)
-        console.log(result instanceof FriendList);
-    }).catch((error)=>{
+         // console.log(result instanceof FriendList);
+        response.json('success')
+       
+    })
+    .catch((error)=>{
         if (error.original.errno ==1062){
-            response.json('already')
+            response.json('success')
             // no response-> just take the error before!
         }
     })
@@ -135,141 +232,55 @@ router.route('/friends')
 
 .post(async (request, response) => { 
 
-//http://localhost:8000/friends
-// {
-//     "id": 2
-    
-//  }
-//level보내야한
- console.log(request.body)
 const friendsList = await Pets.findOne({
     where:{
         id: request.body.id,
     },
-//     // include: {all: true, nested: true}
-    include: ['to', 'from','my_level','pet_type','user'],
-//     include: ['from'],
 
-    // order:[
-    //     ['to','createdAt','DESC']||['from','createdAt','DESC']
-    // ]
+    include: ['to', 'from','my_level','pet_type','user'],
+
 }) 
 
-// console.log(JSON.stringify(friendsList, null, 2));
-// response.json(friendsList)
 
+var alllist: any[] = [];
+if((friendsList?.dataValues.from.length > 0)){
 
-var list: any[] = [];
-
-
-if((friendsList?.dataValues.from.length != 0)){
-//     console.log('here')
-    
-    // if((friendsList?.dataValues.to[0].Friend_List.isInvited == 1)){
-    //     response.json('this pet is invited')
-    // }
-    // else if(friendsList?.dataValues.to[1].Friend_List.isFriend == 1){
-    //     response.json('they r friends')
-    // }
          friendsList?.dataValues.from.forEach(async (users: any) => {
             if(users.Friend_List.isFriend == 1){
                 
-                list = [...list, {id: users.get('id'), petname: users.get('petname')}] // putting in array for querying 
+                alllist = [...alllist, {id: users.get('id'), petname: users.get('petname')}] // putting in array for querying 
                
             }
 
             });
 
-            console.log('a')
+            // console.log('a')
     // response.json(friendsList?.dataValues.to)
     
     // response.json(friendsList?.dataValues.to[1].Friend_List.isFriend)
 }
-else if((friendsList?.dataValues.to.length!= 0)){
+else if((friendsList?.dataValues.to.length > 0)){
      friendsList?.dataValues.to.forEach(async (users: any) => {
             if(users.Friend_List.isFriend == 1){
                 
-                list = [...list, {id: users.get('id'), petname: users.get('petname')}] // putting in array for querying 
+                alllist = [...alllist, {id: users.get('id'), petname: users.get('petname')}] // putting in array for querying 
                
             }
 
             });
-
-            console.log('b')
+ 
 }
-// else{ // when invited from other users exist
-//     // if(friendsList?.dataValues.from.length != 0){
-    
-//     //     friendsList?.dataValues.from.forEach(async (users: any) => {
-//     //         if(users.Friend_List.isFriend == 1){
-                
-//     //             list = [...list, {id: users.get('id')}] // putting in array for querying 
-               
-//     //         }
 
-//     //         });
-
-        
-//     //     console.log(list)
-
-
-//     //from -> array[0] -> friend_list 
-//     //user has to take one pet as forien key to see the name with one query!
-//     // console.log(JSON.stringify(friendsList.dataValues.from[0].friend_list, null, 2));
-//     // have to send it as it is to show the request list
-
-// }
-else if (((friendsList?.dataValues.from.length == 0) && (friendsList?.dataValues.to.length)==0) || (list.length==0)){
-    response.json('no friends')
-    console.log('c')
-}// when both user aksed, is invited from others
 
 if(list.length >0){
-    response.json(list)
-    console.log('d')
+    console.log("list : ", alllist)
+    // response.json(list)
+    // console.log('d')
 }
 else{
     response.json('no friends')
 }
 
-    // else if(friendsList?.dataValues.to.length != 0){
-
-    //     friendsList?.dataValues.to.forEach(async (users: any) => {
-    //         if(users.Friend_List.isFriend == 1)
-    //         {
-    //             list = [...list, {id: users.get('id')}] // putting in array for querying 
-               
-    //         }
-    //     });
-
-    // }
-// }
-
-
-// await Pets.findAll({
-//     where:{
-//         // id: request.body.id,
-//         [Op.or]: list
-//     }, 
-//     include: ['my_level','pet_type','user'],
-// }).then((myfriend)=>{
-    
-//     list = [] // make empty to contain new 
-  
-//     myfriend.forEach(async (data: any) => {
-       
-//      list = [...list, { friend_id: data.get('id'), 
-//                 petname: data.get('petname'), 
-//                 lv: data.dataValues.my_level.level, 
-//                 type: data.dataValues.pet_type.name,
-//                 isLogin: data.dataValues.user.isLogin,
-//                 }]
-//             })
-  
-// })
-
-//  var friends_list = JSON.parse(JSON.stringify(list)); 
-// response.json(friends_list)
 })
 
 
@@ -277,103 +288,76 @@ else{
 /*************************************
 // Check whether invited or not 
 **************************************/
+
+
+interface InvitedList{
+    petId : number,
+    petname: string,
+    username:string
+    userId :number,
+    isRequest: boolean,
+    // url: string
+}
+var list: InvitedList[] = [];
 router.route('/invited')
 .post(async (request, response) => {
-    var list: any[] = [];
+    
 
     await Pets.findOne({
         where:{
-            id: request.body.id,
-            // [Op.or]: [{pet:1},{friend_id:1}]
+            id: request.body.petId,
         },
-        
         include: ['from'],
-        //   include: {all: true, nested: true}
-    //     include: ['from'],
-    
-        // order:[
-        //     ['to','createdAt','DESC']||['from','createdAt','DESC']
-        // ]
     })
     .then((result)=>{
-        // response.json(result)
+        
     
-        // console.log(JSON.stringify(result, null, 2));
+        console.log(JSON.stringify(result, null, 2));
         if(result?.dataValues.from.length>0){
-            result?.dataValues.from.forEach(async (users: any) => {
-            
+            result?.dataValues.from.forEach((users: any) => {
+                
                 if(users.Friend_List.isRequest == 1){
                 // console.log(users.id)
-                list.push({
-                    "id": users.id,
-                    "petname": users.petname,
-                    "isRequest": users.Friend_List.isRequest
-                })
-               
+                // Users.findOne({where: 
+                //     {id: users.userId},//friend name
+                //     include: ['pet']
+                // }).then((result)=>{
+                    // console.log(result)
+                    list.push({
+                        "petId": users.id,
+                        "petname": users.petname,
+                        "username":users.Friend_List.sender,
+                        "userId" : users.userId,
+                        "isRequest": users.Friend_List.isRequest,
+                        // "url": result?.getDataValue("profilePictureUrl")
+                    })
+
+                // })
+                
+
+            //    console.log('list ',list)
     
                }
                
-               });
+               
+               }); 
+              console.log('list ',list)
+               var invited_list = JSON.parse(JSON.stringify(list));
+               console.log('ivlist ',invited_list) 
+               if(invited_list.length >0){
+                list=[];
+                return response.json(invited_list)
+               } 
+               
+               
         }
+        // else if(result?.dataValues.from.length===0) {
+        //     return response.json('no request from others');
+        //    }
 
-       
-           var invited_list = JSON.parse(JSON.stringify(list)); 
-           if(invited_list.length >0){
-            response.json(invited_list)
-           }
-           else{
-            response.json('no request from others');
-           }
+        
         //  
     })
-
-    
-    //http://localhost:8000/invited
-    // {
-//    "id" : 4
-// }
-
-
-// // if(request.body.case =="from"){
-//  await Pets.findOne({
-//         where:{
-//             id: request.body.id,
-//             // [Op.or]: [{pet:1},{friend_id:1}]
-//         }, 
-//         include: ['to'],
-//         //   include: {all: true, nested: true}
-//     //     include: ['from'],
-    
-//         // order:[
-//         //     ['to','createdAt','DESC']||['from','createdAt','DESC']
-//         // ]
-//     }) 
-//     .then((result)=>{
-        
-//         console.log(JSON.stringify(result, null, 2));
-//         var list: any[] = [];
-//         if(result?.dataValues.from.length==0){
-//             response.json('no request friend');
-//         }
-//         else{
-//             result?.dataValues.from.forEach(async (users: any) => {
-
-//                 if(users.Friend_List.isRequest == 1){
-//                  // console.log(users.id)
-//                  list.push({
-//                      "invited_id": users.id,
-//                      "invited_name": users.petname,
-//                      "isInvited": users.Friend_List.isRequest
-//                  })
-//                 }
-                 
-//                 });
-//                 var invited_list = JSON.parse(JSON.stringify(list)); 
-//                 response.json(invited_list);
-//         }
-//     })
- 
-     
 })
 
 
@@ -383,7 +367,7 @@ router.route('/invited')
 // accept or not for the request
 
 .put( async (request, response) => {
-
+  
     // http://localhost:8000/invited
     // {
     //     "my_id" : 1,
@@ -394,20 +378,21 @@ router.route('/invited')
    
 await FriendList.findOne({
     where:{
-    my_id: request.body.sender_id, // the one sent 
-    friend_id: request.body.receve_id // has to be the one receive
+    my_id: request.body.senderId, // the one sent 
+    friend_id: request.body.receiverId // has to be the one receive
     },
 }).then((result)=>{
   
     // response.json(result?.dataValues)
-
-    if (request.body.isAccepted === true){
-        result?.set({isAccepted : true, isFriend: true, isRequest: false})
+    console.log()
+    if (request.body.action === "Reject"){
+        // result?.set({isAccepted : false, isFriend: true, isRequest: false})
+        result?.destroy()
         result?.save()
          
     }
     else {
-        result?.set({isRequest: false, isFriend: false, isAccepted :false})
+        result?.set({isRequest: false, isFriend: true, isAccepted :true})
         result?.save()
         // response.json(result)
     }
@@ -471,53 +456,6 @@ router.route('/waiting')
         //  
     })
 
-    
-    //http://localhost:8000/invited
-    // {
-//    "id" : 4
-// }
-
-
-// // if(request.body.case =="from"){
-//  await Pets.findOne({
-//         where:{
-//             id: request.body.id,
-//             // [Op.or]: [{pet:1},{friend_id:1}]
-//         }, 
-//         include: ['to'],
-//         //   include: {all: true, nested: true}
-//     //     include: ['from'],
-    
-//         // order:[
-//         //     ['to','createdAt','DESC']||['from','createdAt','DESC']
-//         // ]
-//     }) 
-//     .then((result)=>{
-        
-//         console.log(JSON.stringify(result, null, 2));
-//         var list: any[] = [];
-//         if(result?.dataValues.from.length==0){
-//             response.json('no request friend');
-//         }
-//         else{
-//             result?.dataValues.from.forEach(async (users: any) => {
-
-//                 if(users.Friend_List.isRequest == 1){
-//                  // console.log(users.id)
-//                  list.push({
-//                      "invited_id": users.id,
-//                      "invited_name": users.petname,
-//                      "isInvited": users.Friend_List.isRequest
-//                  })
-//                 }
-                 
-//                 });
-//                 var invited_list = JSON.parse(JSON.stringify(list)); 
-//                 response.json(invited_list);
-//         }
-//     })
- 
-     
 })
 
 

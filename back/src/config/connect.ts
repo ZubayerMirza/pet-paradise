@@ -16,7 +16,7 @@ import {createDB, connectSQL, connectSQ } from "./dbconnect"; // not working
  SELECT Host,User,plugin,authentication_string FROM mysql.user;
  -> cuz plugin for root is caching_sha2_password 
  
- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your password';
+  
  -> change to mysql_native_password, then it will work
  */
 

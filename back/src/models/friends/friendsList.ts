@@ -7,14 +7,6 @@ const Friend_List = data.define('Friend_List', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    isWating:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-    isInvited:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
     isRequest:{
         type: DataTypes.BOOLEAN,
         defaultValue: false
@@ -23,20 +15,14 @@ const Friend_List = data.define('Friend_List', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    // test:{
-    //     type: DataTypes.STRING,
-    //     references:{
-    //         model: Users,
-    //         key: 'username'
-    //     }
-    // },
-    // testcase:{
-    //     type: DataTypes.BOOLEAN,
-    //     references:{
-    //         model: Users,
-    //         key: 'isLogin'
-    //     }
-    // }
+    sender:{
+        type:DataTypes.STRING,
+        allowNull: false
+    },
+    receiver:{
+        type:DataTypes.STRING,
+        allowNull: false
+    },
 
 },{
     timestamps: true // not to create the date

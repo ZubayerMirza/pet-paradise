@@ -6,7 +6,7 @@ const database = "petparadise"; // database name
 const username = "root"; // username
 // const password = "PasswordGoni90!"; //password
 
-const password = "1zubayer"; // password
+const password = "PasswordGoni90!"; // password
 
 // Create the sequelize instance with passing parameters
 const sequelize = new Sequelize(database, username, password, {

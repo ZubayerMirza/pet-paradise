@@ -42,12 +42,12 @@ const dummyToDB = (data: any, model: any) => {
 };
 const DummyDB = async () => {
   // will create the tables as Users models in defined
-  try {
+  try { 
     //force true : to drop the table and create
     //force falce : not drop
     // dropDB(); //  to use for me
 
-    await data.sync({ force: true }); // sync at once
+    await data.sync({ force: false }); // sync at once
   } catch (error) {
     // whether table is created or not
     console.log("----- Failed for table sync -----");

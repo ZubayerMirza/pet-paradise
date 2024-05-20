@@ -10,6 +10,7 @@ import myLevel from "./levels/myLevel";
 import Level from "./levels/Level";
 import Friend_List from "./friends/friendsList";
 import Chat from "./chats/chat";
+import Messages from "./chats/message";
 import Post from "./posts/posts";
 import Comment from "./comments/comments";
 import Like from "./likes/likes";
@@ -92,6 +93,11 @@ myLevel.hasOne(Pets, { foreignKey: "myLevel_Id" });
 myLevel.belongsTo(Pets, { foreignKey: "petId" });
 // myLevel.has One(Level);
 Level.hasMany(myLevel);
+
+Messages.belongsTo(Users,{ foreignKey: "sender" });
+Messages.belongsTo(Chat,{ foreignKey: "room" });
+Users.hasMany(Messages,{ foreignKey: "sender" });
+
 
 /************************************
  * zubyar's database relationship
