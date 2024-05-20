@@ -7,118 +7,105 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 function MiddleChat(props: any, ref: React.MutableRefObject<string>, SentMessage: any) {
   
-  interface msg{
-    username: string,
-    message: string
-  }
-  interface msgList{
-    username: string,
-    message: string,
-    socketId:string //might need to change as date?
-    //read or not to add here? 
-  }
-  interface resList{
-    sender: string,
-    receiver: string,
-    message:string //might need to change as date?
-    //read or not to add here? 
-  }
-  let ResList: resList []=[];
-  let msglist: msgList []=[];
-  const [res,setRes]=useState<[]>([])
-    // const [messageList, setMessageList] =useState<string[]>([]);
-    const message = useRef('aaa');
+  // interface msg{
+  //   username: string,
+  //   message: string
+  // }
+  // interface msgList{
+  //   username: string,
+  //   message: string,
+  //   socketId:string //might need to change as date?
+  //   //read or not to add here? 
+  // }
+  // interface resList{
+  //   sender: string,
+  //   receiver: string,
+  //   message:string //might need to change as date?
+  //   //read or not to add here? 
+  // }
+  // let ResList: resList []=[];
+  // let msglist: msgList []=[];
+  // const [res,setRes]=useState<[]>([])
+
     const username = useRef('');
     const [user,setUser] =useState('');
-    const [msg,setMsg]=useState('');
-    const [MSGs,setMSGs]=useState<typeof msglist>([]);
-    const [test,setTest]=useState([])
+    // const [msg,setMsg]=useState('');
+    // const [MSGs,setMSGs]=useState<typeof msglist>([]);
+    // const [test,setTest]=useState([])
     // const [set,setSet]=useState<typeof ResList>([]);
-     const [set,setSet]=useState<typeof ResList>([]);
+    //  const [set,setSet]=useState<typeof ResList>([]);
     const check= useRef(0);
     const usercheck = "daisy";
-
+    const [message,setMessage] =useState('');
     const Send =(e:any)=>{
-      console.log("test", e.target.id)
-      if(e.key&&e.key==="Enter"){
-
+      console.log("test : ", message)
+      
+      // console.log('dd : ', props.Ref.current.value);
+      // props.Ref.current.Send();
+      if(e.key==="Enter"){
+        // console.log('dd : ', props.Ref.current.value);
         
         if(e.target.id ==="room"){
-          setMsg(e.target.value);
+          // setMsg(e.target.value);
           // console.log(props.data.username);
           socket.emit("roomtest",{
             message:e.target.value, 
             sender: `${user}`,
             receiver: props.currentChat})
-          // socket.emit('login',e.target.value);
-          e.target.value='';
           }
-        // props.SentMessage(message.current);
-        // props.TestMessage(message.current);
-        // message.current="";
-        e.target.value="";
-
+        
+          setMessage("");
       }
       else if(e.target.id ==="send"){
-        //  보내기
-        setMsg(message.current);
+        // console.log("send activate")
+        // setMsg(e.target.value);
+        setMessage("");
         socket.emit("roomtest",{
-          message:message.current, 
+          message:`${message}`, 
           sender: `${user}`,
           receiver: props.currentChat})
       }
+      
      }
 
-    // const SetMessage=(e: any)=>{
-    //   e.preventDefault();
-    //   // props.SentMessage(message.current);
-    //   // message.current=e.target.value;
-    //   props.Ref.current = e.target.value;
-    // }
 
-  //   useEffect(()=>{
-  //     socket.emit("message",message.current,(res:"string")=>{
-  //         console.log("message from users:", res)
-  //       })
-  //  },[])
-   
-useEffect(()=>{
-    console.log('msg : ', msg,'  user : ', user);
-  },[msg])
-  useEffect(()=>{
-    console.log('msg : ', msg,'  user : ', user);
-  },[username])
+// useEffect(()=>{
+//     console.log('msg : ', msg,'  user : ', user);
+//   },[msg])
+  // useEffect(()=>{
+  //   console.log('msg : ', msg,'  user : ', user);
+  // },[username])
 
   useEffect(()=>{
  console.log("user : ", user)
   },[user]
   )
-  useEffect(()=>{
-    // console.log("List:  ", MSGs)
-    // setSet({message: msg,username:user});
-     },[MSGs]
-     )
+  // useEffect(()=>{
+  //   // console.log("List:  ", MSGs)
+  //   // setSet({message: msg,username:user});
+  //    },[MSGs]
+  //    )
 
     useEffect(()=>{
       setUser(props.data.username);
       username.current = props.data.username;
       // console.log(props)
       // socket.emit('login',props.data.userId);
-      socket.on("connection", async()=>{
-        console.log("- Socket ID of this connection : ", socket.id);
-      })
+      // socket.on("connection", async()=>{
+      //   console.log("- Socket ID of this connection : ", socket.id);
+      // })
 
        //for global
     socket.on("roomtest1",(res?:object)=>{
       console.log(res)
     });
 
-    socket.on("onetoone",(res: [])=>{
-        if(res){
-          // console.log('res',res)
-          setTest(res)
-        }
-      })
+    // socket.on("onetoone",(res: [])=>{
+    //     if(res){
+    //       // console.log('res',res)
+    //       setTest(res)
+    //     }
+    //   })
     
     // socket.on("message",(res?:string)=>{
     //   console.log(res);
@@ -157,12 +144,13 @@ useEffect(()=>{
     },[])
 
     const SetMessage=(e: any)=>{
-      e.preventDefault();
+      // e.preventDefault();
       // props.SentMessage(message.current);
-      message.current=e.target.value;
-      
+      // message.current=e.target.value;
+      setMessage(e.target.value)
     }
    
+    
   
      return <>
      
@@ -221,9 +209,9 @@ useEffect(()=>{
       <input type="text" id="room" 
       onChange={SetMessage} 
       onKeyDown={Send} 
+      value={message}
       placeholder="Try the chat">
       </input>
-      {/* <button onClick={Send}>send</button> */}
       <button id="send" onClick={Send}><FiSend onClick={Send} id="send" style={{width:'20px',height:'20px'}}/></button>
       </div></div>
             </div>

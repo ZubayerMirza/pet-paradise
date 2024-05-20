@@ -6,10 +6,10 @@ import "./friend.css";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { FaUserPlus } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
-
-
-
-
+import AddFriends from './AddFriends';
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import InvitedList from './InvitedList';
+import socket from '../home/websocket';
 
 function Return(props: any){
     console.log(props.friendList)
@@ -39,74 +39,9 @@ function Return(props: any){
         </div>
             //     <Return key={index} getFriends={getFriends} friendList={friendList} data={data} />
         })}
-        
-  
-         {/* <div className="list-contents">
-              <div >Gi</div>
-               </div> */}
         </>)
     }
 
-    // if(props.friendList.length!=0){
-    // if(props.friendList[0].isRequst==true){
-    //     ref.current = 'Pending';
-    //     // property of style can be edited later?  
-    //     return(<>
-    //         <div className="list-contents">
-    //         <div className="list-contents-data">{props.friendList[0].lv}</div>
-    //         <div className="list-contents-data">{props.friendList[0].petname}</div>
-    //         <div className="list-contents-data">{props.friendList[0].type}</div>
-    //         <div className="list-contents-data color2" id="add">{ref.current}</div>
-    //         </div></>)
-    // }
-    // else if(props.friendList[0].isFriend==true){
-    //     ref.current ='Friend';
-    //     return(<>
-    //     <div className="list-contents">
-    //     <div className="list-contents-data">{props.friendList[0].lv}</div>
-    //     <div className="list-contents-data">{props.friendList[0].petname}</div>
-    //     <div className="list-contents-data">{props.friendList[0].type}</div>
-    //     <div className="list-contents-data color1" id="add">{ref.current}</div>
-    //     </div></>)
-    // }
-    //     return (<>
-    //     <div className="list-contents">
-    // <div className="list-contents-data">{props.friendList[0].lv}</div>
-    // <div className="list-contents-data">{props.friendList[0].petname}</div>
-    // <div className="list-contents-data">{props.friendList[0].type}</div>
-    // <div  onClick={onClickHandler} className="list-contents-data color" id="add">{ref.current}</div>
-    // </div>
-    //     </>)
-    // }
-// return(<> {
-            // friendList.map((data,index) => {
-            //     <Return key={index} getFriends={getFriends} friendList={friendList} data={data} />
-        // })}
-    // return(
-    // <>
-    // {props.FriendList.map((data,index)=>{
-        
-    //     <div key={index}>{data.id}</div>
-    //   })}
-    // <div className="list-contents">
-    
-    // {/* <div className="list-contents-data">{props.data}</div> */}
-    // {/* <div className="list-contents-data">{props.friendList[0].petname}</div>
-    // <div className="list-contents-data">{props.friendList[0].type}</div>
-    // <div  onClick={onClickHandler} className="list-contents-data color" id="add">{ref.current}</div> */}
-    // </div>
-    // {/* <div>{props.data}</div> */}
-    // {/* <div className="list-contents">
-    // <div className="list-contents-data">{props.friendList[0].lv}</div>
-    // <div className="list-contents-data">{props.friendList[0].petname}</div>
-    // <div className="list-contents-data">{props.friendList[0].type}</div> */}
-    // {/* <div className="list-contents-data">{props.friendList[0].isLogin}</div> */}
-
-    // {/* <div onClick={onClickHandler} className="list-contents-data color" id="add">Add</div>
-    // </div> */}
-    
-    
-    // </>)
     return(
       <>
      
@@ -124,28 +59,15 @@ function Return(props: any){
 }
 
 function Friend (props: any) {
-//   console.log(props.data)
-// {
-//     "petId": 1,
-//     "petname": "aa",
-//     "typeId": 2,
-//     "userId": 1,
-//     "StorageId": 1,
-//     "myLevel_Id": 1,
-//     "gold": 9999,
-//     "status": 70,
-//     "hunger": 60
-// }
+
   const navigate = useNavigate();
   // const navigate = useNavigate(); // hook to navigate
-const [isLogin,setIsLogin] = useState(false);
 const [msg, setMsg]= useState("");
 
 interface Friends  { 
     id: number, 
     petname: string,
     type: string,
-    // FriendsList: Friend,
     lv: number,
     isFriend: boolean,
     isLogin: boolean,
@@ -170,13 +92,14 @@ interface Friends  {
     let test =e.target.id;
     if (e.target.id =="all"){
         FetchFriends();
-        setIsLogin(true);
     }else if(e.target.id =="search"){
         SearchFriend(test);
     }else if(e.target.id =="request"){
-        SearchFriend(test);
+        // SearchFriend(test);
+        setMsg("request")
     }else if(e.target.id =="add"){
-        AddFriend(test);
+      setMsg("Add");
+      // AddFriend(test);
     }else if(e.target.id=="wait"){
       WaitingFriend(test);
         // Accept();
@@ -186,41 +109,24 @@ interface Friends  {
 
   // to get all friends 
   const FetchFriends = ()=>{
-    console.log(props.data)
+    
+    // console.log(props.data)
     fetch('http://localhost:8000/friends', {
         method: "POST", 
         headers: { // header specifies the content type for the request
           "Content-Type": "application/json",
         }, 
-        body: JSON.stringify({"id": props.data.userId,"petname": props.data.petname}),
+        body: JSON.stringify({"id": props.data.petId}),
       }).then(response => {return response.json()})
       .then(async response => {
-         
-    //     //create my pet
-    
-    //    //{id: 1, petname: 'Json', userId: 4, typeId: 1, updatedAt: '2024-03-20T21:55:24.260Z', 
        if (response == "no friends"){
         setMsg("no friends");
-
-        // return(<>
-        // <div className="list-contents" >Start add friends!</div>
-        // </>)
         }
         else{
           console.log(response)
         }
       
       }); 
-        //    }
-//    else if(response === "Already exist"){
-//     alert ("Already exist");
-//    }
-//    else if(response ==="petname must be unique"){
-//     alert ("Pet name is already exist");
-//    }
-//   }).catch(error=>{
-//     console.log(error);
-//   })
     }
 
     const Reset=()=>{
@@ -289,7 +195,7 @@ interface Friends  {
             Reset();
         setFriendList([]);
             
-            console.log(data);
+            console.log("data: " ,data);
             fetch('http://localhost:8000/add_friend', {
                 method: "POST", 
                 headers: { // header specifies the content type for the request
@@ -403,92 +309,73 @@ interface Friends  {
           }).then(response => {return response.json()})
           .then(async response => {
             
-            
-        //     //create my pet
             console.log(response)
-        //    //{id: 1, petname: 'Json', userId: 4, typeId: 1, updatedAt: '2024-03-20T21:55:24.260Z', 
-        //    if (response == "no friends"){
-            
-        //     return(<>
-        //     <div className="list-contents" >Start add friends!</div>
-        //     </>)
-        //     }}); 
-            //    }
-    //    else if(response === "Already exist"){
-    //     alert ("Already exist");
-    //    }
-    //    else if(response ==="petname must be unique"){
-    //     alert ("Pet name is already exist");
-    //    }
-    //   }).catch(error=>{
-    //     console.log(error);
-    
+        
       })
         }
 
 
   const getFriends = () =>{
-// {
-//     "petId": 1,
-//     "petname": "aa",
-//     "typeId": 2,
-//     "userId": 1,
-//     "StorageId": 1,
-//     "myLevel_Id": 1,
-//     "gold": 9999,
-//     "status": 70,
-//     "hunger": 60
-// }
 
-    // if(isLogin==true){
-    //     return(<> <div className="list-contents">hi</div>
-    //     <div className="list-contents">hi</div></>)
-    // }
-    if(msg =="no friends"){
+    if(msg ==="no friends"){
         
         return(<> 
         <div className="list-contents">You have no friends yet !</div>
        </>)
        
     }
-    else if(msg =="no request"){
+    else if(msg ==="no request"){
         return(<> 
             <div className="list-contents">You have no request from yet !</div>
            </>)
     }
+    else if(msg ==="Add"){
+      return(<><AddFriends data={props.data}></AddFriends></>)
+    }
     if(friendList.length>0){
-        // console.log(friendList);
-        // console.log('gggg')
-        
-        // return(<> {
-        //     friendList.map((data,index) => {
-        //         <Return key={index} getFriends={getFriends} friendList={friendList} data={data} />
-        // })}
-        //    </>)
+  
         return(<> 
                 <Return  data ={props.data} getFriends={getFriends} friendList={friendList} AddFriend={AddFriend} />
            </>)
     }
     
     return(<>
-    {/* <div>d</div> */}
-    {/* <div className="list-contents">hi</div>
-    <div className="list-contents">hi</div> */}
+    {/* <div className="list-contents">
+   <div className="list-contents-data">id</div>
+    <div className="list-contents-data">name</div>
+   <div className="list-contents-data">isRequest</div>
+    <div  className="list-contents-data color" id="add">??</div>
+   </div> */}
     </>)
   }
+  const [set,setSet]=useState({message: "",
+  sender: 0,
+  receiver:"",
+  receiverId: 0,
+  url:""})
 
- 
+  useEffect(()=>{
+    socket.on("actionTest", (response:{message: string,
+      sender: number,
+      receiver: string,
+      receiverId: number,
+      url: string})=>{
+        setSet(response);
+      })
+    console.log('count');
+      
+    },[])
+    
+    useEffect(()=>{
+      console.log(set)
+      },[{set}])
 
   return (
   <>
 {/* <div className='side-bar'> */}
-    {/* <div className='side-contents' onClick={OnClickHandler} id="pet">Pet</div> */}
-    {/* <div className='side-contents' onClick={OnClickHandler} id="frds">Friends</div> */}
-    {/* <div className='side-contents' onClick={OnClickHandler} id="item">Items</div> */}
-    {/* </div> */}
+ 
  <div className="friend-box">
  <div className="friend-sidebar"> 
-
  <div className='friend-contents' onClick={OnClickHandler} id="all"><LiaUserFriendsSolid /> Friends</div>
  <div className='friend-contents' onClick={OnClickHandler} id="add"><FaUserPlus />  Add</div>
 <div className='friend-contents' onClick={OnClickHandler} id="request"><FaCheckCircle />   Requeted</div>
@@ -496,8 +383,12 @@ interface Friends  {
 
  </div>
  <div className="friend-body">
-  
- {getFriends()}
+  {
+    msg ==="no friends" ? <> <div className="list-contents">You have no friends yet !</div></> :
+    msg ==="Add" ? <AddFriends data={props.data}></AddFriends> :
+    msg ==="request" ? <InvitedList data={props.data}></InvitedList> :
+    <></>
+  }
  
           {/* <div className="list-contents">
           {friendList.map((data,index)=>{
