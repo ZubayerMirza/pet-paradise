@@ -60,19 +60,19 @@ function SignUp() {
         <h1>Sign Up</h1>
         <div className='typeBox' onSubmit={OnSubmitHandler}>
       <p>Username</p>
-      <input type="text" name="username" placeholder="  Username" required></input>
+      <input type="text" name="username"autoComplete="off" placeholder="  Username" required></input>
       </div>
       <div className='typeBox'>
-      <p> email</p>
-      <input  type="email" name="email" pattern="[A-Za-z0-9!@#$%^&*()+-]+@[a-z]+.[a-z]{3}"placeholder="  email@example.com" required></input>
+      <p> Email</p>
+      <input  type="email" name="email" autoComplete="off"placeholder="  email@example.com" required></input>
       </div>
       <div className='typeBox'>
       <p>Password</p>
-      <input  type="password" name="password" placeholder=" Password" required></input>
+      <input  type="password" name="password"autoComplete="off" placeholder=" Password" required></input>
       </div>
       <div className='typeBox'>
       <p>Confirm Password</p>
-      <input  type="password" name="confirm" placeholder=" Confirm password" required></input>
+      <input  type="password" name="confirm" autoComplete="off"placeholder=" Confirm password" required></input>
       </div>
       <div className='typeBox'>
       <button  type="submit">Create Account</button>

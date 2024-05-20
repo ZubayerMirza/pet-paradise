@@ -56,6 +56,7 @@ function Login() {
       }
       else if (response === "User not found"){ // if no user
         alert ("User not found");
+        navigate('/signup');
       }
       else if (response === "Password is different"){ // if password matters
         alert ("Password is different");
@@ -66,17 +67,17 @@ function Login() {
     })
   }
 
-  // passing the function for the button click event handle
-  const OnClickHandler = (e: any) => {
+  // // passing the function for the button click event handle
+  // const OnClickHandler = (e: any) => {
    
-    // acording to id it would navigate to 
-    // signup page or login page
-   if(e.target.id === "Create"){
-    navigate("/signup");
-   }
-   else
-   navigate("/login");
-  }
+  //   // acording to id it would navigate to 
+  //   // signup page or login page
+  //  if(e.target.id === "Create"){
+  //   navigate("/signup");
+  //  }
+  //  else
+  //  navigate("/login");
+  // }
 
   useEffect(()=>{
     socket.emit("socketid", (res:string) => {
@@ -86,28 +87,30 @@ function Login() {
   },[])
 
   useEffect(()=>{
-      console.log('socketId : ', socketId);
+      // console.log('socketId : ', socketId);
   },[{socketId}])
 
   return (
     <>
-    <div className='home'>
-    <h1 id='logoTitle'>PET PARADISE</h1>
-    <form className='LoginForm' onSubmit={OnSubmitHandler}>
-      <div className='BtnBox'>
-        <div onClick={OnClickHandler} id="Login">Login</div>
-        <div onClick={OnClickHandler} id="Create">Create Account</div>
+    <div className='signBox'>
+    {/* <h1 id='logoTitle'>PET PARADISE</h1> */}
+    <form className='signForm' onSubmit={OnSubmitHandler}>
+      <div className='signBoxL'>
+        {/* <div onClick={OnClickHandler} id="Login">Login</div>
+        <div onClick={OnClickHandler} id="Create">Create Account</div> */}
+        <div className='backLogo'></div>
       </div>    
-      <div className='LoginBox'>
-        <label><b>Username</b>
-        <input className="input" type="text" name="username" placeholder="Username" ></input></label>
+      <div className='signBoxR'>
+      <h1>Login</h1>
+        <div className='typeBox'><p>Username</p>
+        <input type="text" name="username" autoComplete="off"placeholder="Username" required></input></div>
+        <div className='typeBox'>
+        <p>Password</p>
+        <input type="password" name="password"autoComplete="off" placeholder="Password"required ></input>
         </div>
-      <div className='LoginBox'>
-        <label><b>Password</b>
-        <input className="input" type="password" name="password" placeholder="Password" ></input></label>
-        </div>
-      <div className='LoginBox'>
-        <button id="logBtn" type="submit">Login</button>
+       <div className='typeBox'>
+        <button id="submit" type="submit">Login</button>
+        </div> 
         </div>
       </form> 
       </div>   

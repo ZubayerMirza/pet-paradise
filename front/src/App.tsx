@@ -4,7 +4,7 @@ import Casino from "./Casino";
 import Login from "./users/Login";
 // import Home from "./front/Home";
 import Main from "./home/Home";
-import Header from "./home/Header";
+import AnotherHeader from "./header/Header";
 import SignUp from "./users/Signup";
 import GetPet from "./pets/GetPet";
 import MyPet from "./pets/MyPet";
@@ -21,17 +21,27 @@ import History from "./components/History";
 import Battle from "./components/Battle";
 import BattleUsers from "./components/BattleUsers";
 import Leaderboard from "./components/Leaderboard";
-
+import ChatBox from "./chat/ChatBox";
 function App() {
   // const userToken = localStorage.getItem("userToken");
   // const isAuthenticated = !!userToken;
 
   return (
-    <div>
+    <div className="root-bgimg">
       <Router>
-        {/* should be modified later */}
-        {/* <Header/>  */}
+        {/* goni */}
+        <AnotherHeader/> 
         <Routes>
+        <Route path="/" element={<Login />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/pet" element={<Pet />}></Route>
+          <Route path="/petget" element={<GetPet />}></Route>
+          <Route path="/petmain" element={<MyPet />}></Route>
+          <Route path="/items" element={<Items />}></Route>
+          <Route path="/friends" element={<Friend />}></Route>
+          <Route path="/chat" element={<ChatBox />}></Route>
+
           {/* Zubayer's various pages */}
           <Route path="/update" element={<UpdateProfilePage />} />
           <Route path="/following/:userId" element={<Following />} />
@@ -49,16 +59,8 @@ function App() {
           {/* <Route path="/SocialPage" element={<PetGame />} /> */}
           {/* <Route path="/ShopPage" element={<ShopPage />} /> */}
           {/* <Route path="/BoughtFoodPage" element={<BoughtFoodPage />} /> */}
-          {/* goni */}
-          <Route path="/" element={<Login />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/pet" element={<Pet />}></Route>
-          {/* <Route */}
-          <Route path="/petget" element={<GetPet />}></Route>
-          <Route path="/petmain" element={<MyPet />}></Route>
-          <Route path="/items" element={<Items />}></Route>
-          <Route path="/friends" element={<Friend />}></Route>
+         
+       
         </Routes>
       </Router>
     </div>
