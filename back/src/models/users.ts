@@ -31,7 +31,7 @@ const Users = data.define("users", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    unique: `${'username'}`,
   },
   password: {
     type: DataTypes.STRING,

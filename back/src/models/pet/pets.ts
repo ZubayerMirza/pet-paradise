@@ -14,7 +14,7 @@ const Pets = data.define("pets", {
   petname: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
+    unique: 'petname',
   },
   hunger: {
     type: DataTypes.INTEGER,

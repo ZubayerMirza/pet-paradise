@@ -12,7 +12,7 @@ const PetTypes = data.define('pet_types', {
     name:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: 'name'
     },
     description:{
         type: DataTypes.STRING,

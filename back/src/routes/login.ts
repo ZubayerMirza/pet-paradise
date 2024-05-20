@@ -6,6 +6,7 @@ import Users from "../models/users";
 import Pets from "../models/pet/pets";
 import { io } from "..";
 import db from "../config/db";
+import { Error } from "sequelize";
 
 // to organize as different usage, router used
 export const router: Router = express.Router();
@@ -80,7 +81,8 @@ router
     );
   })
 
-  //when change the info is needed,  will be used
+  // when change the info is needed,  will be used
+  // error handled okay with this
   .put(async (request, response) => {
     // get the username and password with request for now
     testcase = {
@@ -117,67 +119,110 @@ router
   });
 
 // post method and findorcreate methods for find and creating users
-// router.post("/signup", async (request, response) => {
-//   // get the username and password from frnot t
-//   testcase = {
-//     username: request.body.username,
-//     password: request.body.password,
-//   };
-//   // enable for find or create the username
-//   const [newUser, create] = await Users.findOrCreate({
-//     where: { username: testcase.username, password: testcase.password },
-//   });
-//   // console.log(newUser.dataValues.username);
-//   // console.log(create); // return as boolean
-
-//   // if created,
-//   if (create) {
-//     return response.json("Created");
-//   }
-//   return response.json("Username already exist"); // if username exists
-// });
-
 router.post("/signup", async (request, response) => {
-  const { username, password } = request.body; // Destructure username and password from the request body
-
-  // Find or create the user
-  const [user, created] = await Users.findOrCreate({
-    where: { username, password }, // Use destructured variables directly
-  });
-
-  if (created) {
-    // If user is created successfully, insert userId into user_stats table
-    const userId = user.dataValues.id; // Access user id through dataValues
-
-    // Insert userId into user_stats table
-    const initStatsQuery = "INSERT INTO user_stats (userId) VALUES (?)";
-    db.query(initStatsQuery, [userId], (err, statsResult) => {
-      if (err) {
-        console.error("Error initializing user stats:", err);
-        return response
-          .status(500)
-          .json({ message: "Server error initializing user stats" });
+  // get the username and password from frnot t
+  testcase = {
+    username: request.body.username,
+    password: request.body.password,
+    socketId: request.body.socketId,
+  };
+  
+    const User = await Users.findOne({where:{username: `${testcase.username}`}})
+    if(User){
+      if(User.dataValues.username !== testcase.username){
+        // console.log('case insensitive')
+        return response.json("Username already exist");
       }
-
-      // Initialize leaderboard entry for the user with wins set to zero
-      const initLeaderboardQuery =
-        "INSERT INTO leaderboard (id, wins) VALUES (?, 0)";
-      db.query(initLeaderboardQuery, [userId], (err, leaderboardResult) => {
-        if (err) {
-          console.error("Error initializing leaderboard:", err);
-          return response
-            .status(500)
-            .json({ message: "Server error initializing leaderboard" });
-        }
-
-        // If user, stats, and leaderboard are created successfully, send response
-        return response.status(201).json("Created");
-      });
-    });
-  } else {
-    // If user already exists, send response indicating so
-    return response.json("Username already exists");
-  }
+        return response.json("Username already exist");
+    }
+   
+// // enable for find or create the username
+const [newUser, create] = await Users.findOrCreate({
+  where: { username: testcase.username, password: testcase.password },
 });
+// console.log(newUser.dataValues.username);
+// console.log(create); // return as boolean
+if (create) {
+   // If user is created successfully, insert userId into user_stats table
+   const userId = newUser.dataValues.id; // Access user id through dataValues
+
+   // Insert userId into user_stats table
+   const initStatsQuery = "INSERT INTO user_stats (userId) VALUES (?)";
+   db.query(initStatsQuery, [userId], (err, statsResult) => {
+     if (err) {
+       console.error("Error initializing user stats:", err);
+       return response
+         .status(500)
+         .json({ message: "Server error initializing user stats" });
+     }
+ 
+     // Initialize leaderboard entry for the user with wins set to zero
+     const initLeaderboardQuery =
+       "INSERT INTO leaderboard (id, wins) VALUES (?, 0)";
+     db.query(initLeaderboardQuery, [userId], (err, leaderboardResult) => {
+       if (err) {
+         console.error("Error initializing leaderboard:", err);
+         return response
+           .status(500)
+           .json({ message: "Server error initializing leaderboard" });
+       }
+ 
+       // If user, stats, and leaderboard are created successfully, send response
+       return response.status(201).json("Created");
+     });
+   });
+  // return response.status(201).json("Created");
+}
+ 
+});
+
+// router.post("/signup", async (request, response) => {
+//   const { username, password } = request.body; // Destructure username and password from the request body
+
+
+// const [user, created] = await Users.findOrCreate({
+//   where: { username, password }, // Use destructured variables directly
+// })
+
+// if (created) {
+//   // If user is created successfully, insert userId into user_stats table
+//   const userId = user.dataValues.id; // Access user id through dataValues
+
+//   // Insert userId into user_stats table
+//   const initStatsQuery = "INSERT INTO user_stats (userId) VALUES (?)";
+//   db.query(initStatsQuery, [userId], (err, statsResult) => {
+//     if (err) {
+//       console.error("Error initializing user stats:", err);
+//       return response
+//         .status(500)
+//         .json({ message: "Server error initializing user stats" });
+//     }
+
+//     // Initialize leaderboard entry for the user with wins set to zero
+//     const initLeaderboardQuery =
+//       "INSERT INTO leaderboard (id, wins) VALUES (?, 0)";
+//     db.query(initLeaderboardQuery, [userId], (err, leaderboardResult) => {
+//       if (err) {
+//         console.error("Error initializing leaderboard:", err);
+//         return response
+//           .status(500)
+//           .json({ message: "Server error initializing leaderboard" });
+//       }
+
+//       // If user, stats, and leaderboard are created successfully, send response
+//       return response.status(201).json("Created");
+//     });
+//   });
+// } else {
+//   // If user already exists, send response indicating so
+//   return response.json("Username already exists");
+// }
+//   // }catch(error){
+//   //   return response.json("Username already exists");
+//   // }
+  
+
+  
+// });
 
 export default router;
