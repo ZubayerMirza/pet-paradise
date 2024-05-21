@@ -152,12 +152,27 @@ const msglist: string[] = [];
                 func(socketId);
         })
 
+        // // for header  used
+        // socket.on("head", async(func) => {
+        //     // console.log(res);
+        //     func(false)
+        //   });
+        // socket.on("isLogin", async(res,func) => {
+        //     console.log("ccc: ",res);
+        //     // func("received--")
+        //     const socketId = res;
+        //     io.emit('setfalse',socketId);
+        // });
+        
+
         //to check user is online
         socket.on("userIn", async(username, func)=>{
                 userList(username, socket.id);
                 console.log('       [User  joined] ',username," : ",socket.id)
                 func({res: "succeess"});
         })
+
+ 
 
         // find online friend
         socket.on("findOnline", async(func)=>{
@@ -259,8 +274,26 @@ const msglist: string[] = [];
         })
 
 
+//     /*******************************
+//     * Header related
+//     ********************************/
+//  //to check user is online
+//  socket.on("header", async({socketid,username},func)=>{
+//     console.log('will be socketid',socketid)
+//     console.log('will be username',username)
+//     const name:string = username;
+//     const socketId:string =socketid;
+//     func("receive!")
+//     io.emit('settrue',{socketId,name});
+
+// })
+
+
+
        
-    // Frineds related 
+    // --------------------    
+    // Frineds related
+    //--------------------- 
     socket.on("action", async(info,func)=>{
         console.log(info);
         foundUserById(info.receiverId)
