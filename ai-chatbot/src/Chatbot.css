@@ -2,7 +2,7 @@
 
 /* Container styles */
 .chatbot-container {
-  width: 400px;
+  width: 600px;
   margin: 50px auto; /* Adjusted margin for vertical centering */
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -18,13 +18,34 @@ body {
 
 /* Message display area */
 .chatbot-messages {
-  height: 300px; /* Reduced height for better visibility */
+  height: 625px; /* Reduced height for better visibility */
   overflow-y: auto; /* Changed to auto for scroll only when needed */
   padding: 15px;
   border: 3px solid #000000; /* Add border styling */
   border-radius: 8px; /* Add border radius for rounded corners */
+
+  /* Styling for scrollbar */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #555 #ddd; /* For Firefox */
 }
 
+/* Styling for Chrome, Edge, and Safari */
+.chatbot-messages::-webkit-scrollbar {
+  width: 10px; /* Set width of the scrollbar */
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background: #ddd; /* Set background color of the track */
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: #555; /* Set color of the scrollbar thumb */
+  border-radius: 5px; /* Add border radius for rounded thumb */
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb:hover {
+  background-color: #777; /* Set color of the scrollbar thumb on hover */
+}
 
 /* Individual message style */
 .message {
@@ -34,7 +55,8 @@ body {
   font-size: 16px;
   line-height: 1.5;
   display: inline-block;
-  max-width: 80%;
+  width: 70%; /* Set a fixed width for the message container */
+  position: relative; /* Add position relative for positioning the symbols */
 }
 
 /* User message style */
@@ -50,6 +72,36 @@ body {
   background-color: #2196f3; /* Blue chat bubble for AI messages */
   color: #fff; /* White text color */
   text-align: left;
+  margin-left: 8px; /* Add margin to the left to separate from user message */
+  margin-top: 5px; /* Adjust margin from top to position below user message */
+}
+
+
+/* Symbol styles */
+.message::before {
+  content: ''; /* Empty content */
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Symbol for user message */
+.user-message::before {
+  border-width: 10px 10px 10px 0; /* Adjust border width and shape for user message symbol */
+  border-color: transparent #4caf50 transparent transparent; /* Set color for user message symbol */
+  left: calc(100% + 4px); /* Position symbol to the right of the message with a tiny space */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Symbol for AI message */
+.ai-message::before {
+  border-width: 10px 0 10px 10px; /* Adjust border width and shape for AI message symbol */
+  border-color: transparent transparent transparent #2196f3; /* Set color for AI message symbol */
+  right: calc(100% + 4px); /* Position symbol to the left of the message with a tiny space */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Input form styles */
@@ -61,10 +113,17 @@ body {
 /* Input field style */
 .chatbot-input-form input {
   flex: 1;
-  padding: 10px; /* Increased padding for better input field appearance */
+  padding: 12px; /* Increased padding for better input field appearance */
   border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px; /* Rounded corners */
   font-size: 16px;
+  outline: none; /* Remove outline on focus */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+/* Style for input field when focused */
+.chatbot-input-form input:focus {
+  border-color: #007bff; /* Change border color on focus */
 }
 
 /* Send button style */
@@ -73,20 +132,22 @@ body {
   border: none;
   background-color: #007bff; /* Dark blue send button */
   color: #fff; /* White text color */
-  border-radius: 0 4px 4px 0;
+  border-radius: 4px; /* Rounded corners */
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 /* Hover effect for send button */
 .chatbot-input-form button:hover {
   background-color: #0056b3; /* Darker shade of blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover for depth effect */
 }
 
 /* Heading box styles */
 .chatbot-heading-box {
   border: 4px solid #000000; /* Changed border color for better contrast */
-  border-radius: 8px; /* Matched border radius with container */
+  border-radius: 3px; /* Matched border radius with container */
   padding: 20px; /* Increased padding for better spacing */
   margin-bottom: 20px;
 }
@@ -94,8 +155,94 @@ body {
 /* Heading styles */
 .chatbot-heading {
   text-align: center;
-  font-size: 24px;
+  font-size: 22px; /* Increase font size for emphasis */
   margin: 0;
+  border: 4px solid #000000; /* Changed border color for better contrast */
+  border-radius: 3px; /* Matched border radius with container */
   color: #ffffff; /* Set color to white */
   padding: 10px;
+  text-transform: uppercase; /* Convert text to uppercase for added emphasis */
+  font-family: 'Montserrat', sans-serif; /* Use a distinctive font */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add text shadow for depth */
+  padding:15px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300px; /* Adjusted width for the sidebar */
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+}
+
+/* Sidebar button styles */
+.sidebar-button {
+  padding: 20px 40px; /* Increased padding for the button */
+  margin-top: 60px; /* Added margin to lower the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center; /* Center the text */
+  position: relative; /* Position relative for the image */
+  line-height: 24px; /* Adjust line height to match the height of the image */
+}
+
+.sidebar-button::before {
+  content: ''; /* Empty content */
+  position: absolute;
+  left: 15px; /* Adjust the left position for the image */
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('home.png'); /* URL to your home image */
+  background-repeat: no-repeat;
+  background-size: 24px; /* Adjust size of the image */
+  width: 24px; /* Set width of the image */
+  height: 24px; /* Set height of the image */
+  margin-right: 15px; /* Add more margin to separate image from text */
+}
+
+.sidebar-button2:hover {
+  background-color: #0056b3;
+}
+
+/* Sidebar button styles */
+.sidebar-button2 {
+  padding: 20px 40px; /* Increased padding for the button */
+  margin-top: 60px; /* Added margin to lower the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center; /* Center the text */
+  position: relative; /* Position relative for the image */
+  line-height: 24px; /* Adjust line height to match the height of the image */
+}
+
+.sidebar-button2::before {
+  content: ''; /* Empty content */
+  position: absolute;
+  left: 15px; /* Adjust the left position for the image */
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url('home.png'); /* URL to your home image */
+  background-repeat: no-repeat;
+  background-size: 24px; /* Adjust size of the image */
+  width: 24px; /* Set width of the image */
+  height: 24px; /* Set height of the image */
+  margin-right: 15px; /* Add more margin to separate image from text */
+}
+
+.sidebar-button:hover {
+  background-color: #0056b3;
 }
