@@ -82,17 +82,14 @@ function Header(props: any) {
             <div className="navi-contents1">
               <p>Hello, {props.data.petname}</p>{" "}
             </div>
-            <div className="navi-contents" onClick={onclickHandler} id="pet">
-              Pet
-            </div>
-            <div className="navi-contents" onClick={onclickHandler} id="item">
-              Item
+            <div className="navi-contents" onClick={onclickHandler} id="chat">
+              Chat
             </div>
             <div className="navi-contents" onClick={onclickHandler} id="friend">
               Friend
             </div>
-            <div className="navi-contents" onClick={onclickHandler} id="chat">
-              chat
+            <div className="navi-contents" onClick={onclickHandler} id="item">
+              Item
             </div>
             <div className="navi-contents" onClick={onclickHandler} id="logout">
               Logout
