@@ -23,17 +23,7 @@ interface petType  {
 // components with props of petTypes
 const TestProps = (props: any)=>{
 
-  //initialize inteface for using as type to pass as the state
-  
-  // interface petType1  { 
-  //   description: string,
-  //   hunger: number,
-  //   id: number, 
-  //   name: string, 
-  //   status: number,
-  //   userid: number
-  // }
-  
+ 
   const navigate = useNavigate(); // hook to navigate
   
   const OnClickHandler = (e: any) => {
@@ -51,7 +41,6 @@ const TestProps = (props: any)=>{
     </>
   );
 }
-
 function Pet() {
 
   const navigate = useNavigate(); // hook to navigate
@@ -128,6 +117,7 @@ function Pet() {
     useEffect(()=>
     {
       Fetch(); 
+      
     },[])
 
     // // when petType get updated 
@@ -138,9 +128,11 @@ function Pet() {
     
     return (
     <>
-    <div className='home'>
-    <p id='h1'>Hello, {para.name}</p>
-    <h1 id='h1'>Choose your pet</h1> 
+    <div className='layout'>
+    <div className="pet-text-box">
+    <h1>Step 1</h1> 
+    <p>Hello,      {para.name} !</p>
+    <p>Choose your pet!</p></div>
     <div className='petBox'>
       { petTypes.map((data,index) => 
       // TestProps compenents with petTypes data as props to manipulate

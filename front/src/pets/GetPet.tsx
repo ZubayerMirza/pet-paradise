@@ -21,7 +21,7 @@ function GetPet() {
   
   let navigate = useNavigate(); // hook to navigate
   const location = useLocation(); // hook to see the information obout this page
-
+  const [petname,setPetname]=useState('');
   // id: 1, name: 'CHERRY', description: '../asset/petA.PNG', hunger: 50, status: 50
   const pet = location.state as petType; // access the name and id from passed state
   // console.log(pet)
@@ -68,7 +68,10 @@ function GetPet() {
           //   status: response.status,
           //   hunger: response.hunger
           // }});
-
+          
+          // socket.emit("isLogin",pet.socketId,(res:string) => {
+          //   console.log(res);
+          // });
           navigate("/update", {
             state: {
               petId: response.id,
@@ -106,8 +109,11 @@ function GetPet() {
 
   return (
     <>
-      <div className="home">
-        <h1 id="h1">Your Pet</h1>
+       <div className="layout">
+        <div className="pet-text-box">
+          <h1>Step 2</h1>
+         <p>Adopt a pet !</p>
+         </div>
         <div className="petBox" id="boxDetail">
           <div
             className="petSelectCard"
@@ -131,7 +137,10 @@ function GetPet() {
                       id="input"
                       type="text"
                       name="petname"
-                      placeholder="Pet name"
+                      placeholder="Petname"
+                      value={petname}
+                      onChange={(e)=>{setPetname(e.target.value)}}
+                      required
                     ></input>
                   </label>
                 </div>

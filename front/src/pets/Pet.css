@@ -1,14 +1,56 @@
+.layout{
+    height: 93vh;
+    min-height: 93vh;
+    max-height:93vh;
+    min-width:100vw;
+    font-size: calc(10px + 2vmin);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    white-space: pre;
+}
+.layout h1{
+font-family: var(--title2-font-family);
+font-size:3.5vh;
+background-color: rgba(6, 154, 191, 0.752);
+padding:30px;
+border-radius: 20%;
+box-shadow: 3.5px 3px 1px rgba(111, 99, 91, 0.969), -4px -5px 15px rgb(254, 254, 254);
+text-shadow: 3.5px 3px 1px rgba(223, 145, 12, 0.833), -2px -2px 2px rgb(254, 254, 254);
+margin-bottom: 20px;
+width: 10vmin;
+}
 
-.petBox {
+.pet-text-box{
     padding: 10px;
     width: 60vw;
-    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   
+}
+/* .pet-text-box :first-child{
+    width: 10vmin;
+} */
+.pet-text-box p {
+    margin: 0;
+    font-family: var(--text-font-family);
+    font-weight: var(--text-font-weight);
+    font-style: var(--text-font-style);
+    font-optical-sizing: var(--text-font-optical-sizing);
+    margin-left: 30px;
+}
+.petBox {
+    
+    padding: 10px;
+    width: 60vw;
+    background-color: rgba(12, 101, 8, 0.402);
     height: 50vh;
-
-    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(3px); */
     border-radius: 10px;
     border: solid white .5px;
-    
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -16,12 +58,12 @@
 }
 
 .petCard {
+    cursor: pointer;
     margin: 20px;
     width: 100%;
     height: 70%;
     border-radius: 20px;
 }
-
 #CHERRY {
     background-image: url('../assets/petA.PNG');
     background-size: cover;

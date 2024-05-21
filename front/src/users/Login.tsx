@@ -4,7 +4,7 @@ import '../home/home.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import socket from '../home/websocket';
-
+import Header from '../header/Header';
 function Login() {
  
   // useNavigate hook to the link setup
@@ -52,6 +52,14 @@ function Login() {
           socket.emit('userIn',testcase.username,(res: string)=>{
             // console.log(res)
           });
+ 
+          // for header I worked but not used 
+          // socket.emit('header',{
+          //   socketid: testcase.socketId, 
+          //   username: testcase.username},(test: string)=>{
+          //   console.log(test)
+          // });
+
           navigate("/pet",{state: {name: testcase.username, id: response.id, socketId: response.socketId}});
       }
       else if (response === "User not found"){ // if no user
@@ -92,6 +100,7 @@ function Login() {
 
   return (
     <>
+    <Header></Header>
     <div className='signBox'>
     {/* <h1 id='logoTitle'>PET PARADISE</h1> */}
     <form className='signForm' onSubmit={OnSubmitHandler}>

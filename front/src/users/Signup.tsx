@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import './signup.css';
 import Logo from '../assets/logo.png';
 import { useNavigate } from 'react-router';
-
+import Header from '../header/Header';
 function SignUp() {
 
     let navigate = useNavigate();
@@ -50,6 +50,7 @@ function SignUp() {
 
     return(
       <> 
+      <Header></Header>
       <div className='signBox'>
       <form className='signForm' onSubmit={OnSubmitHandler}>   
       <div className='signBoxL'>

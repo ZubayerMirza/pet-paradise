@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Casino from "./Casino";
 import Login from "./users/Login";
@@ -11,6 +11,9 @@ import MyPet from "./pets/MyPet";
 import Pet from "./pets/Pet";
 import Items from "./items/Items";
 import Friend from "./friends/Friend";
+import socket from "./home/websocket";
+import ChatBox from "./chat/ChatBox";
+
 import Stats from "./components/Stats";
 import { Following } from "./components/Following";
 import { Follower } from "./components/Follower";
@@ -21,16 +24,72 @@ import History from "./components/History";
 import Battle from "./components/Battle";
 import BattleUsers from "./components/BattleUsers";
 import Leaderboard from "./components/Leaderboard";
-import ChatBox from "./chat/ChatBox";
+import { string } from "three/examples/jsm/nodes/shadernode/ShaderNode";
+
+
+// interface info{
+//   socketId: string, 
+//   name:string
+// }
+
 function App() {
-  // const userToken = localStorage.getItem("userToken");
-  // const isAuthenticated = !!userToken;
+//   let info : info;
+//   // const userToken = localStorage.getItem("userToken");
+//   // const isAuthenticated = !!userToken;
+//   const [isLogin,setIsLogin] =useState(false);
+//   const [socketId,setSocketId] =useState('');
+//   const [testcase, setTestcase]=useState<typeof info>({socketId: "", name: ""})
+//   const [check,setCheck]=useState('');
+//   const [off,setOff]=useState(false);
+
+//   useEffect(()=>{
+//     socket.emit("socketid", (res:string) => {
+//       // console.log(res);
+//       setSocketId(res)
+//     });
+
+//     socket.emit("head", (res:boolean) => {
+//       setIsLogin(res)
+//       console.log(res);
+//     });
+
+//     socket.on('settrue',(res:info)=>{
+//       setTestcase(res);
+//     })
+//     socket.on('setfalse',(res:string)=>{
+//       setCheck(res);
+//       // if(res === socketId){
+//       //   console.log('hohoy: ', res);
+//       // }
+//     })
+    
+//   }
+//   ,[])
+//   useEffect(()=>{
+//     if(check ===socketId){
+      
+//     }
+// },[{check}])
+//   useEffect(()=>{
+//       // console.log('socketId : ', socketId);
+//   },[{socketId}])
+
+//   useEffect(()=>{
+//     console.log('testcase : ', testcase);
+//     console.log(testcase?.socketId)
+//     if(testcase?.socketId !== undefined){
+//       console.log(testcase.socketId)
+//       if(testcase?.socketId===socketId){
+//        setIsLogin(true);
+//       }
+//     }
+// },[{testcase}])
 
   return (
     <div className="root-bgimg">
       <Router>
-        {/* goni */}
-        <AnotherHeader/> 
+         {/* goni */}
+        {/* <AnotherHeader testcase={testcase} isLogin={isLogin}/>  */}
         <Routes>
         <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
